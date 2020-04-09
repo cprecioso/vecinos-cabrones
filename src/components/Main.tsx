@@ -1,6 +1,7 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
 import styles from "../styles/local.module.css"
+import SearchBar from "./SearchBar"
 
 const Main: FunctionComponent = () => (
   <div className={styles["home-content"]}>
@@ -12,14 +13,7 @@ const Main: FunctionComponent = () => (
       </div>
     </div>
 
-    <div className={clsx(styles.row, styles.search)}>
-      <div className={styles["col-12"]}>
-        <div className={styles["search-box"]}>
-          <input type="text" placeholder="PUF" />
-          <div className={styles["search-button"]}></div>
-        </div>
-      </div>
-    </div>
+    <SearchBar />
 
     <div className={clsx(styles.row, styles.explain)}>
       <div className={styles["col-12"]}>
