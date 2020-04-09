@@ -13,7 +13,7 @@ const Main: FunctionComponent = () => (
       </div>
     </div>
 
-    <SearchBar />
+    <SearchBar autoFocus={true} />
 
     <div className={clsx(styles.row, styles.explain)}>
       <div className={styles["col-12"]}>
