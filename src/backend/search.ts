@@ -26,6 +26,8 @@ export interface SearchResult {
 }
 
 export default async function search(search: string) {
+  if (!search) throw new Error("No query given")
+
   const response = await new Promise<Lambda.InvocationResponse>(
     (fulfill, reject) => {
       lambdaAgent.invoke(
@@ -40,9 +42,11 @@ export default async function search(search: string) {
     }
   )
 
-  if (response.StatusCode !== 200) throw new Error("Unknown status code")
+  if (response.StatusCode !== 200)
+    throw new Error("Unknown status code " + response.StatusCode)
   const innerResponse = JSON.parse(response.Payload as string) as SearchPayload
-  if (innerResponse.statusCode !== 200) throw new Error("Unknown status code")
+  if (innerResponse.statusCode !== 200)
+    throw new Error("Unknown status code " + innerResponse.statusCode)
 
   const results = JSON.parse(innerResponse.results) as SearchResult[]
 
