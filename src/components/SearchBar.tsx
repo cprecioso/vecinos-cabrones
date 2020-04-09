@@ -15,7 +15,7 @@ const SearchBar: FunctionComponent<Props> = ({ defaultValue, autoFocus }) => {
         .value
 
       if (q) {
-        router.push({ pathname: "/search", query: { q } })
+        router.push({ pathname: "/buscar", query: { q } })
       }
 
       e.preventDefault()
