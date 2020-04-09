@@ -1,6 +1,7 @@
 import clsx from "clsx"
 import { AppProps } from "next/app"
 import Head from "next/head"
+import Link from "next/link"
 import { FunctionComponent } from "react"
 import "../styles/global.css"
 import styles from "../styles/local.module.css"
@@ -15,8 +16,12 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
       <div className={styles["home-content"]}>
         <div className={clsx(styles.row, styles.header)}>
           <div className={styles["col-12"]}>
-            <img className={styles.logo} />
-            <div className={styles.brand}>vecinoscabrones.com</div>
+            <Link href="/" prefetch={false}>
+              <a>
+                <img className={styles.logo} />
+                <div className={styles.brand}>vecinoscabrones.com</div>
+              </a>
+            </Link>
           </div>
         </div>
       </div>
