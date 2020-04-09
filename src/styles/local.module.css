@@ -1,0 +1,478 @@
+/* simple-grid */
+
+.center,
+.container {
+  margin-left: auto;
+  margin-right: auto;
+}
+.font-light {
+  font-weight: 300;
+}
+.font-regular {
+  font-weight: 400;
+}
+.font-heavy {
+  font-weight: 700;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.justify {
+  text-align: justify;
+}
+.container {
+  width: 90%;
+}
+.row {
+  position: relative;
+  width: 100%;
+}
+/* FIXME -> don't hardcoding classnames when using CSS modules */
+.row [class^="local_col"] {
+  float: left;
+  margin: 0.5rem 2%;
+  min-height: 0.125rem;
+}
+.col-1,
+.col-10,
+.col-11,
+.col-12,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9 {
+  width: 96%;
+}
+.col-1-sm {
+  width: 4.33%;
+}
+.col-2-sm {
+  width: 12.66%;
+}
+.col-3-sm {
+  width: 21%;
+}
+.col-4-sm {
+  width: 29.33%;
+}
+.col-5-sm {
+  width: 37.66%;
+}
+.col-6-sm {
+  width: 46%;
+}
+.col-7-sm {
+  width: 54.33%;
+}
+.col-8-sm {
+  width: 62.66%;
+}
+.col-9-sm {
+  width: 71%;
+}
+.col-10-sm {
+  width: 79.33%;
+}
+.col-11-sm {
+  width: 87.66%;
+}
+.col-12-sm {
+  width: 96%;
+}
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.hidden-sm {
+  display: none;
+}
+@media only screen and (min-width: 33.75em) {
+  .container {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 45em) {
+  .col-1 {
+    width: 4.33%;
+  }
+  .col-2 {
+    width: 12.66%;
+  }
+  .col-3 {
+    width: 21%;
+  }
+  .col-4 {
+    width: 29.33%;
+  }
+  .col-5 {
+    width: 37.66%;
+  }
+  .col-6 {
+    width: 46%;
+  }
+  .col-7 {
+    width: 54.33%;
+  }
+  .col-8 {
+    width: 62.66%;
+  }
+  .col-9 {
+    width: 71%;
+  }
+  .col-10 {
+    width: 79.33%;
+  }
+  .col-11 {
+    width: 87.66%;
+  }
+  .col-12 {
+    width: 96%;
+  }
+  .hidden-sm {
+    display: block;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .container {
+    width: 75%;
+    max-width: 60rem;
+  }
+}
+
+/* custom */
+
+.logo {
+  content: url("../img/logo.svg");
+  margin-right: 18px;
+  float: left;
+}
+.main {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: 0;
+}
+.home-content {
+  margin-left: 22px;
+  margin-right: 22px;
+}
+.header {
+  margin-top: 20px;
+}
+
+.brand {
+  font-family: "San Francisco";
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 24px;
+  color: #ffffff;
+  margin-top: 5px;
+}
+.col-12 {
+  margin: 0 !important;
+  width: 100%;
+}
+
+.title {
+  margin-top: 55px;
+}
+.search {
+  margin-top: 55px;
+}
+.search-box {
+  width: 100%;
+  background-color: white;
+  height: 60px;
+  border: 2px solid #cacdd2;
+  box-sizing: border-box;
+  border-radius: 6px;
+  position: relative;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  height: 100%;
+  padding-left: 20px;
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: #16181b;
+  float: left;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-sizing: border-box;
+}
+
+.search-button {
+  width: 54px;
+  height: 56px;
+  background: #fec32a;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  border: 2px solid #d6a11c;
+  border-left: none;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background-image: url("../img/search.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.explain {
+  margin-top: 110px;
+}
+
+.line-group {
+  position: relative;
+}
+
+.line-title {
+  position: absolute;
+  top: -8px;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.line-title-text {
+  background-color: #16181b;
+  width: fit-content;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.17em;
+  color: #898b8d;
+  text-transform: uppercase;
+}
+
+.results {
+  margin-top: 20px;
+  background-color: #212326;
+  padding: 8px;
+}
+
+.results-count {
+  width: 100%;
+  text-align: center;
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: #898b8d;
+  padding-top: 6px;
+}
+
+.results-season {
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.17em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.result {
+  margin: 0 !important;
+  width: 50%;
+}
+
+.item-container {
+  padding-right: 10px;
+}
+
+.image-result {
+  background-color: grey;
+  width: 100%;
+  padding-top: 74%;
+  border-radius: 3px;
+}
+
+.scene {
+  margin-top: 20px;
+  background-color: #212326;
+  padding: 8px;
+}
+
+.chapter-info {
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.17em;
+  color: rgba(255, 255, 255, 0.46);
+  text-transform: uppercase;
+}
+
+.chapter-data {
+  margin: 18px;
+}
+
+.chapter-title {
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+  color: #ffffff;
+  float: left;
+}
+
+.chapter-view {
+  float: right;
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffc700;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.scene-image {
+  background: grey;
+  width: 100%;
+  padding-top: 75%;
+  border-radius: 3px;
+  margin-top: 21px;
+}
+
+.subtitles {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.subtitles-container {
+  padding: 12px;
+  padding-top: 20px;
+}
+
+.subtitle-line {
+  clear: both;
+  margin-bottom: 10px;
+}
+
+.subtitle-line-indicator {
+  width: 25px;
+  float: left;
+  height: 27px;
+}
+
+.subtitle-line-indicator.current {
+  background-image: url("../img/indicator.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  cursor: pointer;
+}
+
+.subtitle-line-text {
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 26px;
+  color: #ffffff;
+  padding-left: 5px;
+  opacity: 0.7;
+}
+
+.subtitle-line-text.current {
+  opacity: 1;
+}
+
+.subtitle-line-text b {
+  color: #ffffff;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: bold;
+}
+
+.subtitles-navigation {
+  overflow: hidden;
+  padding: 12px;
+}
+
+.navigation-left {
+  width: 90px;
+  height: 100px;
+  float: left;
+}
+
+.navigation-right {
+  width: 90px;
+  height: 100px;
+  float: right;
+}
+
+.navigation-image {
+  width: 85px;
+  height: 63px;
+  background-color: gray;
+  border-radius: 9px;
+}
+
+.navigation-indication {
+  margin-top: 10px;
+  width: 100%;
+  height: 17px;
+  background-repeat: no-repeat;
+  background-position: left;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  /* identical to box height */
+  letter-spacing: 0.06em;
+
+  color: #ffffff;
+  padding-left: 20px;
+}
+
+.navigation-indication.left {
+  background-image: url("../img/back.svg");
+}
+
+.navigation-indication.right {
+  background-image: url("../img/forward.svg");
+  background-position: right;
+  margin-right: -15px;
+  text-align: left;
+  padding-left: 0px;
+}

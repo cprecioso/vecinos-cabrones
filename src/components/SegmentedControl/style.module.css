@@ -1,0 +1,133 @@
+.segmentedControl {
+  --background: rgba(239, 239, 240, 1);
+  background: var(--background);
+  border-radius: 9px;
+  margin: 0;
+  padding: 2px;
+  border: none;
+  outline: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 auto;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.segmentedControl .option {
+  position: relative;
+  cursor: pointer;
+}
+
+.segmentedControl .option:hover input:not(:checked) + label span,
+.segmentedControl .option:active input:not(:checked) + label span,
+.segmentedControl .option:focus input:not(:checked) + label span {
+  opacity: 0.2;
+}
+
+.segmentedControl .option:active input:not(:checked) + label span {
+  transform: scale(0.95);
+}
+
+.segmentedControl .option label {
+  position: relative;
+  display: block;
+  text-align: center;
+  padding: 3px 6vmin;
+  background: rgba(255, 255, 255, 0);
+  font-weight: 500;
+  color: rgba(0, 0, 0, 1);
+  font-size: 14px;
+}
+
+.segmentedControl .option label::before,
+.segmentedControl .option label::after {
+  content: "";
+  width: 1px;
+  background: rgba(142, 142, 147, 0.15);
+  position: absolute;
+  top: 14%;
+  bottom: 14%;
+  border-radius: 10px;
+  will-change: background;
+  -webkit-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+}
+
+.segmentedControl .option label::before {
+  left: 0;
+  transform: translateX(-0.5px);
+}
+
+.segmentedControl .option label::after {
+  right: 0;
+  transform: translateX(0.5px);
+}
+
+.segmentedControl .option:first-of-type {
+  grid-column: 1;
+  grid-row: 1;
+  box-shadow: none;
+}
+
+.segmentedControl .option:first-of-type label::before {
+  opacity: 0;
+}
+
+.segmentedControl .option:last-of-type label::after {
+  opacity: 0;
+}
+
+.segmentedControl .option input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  opacity: 0;
+}
+
+.segmentedControl .selection {
+  background: rgba(255, 255, 255, 1);
+  border: 0.5px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 1px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 7px;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 2;
+  will-change: transform;
+  -webkit-transition: transform 0.2s ease;
+  transition: transform 0.2s ease;
+}
+
+.segmentedControl .option label span {
+  display: block;
+  position: relative;
+  z-index: 2;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  will-change: transform;
+}
+
+.segmentedControl .option input:checked + label::before,
+.segmentedControl .option input:checked + label::after {
+  background: var(--background);
+  z-index: 1;
+}
+
+.segmentedControl .option input:checked + label {
+  cursor: default;
+}
