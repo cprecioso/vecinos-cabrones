@@ -4,8 +4,8 @@ import { useFrameUrls } from "../backend/thumbnail"
 import { SubtitleGetResponse } from "../backend/types"
 import styles from "../styles/local.module.css"
 import { useGif } from "../util/gif"
-import { SubtitleLine } from "../util/string"
 import LinkToSubtitle from "./LinkToSubtitle"
+import SubtitleLine from "./SubtitleLine"
 
 export type Props = {
   data: SubtitleGetResponse
@@ -34,10 +34,12 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
 
         {/* <SegmentedControl options={["Fotogramas", "GIF"]} /> */}
 
-        <img
-          className={clsx(styles["scene-image"], isLoading && styles.loading)}
-          src={gifUrl ?? frameUrls[0]}
-        />
+        <a download href={gifUrl}>
+          <img
+            className={clsx(styles["scene-image"], isLoading && styles.loading)}
+            src={gifUrl ?? frameUrls[0]}
+          />
+        </a>
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
@@ -47,7 +49,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
                   <div className={styles["subtitle-line"]}>
                     <div className={styles["subtitle-line-indicator"]} />
                     <div className={styles["subtitle-line-text"]}>
-                      <SubtitleLine str={data.previous.text} substr={query} />
+                      <SubtitleLine str={data.previous.text} query={query} />
                     </div>
                   </div>
                 </a>
@@ -63,7 +65,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
               <div
                 className={clsx(styles["subtitle-line-text"], styles.current)}
               >
-                <SubtitleLine str={data.current.text} substr={query} />
+                <SubtitleLine str={data.current.text} query={query} />
               </div>
             </div>
             {data.next ? (
@@ -72,7 +74,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
                   <div className={styles["subtitle-line"]}>
                     <div className={styles["subtitle-line-indicator"]} />
                     <div className={styles["subtitle-line-text"]}>
-                      <SubtitleLine str={data.next.text} substr={query} />
+                      <SubtitleLine str={data.next.text} query={query} />
                     </div>
                   </div>
                 </a>

@@ -36,6 +36,18 @@ export default async function makeGifBlobUrl(
   }
 }
 
+const withRetry = async <T>(times: number, fn: () => Promise<T>) => {
+  let error
+  while (times--) {
+    try {
+      return fn()
+    } catch (e) {
+      error = e
+    }
+  }
+  throw error
+}
+
 export const useGif = (frameUrls: string[], load: boolean) => {
   const [gifUrl, setGifUrl] = React.useState(undefined as string | undefined)
   React.useEffect(() => {
@@ -49,17 +61,10 @@ export const useGif = (frameUrls: string[], load: boolean) => {
   React.useEffect(() => {
     if (isLoading) {
       const abortController = new AbortController()
-      ;(async () => {
-        try {
-          const blobUrl = await makeGifBlobUrl(
-            frameUrls,
-            abortController.signal
-          )
-          setGifUrl(blobUrl)
-        } catch (err) {
-          console.error(err)
-        }
-      })()
+      withRetry(3, async () => {
+        const blobUrl = await makeGifBlobUrl(frameUrls, abortController.signal)
+        setGifUrl(blobUrl)
+      }).catch(console.error.bind(console, "Error"))
       return () => abortController.abort()
     }
   }, [isLoading])
