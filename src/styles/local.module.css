@@ -385,7 +385,7 @@
 .subtitle-line {
   clear: both;
   margin-bottom: 10px;
-  position:relative;
+  position: relative;
 }
 
 .subtitle-line-indicator {
@@ -483,31 +483,31 @@
   text-align: left;
   padding-left: 0px;
 }
-.explain-image img{
-	width: 100%;
-	background-color: grey;
-	margin-top: 50px;
-	border-radius: 12px;
-	max-height: 285px;
-	object-fit: cover;
+
+.explain-image img {
+  width: 100%;
+  background-color: grey;
+  margin-top: 50px;
+  border-radius: 12px;
+  max-height: 285px;
 }
-.explain-title{
-	font-family: "San Francisco";
-	font-style: normal;
-	font-weight: 800;
-	font-size: 30px;
-	line-height: 36px;
-	color: #FFFFFF;
-	margin-top: 16px;
+.explain-title {
+  font-family: "San Francisco";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 36px;
+  color: #ffffff;
+  margin-top: 16px;
 }
-.explain-description{
-	font-family: "San Francisco";
-	font-style: normal;
-	font-weight: 500;
-	font-size: 18px;
-	line-height: 116%;
-	color: rgba(255, 255, 255, 0.6);
-	margin-top: 16px;
+.explain-description {
+  font-family: "San Francisco";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 116%;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 16px;
 }
 
 @keyframes pulse {
