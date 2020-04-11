@@ -2,6 +2,7 @@ export interface Chapter {
   id: string
   episodeNumber: number
   seasonNumber: number
+  title: string
 }
 
 export interface SubtitleResult {
@@ -14,7 +15,8 @@ export interface SubtitleResult {
 
 export type SubtitleSearchResponse = SubtitleResult[]
 
-export type SubtitleGetResponse = Record<
-  "current" | "next" | "previous",
-  SubtitleResult
->
+export type SubtitleGetResponse = {
+  current: SubtitleResult
+  previous?: SubtitleResult
+  next?: SubtitleResult
+}
