@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react"
-import styles from "../../styles/local.module.css"
+import LinkToSubtitle from "../LinkToSubtitle"
 import { useFetchSubtitleInContext } from "./subtitle-fetch"
 import SubtitleLine from "./SubtitleLine"
 
@@ -14,16 +14,22 @@ const SubtitleView: FunctionComponent<{
     <>
       {[
         current.data?.noPrevious ? null : (
-          <a onClick={onGoPrevious} className={styles.link}>
-            <SubtitleLine
-              key={id - 1}
-              text={
-                previous.error
-                  ? "⚠️" + previous.error
-                  : previous.data?.scene.text
-              }
-            />
-          </a>
+          <LinkToSubtitle
+            result={previous.data?.scene}
+            shallow={true}
+            scroll={false}
+          >
+            <a>
+              <SubtitleLine
+                key={id - 1}
+                text={
+                  previous.error
+                    ? "⚠️" + previous.error
+                    : previous.data?.scene.text
+                }
+              />
+            </a>
+          </LinkToSubtitle>
         ),
         <SubtitleLine
           key={id}
@@ -31,12 +37,18 @@ const SubtitleView: FunctionComponent<{
           isCurrent={true}
         />,
         current.data?.noNext ? null : (
-          <a onClick={onGoNext} className={styles.link}>
-            <SubtitleLine
-              key={id + 1}
-              text={next.error ? "⚠️" + next.error : next.data?.scene.text}
-            />
-          </a>
+          <LinkToSubtitle
+            result={next.data?.scene}
+            shallow={true}
+            scroll={false}
+          >
+            <a>
+              <SubtitleLine
+                key={id + 1}
+                text={next.error ? "⚠️" + next.error : next.data?.scene.text}
+              />
+            </a>
+          </LinkToSubtitle>
         ),
       ]}
     </>

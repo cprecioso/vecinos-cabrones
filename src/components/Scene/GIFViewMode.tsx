@@ -12,13 +12,15 @@ const GIFViewMode: FunctionComponent<{
   const { gifUrl, isLoading } = useGif(frameUrls, true)
 
   return (
-    <a download href={gifUrl}>
-      <img
-        crossOrigin="anonymous"
-        className={clsx(styles["scene-image"], isLoading && styles.loading)}
-        src={gifUrl ?? frameUrls[0]}
-      />
-    </a>
+    <div className={styles["result-line"]}>
+      <a download href={gifUrl}>
+        <img
+          crossOrigin="anonymous"
+          className={clsx(styles["scene-image"], isLoading && styles.loading)}
+          src={gifUrl ?? frameUrls[0]}
+        />
+      </a>
+    </div>
   )
 }
 

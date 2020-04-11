@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import React, { FunctionComponent } from "react"
 import { getClosestFrameUrl } from "../../backend/thumbnail"
 import styles from "../../styles/local.module.css"
+import LinkToSubtitle from "../LinkToSubtitle"
 import SegmentedControl from "../SegmentedControl"
 import FrameViewMode, { EmptyViewMode } from "./FrameViewMode"
 import GIFViewMode from "./GIFViewMode"
@@ -10,7 +11,7 @@ import { useFetchSubtitleInContext } from "./subtitle-fetch"
 import SubtitleView from "./SubtitleView"
 
 export type Props = {
-  initialSceneId: number
+  id: number
 }
 
 enum ViewMode {
@@ -18,31 +19,15 @@ enum ViewMode {
   Gif = "Gif",
 }
 
-const Scene: FunctionComponent<Props> = ({ initialSceneId }) => {
+const Scene: FunctionComponent<Props> = ({ id }) => {
   const router = useRouter()
 
-  const [id, setId] = React.useState(initialSceneId)
+  const [, setId] = React.useState(id)
 
   const goPrevious = React.useCallback(() => setId((id) => id - 1), [])
   const goNext = React.useCallback(() => setId((id) => id + 1), [])
 
   const { current, previous, next } = useFetchSubtitleInContext(id)
-
-  React.useEffect(() => {
-    if (current.data) {
-      router.push(
-        "/[chapter]/[scene]",
-        `/${
-          current.data.scene.chapter.seasonNumber
-        }x${current.data.scene.chapter.episodeNumber
-          .toString(10)
-          .padStart(2, "0")}/${current.data.scene.id}`,
-        {
-          shallow: true,
-        }
-      )
-    }
-  }, [current.data])
 
   const currentFrameUrl = current.data?.scene
     ? getClosestFrameUrl(current.data.scene)
@@ -85,7 +70,7 @@ const Scene: FunctionComponent<Props> = ({ initialSceneId }) => {
           currentViewMode === ViewMode.Gif ? (
             <GIFViewMode scene={current.data.scene} />
           ) : (
-            <FrameViewMode frameUrl={currentFrameUrl} />
+            <FrameViewMode result={current.data.scene} />
           )
         ) : (
           <EmptyViewMode />
@@ -98,42 +83,54 @@ const Scene: FunctionComponent<Props> = ({ initialSceneId }) => {
 
           <div className={styles["subtitles-navigation"]}>
             {previous.data ? (
-              <a className={styles.link} onClick={goPrevious}>
-                <div className={styles["navigation-left"]}>
-                  <img
-                    crossOrigin="anonymous"
-                    className={styles["navigation-image"]}
-                    src={previousSceneFrameUrl}
-                  />
-                  <div
-                    className={clsx(
-                      styles["navigation-indication"],
-                      styles.left
-                    )}
-                  >
-                    Anterior
+              <LinkToSubtitle
+                result={previous.data.scene}
+                shallow={true}
+                scroll={false}
+              >
+                <a>
+                  <div className={styles["navigation-left"]}>
+                    <img
+                      crossOrigin="anonymous"
+                      className={styles["navigation-image"]}
+                      src={previousSceneFrameUrl}
+                    />
+                    <div
+                      className={clsx(
+                        styles["navigation-indication"],
+                        styles.left
+                      )}
+                    >
+                      Anterior
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </LinkToSubtitle>
             ) : null}
             {next.data ? (
-              <a className={styles.link} onClick={goNext}>
-                <div className={styles["navigation-right"]}>
-                  <img
-                    crossOrigin="anonymous"
-                    className={styles["navigation-image"]}
-                    src={nextSceneFrameUrl}
-                  />
-                  <div
-                    className={clsx(
-                      styles["navigation-indication"],
-                      styles.right
-                    )}
-                  >
-                    Siguiente
+              <LinkToSubtitle
+                result={next.data.scene}
+                shallow={true}
+                scroll={false}
+              >
+                <a>
+                  <div className={styles["navigation-right"]}>
+                    <img
+                      crossOrigin="anonymous"
+                      className={styles["navigation-image"]}
+                      src={nextSceneFrameUrl}
+                    />
+                    <div
+                      className={clsx(
+                        styles["navigation-indication"],
+                        styles.right
+                      )}
+                    >
+                      Siguiente
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </LinkToSubtitle>
             ) : null}
           </div>
         </div>

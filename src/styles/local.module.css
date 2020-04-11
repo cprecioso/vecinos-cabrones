@@ -524,6 +524,16 @@
   filter: opacity(1);
 }
 
-.link {
-  cursor: pointer;
+.result-line {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  flex-flow: row nowrap;
+  overflow: scroll;
+  column-gap: 1em;
+  scroll-snap-type: x mandatory;
+}
+
+.result-line > * {
+  scroll-snap-align: start;
 }
