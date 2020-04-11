@@ -54,7 +54,7 @@ const Scene: FunctionComponent<Props> = ({ initialSceneId }) => {
     ? getClosestFrameUrl(next.data.scene)
     : undefined
 
-  const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Frame)
+  const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Gif)
 
   return (
     <div className={styles.scene}>
@@ -76,7 +76,7 @@ const Scene: FunctionComponent<Props> = ({ initialSceneId }) => {
         <div style={{ clear: "both" }} />
 
         <SegmentedControl
-          options={[ViewMode.Frame, ViewMode.Gif]}
+          options={[ViewMode.Gif, ViewMode.Frame]}
           selected={currentViewMode}
           setSelected={setCurrentViewMode as (n: string) => void}
         />
