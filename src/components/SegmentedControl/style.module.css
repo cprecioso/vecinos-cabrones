@@ -23,13 +23,13 @@
   cursor: pointer;
 }
 
-.segmentedControl .option:hover input:not(:checked) + label span,
-.segmentedControl .option:active input:not(:checked) + label span,
-.segmentedControl .option:focus input:not(:checked) + label span {
+.segmentedControl .option:not(.checked):hover label span,
+.segmentedControl .option:not(.checked):active label span,
+.segmentedControl .option:not(.checked):focus label span {
   opacity: 0.2;
 }
 
-.segmentedControl .option:active input:not(:checked) + label span {
+.segmentedControl .option:not(.checked):active label span {
   transform: scale(0.95);
 }
 
@@ -122,12 +122,12 @@
   will-change: transform;
 }
 
-.segmentedControl .option input:checked + label::before,
-.segmentedControl .option input:checked + label::after {
+.segmentedControl .option.checked label::before,
+.segmentedControl .option.checked label::after {
   background: var(--background);
   z-index: 1;
 }
 
-.segmentedControl .option input:checked + label {
+.segmentedControl .option.checked label {
   cursor: default;
 }
