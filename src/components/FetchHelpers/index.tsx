@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react"
 import styles from "./style.module.css"
 
 export const LoadingView: FunctionComponent = () => (
-  <h1 className={styles.title}>Buscando...</h1>
+  <h1 className={styles.title}>Cargando...</h1>
 )
 
 export const ErrorView: FunctionComponent<{ error?: any }> = ({
