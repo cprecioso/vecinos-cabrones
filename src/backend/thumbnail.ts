@@ -1,3 +1,4 @@
+import React from "react"
 import {
   parseSubtitleTimestamp,
   printWithDecimalPlaces,
@@ -29,3 +30,6 @@ export function getUrlsForSearchResultThumbnail(result: SubtitleResult) {
 
   return urlRange
 }
+
+export const useFrameUrls = (result: SubtitleResult) =>
+  React.useMemo(() => getUrlsForSearchResultThumbnail(result), [])

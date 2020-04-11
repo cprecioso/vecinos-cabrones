@@ -1,50 +1,22 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { getUrlsForSearchResultThumbnail } from "../../backend/thumbnail"
+import { useFrameUrls } from "../../backend/thumbnail"
 import { SubtitleResult } from "../../backend/types"
 import styles from "../../styles/local.module.css"
-import makeGifBlobUrl from "../../util/gif"
+import { useGif } from "../../util/gif"
 
 export type Props = {
   data: SubtitleResult
 }
 
 export const Result: FunctionComponent<Props> = ({ data: result }) => {
-  const frameUrls = React.useMemo(
-    () => getUrlsForSearchResultThumbnail(result),
-    []
-  )
-  const [gifUrl, setGifUrl] = React.useState(undefined as string | undefined)
-  React.useEffect(() => {
-    if (gifUrl) {
-      return () => URL.revokeObjectURL(gifUrl)
-    }
-  }, [gifUrl])
-
   const [isActive, setIsActive] = React.useState(false)
   const setActive = React.useCallback(() => setIsActive(true), [])
   const setInactive = React.useCallback(() => setIsActive(false), [])
 
+  const frameUrls = useFrameUrls(result)
+  const { gifUrl, isLoading } = useGif(frameUrls, isActive)
   const currentSource = isActive && gifUrl ? gifUrl : frameUrls[0]
-  const isLoading = isActive && !gifUrl
-
-  React.useEffect(() => {
-    if (isLoading) {
-      const abortController = new AbortController()
-      ;(async () => {
-        try {
-          const blobUrl = await makeGifBlobUrl(
-            frameUrls,
-            abortController.signal
-          )
-          setGifUrl(blobUrl)
-        } catch (err) {
-          console.error(err)
-        }
-      })()
-      return () => abortController.abort()
-    }
-  }, [isLoading])
 
   return (
     <div

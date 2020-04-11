@@ -1,6 +1,6 @@
-// @ts-ignore
 import worker from "file-loader?name=static/[hash].worker.js&publicPath=/_next/!gif.js/dist/gif.worker.js"
 import GIF from "gif.js"
+import React from "react"
 
 export default async function makeGifBlobUrl(
   frameUrls: string[],
@@ -34,4 +34,35 @@ export default async function makeGifBlobUrl(
   } finally {
     gif.removeAllListeners()
   }
+}
+
+export const useGif = (frameUrls: string[], load: boolean) => {
+  const [gifUrl, setGifUrl] = React.useState(undefined as string | undefined)
+  React.useEffect(() => {
+    if (gifUrl) {
+      return () => URL.revokeObjectURL(gifUrl)
+    }
+  }, [gifUrl])
+
+  const isLoading = load && !gifUrl
+
+  React.useEffect(() => {
+    if (isLoading) {
+      const abortController = new AbortController()
+      ;(async () => {
+        try {
+          const blobUrl = await makeGifBlobUrl(
+            frameUrls,
+            abortController.signal
+          )
+          setGifUrl(blobUrl)
+        } catch (err) {
+          console.error(err)
+        }
+      })()
+      return () => abortController.abort()
+    }
+  }, [isLoading])
+
+  return { gifUrl, isLoading }
 }
