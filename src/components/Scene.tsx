@@ -36,6 +36,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
 
         <a download href={gifUrl}>
           <img
+            crossOrigin="anonymous"
             className={clsx(styles["scene-image"], isLoading && styles.loading)}
             src={gifUrl ?? frameUrls[0]}
           />
@@ -88,6 +89,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
                 <a>
                   <div className={styles["navigation-left"]}>
                     <img
+                      crossOrigin="anonymous"
                       className={styles["navigation-image"]}
                       src={previousSceneFrameUrls}
                     />
@@ -108,6 +110,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
                 <a>
                   <div className={styles["navigation-right"]}>
                     <img
+                      crossOrigin="anonymous"
                       className={styles["navigation-image"]}
                       src={nextSceneFrameUrls}
                     />
