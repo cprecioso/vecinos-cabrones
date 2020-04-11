@@ -59,6 +59,12 @@ const withRetry = async <T>(times: number, fn: () => Promise<T>) => {
 export const useGif = (frameUrls: string[], load: boolean) => {
   const [gifUrl, setGifUrl] = React.useState(undefined as string | undefined)
   React.useEffect(() => {
+    if (frameUrls) {
+      return () => setGifUrl(undefined)
+    }
+  }, [frameUrls])
+
+  React.useEffect(() => {
     if (gifUrl) {
       return () => URL.revokeObjectURL(gifUrl)
     }
@@ -75,7 +81,7 @@ export const useGif = (frameUrls: string[], load: boolean) => {
       }).catch(console.error.bind(console, "Error"))
       return () => abortController.abort()
     }
-  }, [isLoading])
+  }, [isLoading, frameUrls])
 
   return { gifUrl, isLoading }
 }
