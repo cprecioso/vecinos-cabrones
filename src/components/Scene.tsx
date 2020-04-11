@@ -1,68 +1,131 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
+import { useFrameUrls } from "../backend/thumbnail"
+import { SubtitleGetResponse } from "../backend/types"
 import styles from "../styles/local.module.css"
-import SegmentedControl from "./SegmentedControl"
+import { useGif } from "../util/gif"
+import { SubtitleLine } from "../util/string"
+import LinkToSubtitle from "./LinkToSubtitle"
 
-const Scene: FunctionComponent = () => (
-  <div className={styles.scene}>
-    <div className={styles["chapter-data"]}>
-      <div className={styles["chapter-info"]}>Episodio 3 - Temporada 5</div>
-      <div className={styles["chapter-title"]}>
-        Érase una cámara de vigilancia
-      </div>
-      <div className={styles["chapter-view"]}>Ver episodio</div>
-      <div style={{ clear: "both" }}></div>
+export type Props = {
+  data: SubtitleGetResponse
+  query?: string
+}
 
-      <SegmentedControl options={["Fotogramas", "GIF"]} />
+const Scene: FunctionComponent<Props> = ({ data, query }) => {
+  const frameUrls = useFrameUrls(data.current)
+  const { gifUrl, isLoading } = useGif(frameUrls, true)
 
-      <div className={styles["scene-image"]}></div>
+  const previousSceneFrameUrls = useFrameUrls(data.previous)[0]
+  const nextSceneFrameUrls = useFrameUrls(data.next)[0]
 
-      <div className={styles.subtitles}>
-        <div className={styles["subtitles-container"]}>
-          <div className={styles["subtitle-line"]}>
-            <div className={styles["subtitle-line-indicator"]}></div>
-            <div className={styles["subtitle-line-text"]}>
-              Pero bueno qué te pasa
-            </div>
-          </div>
-          <div className={styles["subtitle-line"]}>
-            <div
-              className={clsx(
-                styles["subtitle-line-indicator"],
-                styles.current
-              )}
-            ></div>
-            <div className={clsx(styles["subtitle-line-text"], styles.current)}>
-              Papá que te he dicho que dejes de una vez el <b>ordenador.</b>
-            </div>
-          </div>
-          <div className={styles["subtitle-line"]}>
-            <div className={styles["subtitle-line-indicator"]}></div>
-            <div className={styles["subtitle-line-text"]}>
-              Estoy viendo fotos de Beyoncé.
-            </div>
-          </div>
+  return (
+    <div className={styles.scene}>
+      <div className={styles["chapter-data"]}>
+        <div className={styles["chapter-info"]}>
+          Episodio {data.current.chapter.episodeNumber} - Temporada{" "}
+          {data.current.chapter.seasonNumber}
+        </div>
+        <div className={styles["chapter-title"]}>
+          {data.current.chapter.title}
         </div>
 
-        <div className={styles["subtitles-navigation"]}>
-          <div className={styles["navigation-left"]}>
-            <div className={styles["navigation-image"]}></div>
-            <div className={clsx(styles["navigation-indication"], styles.left)}>
-              Anterior
+        <div style={{ clear: "both" }} />
+
+        {/* <SegmentedControl options={["Fotogramas", "GIF"]} /> */}
+
+        <img
+          className={clsx(styles["scene-image"], isLoading && styles.loading)}
+          src={gifUrl ?? frameUrls[0]}
+        />
+
+        <div className={styles.subtitles}>
+          <div className={styles["subtitles-container"]}>
+            {data.previous ? (
+              <LinkToSubtitle result={data.previous} query={query}>
+                <a>
+                  <div className={styles["subtitle-line"]}>
+                    <div className={styles["subtitle-line-indicator"]} />
+                    <div className={styles["subtitle-line-text"]}>
+                      <SubtitleLine str={data.previous.text} substr={query} />
+                    </div>
+                  </div>
+                </a>
+              </LinkToSubtitle>
+            ) : null}
+            <div className={styles["subtitle-line"]}>
+              <div
+                className={clsx(
+                  styles["subtitle-line-indicator"],
+                  styles.current
+                )}
+              />
+              <div
+                className={clsx(styles["subtitle-line-text"], styles.current)}
+              >
+                <SubtitleLine str={data.current.text} substr={query} />
+              </div>
             </div>
+            {data.next ? (
+              <LinkToSubtitle result={data.next} query={query}>
+                <a>
+                  <div className={styles["subtitle-line"]}>
+                    <div className={styles["subtitle-line-indicator"]} />
+                    <div className={styles["subtitle-line-text"]}>
+                      <SubtitleLine str={data.next.text} substr={query} />
+                    </div>
+                  </div>
+                </a>
+              </LinkToSubtitle>
+            ) : null}
           </div>
-          <div className={styles["navigation-right"]}>
-            <div className={styles["navigation-image"]}></div>
-            <div
-              className={clsx(styles["navigation-indication"], styles.right)}
-            >
-              Siguiente
-            </div>
+
+          <div className={styles["subtitles-navigation"]}>
+            {data.previous ? (
+              <LinkToSubtitle result={data.previous} query={query}>
+                <a>
+                  <div className={styles["navigation-left"]}>
+                    <img
+                      className={styles["navigation-image"]}
+                      src={previousSceneFrameUrls}
+                    />
+                    <div
+                      className={clsx(
+                        styles["navigation-indication"],
+                        styles.left
+                      )}
+                    >
+                      Anterior
+                    </div>
+                  </div>
+                </a>
+              </LinkToSubtitle>
+            ) : null}
+            {data.next ? (
+              <LinkToSubtitle result={data.next} query={query}>
+                <a>
+                  <div className={styles["navigation-right"]}>
+                    <img
+                      className={styles["navigation-image"]}
+                      src={nextSceneFrameUrls}
+                    />
+                    <div
+                      className={clsx(
+                        styles["navigation-indication"],
+                        styles.right
+                      )}
+                    >
+                      Siguiente
+                    </div>
+                  </div>
+                </a>
+              </LinkToSubtitle>
+            ) : null}
           </div>
         </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default Scene
