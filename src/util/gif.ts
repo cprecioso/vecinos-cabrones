@@ -19,7 +19,7 @@ export default async function makeGifBlobUrl(
   )
 
   for (const el of imgs) {
-    gif.addFrame(el, { delay: 200 })
+    gif.addFrame(el, { delay: 100 })
   }
 
   if (abortSignal?.aborted) throw new Error("Aborted")
