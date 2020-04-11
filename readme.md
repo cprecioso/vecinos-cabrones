@@ -20,4 +20,4 @@ $ yarn next
 $ yarn next build && yarn next export
 ```
 
-> ⚠️ To allow external linking, your static hosting should to rewrite/redirect requests to dynamic paths e.g. `/1x01/4583` to `/[chapter]/[scene].html?chapter=1x01&scene=4583`
+> ⚠️ To allow external linking, your static hosting should to rewrite/redirect requests to dynamic paths e.g. `/1x01/4583` to `/[chapter]/[scene].html?chapter=1x01&scene=4583`. `now.sh` does it automatically.
