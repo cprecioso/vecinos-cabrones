@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react"
+import { useQuery } from "../util/query-context"
 
 // from verbal-expressions
 // https://github.com/VerbalExpressions/JSVerbalExpressions/blob/bce33e6133e204a6dc6ede3f23e42325092ac328/VerbalExpressions.js#L42
@@ -34,8 +35,9 @@ const toHTMLLines = (lines: JSX.Element[]) => {
 
 const SubtitleLine: FunctionComponent<{
   str: string
-  query?: string
-}> = ({ str, query }) =>
-  toHTMLLines(str.split("\n").map(findAndMakeBold(query)))
+}> = ({ str }) => {
+  const { query } = useQuery()
+  return toHTMLLines(str.split("\n").map(findAndMakeBold(query)))
+}
 
 export default SubtitleLine

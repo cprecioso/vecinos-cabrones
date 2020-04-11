@@ -2,19 +2,23 @@ import clsx from "clsx"
 import { useRouter } from "next/router"
 import React, { DOMAttributes, FunctionComponent } from "react"
 import styles from "../styles/local.module.css"
+import { useQuery } from "../util/query-context"
 
-export type Props = { defaultValue?: string; autoFocus?: boolean }
+export type Props = { autoFocus?: boolean }
 
 type OnSubmitCallback = NonNullable<DOMAttributes<HTMLFormElement>["onSubmit"]>
 
-const SearchBar: FunctionComponent<Props> = ({ defaultValue, autoFocus }) => {
+const SearchBar: FunctionComponent<Props> = ({ autoFocus }) => {
   const router = useRouter()
+  const { query, setQuery } = useQuery()
+
   const onSubmit = React.useCallback<OnSubmitCallback>(
     (e) => {
       const q = (e.currentTarget.elements.namedItem("q")! as HTMLInputElement)
         .value
 
       if (q) {
+        setQuery(q)
         router.push({ pathname: "/buscar", query: { q } })
       }
 
@@ -37,7 +41,7 @@ const SearchBar: FunctionComponent<Props> = ({ defaultValue, autoFocus }) => {
             className={styles["search-input"]}
             type="text"
             placeholder="PUF"
-            defaultValue={defaultValue}
+            defaultValue={query}
             name="q"
             autoFocus={autoFocus}
             autoComplete="off"

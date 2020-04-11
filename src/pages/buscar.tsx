@@ -19,12 +19,12 @@ const SearchPage: NextPage = () => {
 
   return (
     <>
-      <SearchBar defaultValue={query} />
+      <SearchBar />
 
       {!query ? null : isValidating ? (
         <LoadingView />
       ) : data ? (
-        <ResultList data={data} query={query} />
+        <ResultList data={data} />
       ) : (
         <ErrorView error={error} />
       )}

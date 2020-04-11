@@ -11,11 +11,6 @@ const ScenePage: NextPage = () => {
   const router = useRouter()
   const scene = (router.query.scene as string | undefined) ?? ""
 
-  const path = router.asPath
-  const hashIndex = path.indexOf("#")
-  const query =
-    hashIndex !== -1 ? decodeURIComponent(path.slice(hashIndex + 1)) : ""
-
   const response = useSWR(scene, getSubtitle, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -25,12 +20,12 @@ const ScenePage: NextPage = () => {
 
   return (
     <>
-      <SearchBar defaultValue={query} />
+      <SearchBar />
 
       {!scene ? null : isValidating ? (
         <LoadingView />
       ) : data ? (
-        <Scene data={data} query={query} />
+        <Scene data={data} />
       ) : (
         <ErrorView error={error} />
       )}

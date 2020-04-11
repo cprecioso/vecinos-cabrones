@@ -4,8 +4,7 @@ import { SubtitleResult } from "../backend/types"
 
 const LinkToSubtitle: FunctionComponent<{
   result: SubtitleResult
-  query?: string
-}> = ({ result, query, children }) => (
+}> = ({ result, children }) => (
   <Link
     key={result.id}
     href="/[chapter]/[scene]"
@@ -13,7 +12,7 @@ const LinkToSubtitle: FunctionComponent<{
       result.chapter.seasonNumber
     }x${result.chapter.episodeNumber.toString(10).padStart(2, "0")}/${
       result.id
-    }${query ? `#${encodeURIComponent(query)}` : ""}`}
+    }`}
   >
     {children}
   </Link>

@@ -10,16 +10,15 @@ import { Result } from "./Result"
 type SeasonProps = {
   season: number | String
   results: SubtitleSearchResponse
-  query?: string
 }
 
-const Season: FunctionComponent<SeasonProps> = ({ season, results, query }) => (
+const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
   <>
     <div className={styles["results-season"]}>Temporada {season}</div>
     <div className={styles.row}>
       {sortBy(sortBy(results, "start"), "chapter.episodeNumber").map(
         (result) => (
-          <LinkToSubtitle key={result.id} result={result} query={query}>
+          <LinkToSubtitle key={result.id} result={result}>
             <a>
               <Result data={result} />
             </a>
@@ -32,10 +31,9 @@ const Season: FunctionComponent<SeasonProps> = ({ season, results, query }) => (
 
 export type Props = {
   data: SubtitleSearchResponse
-  query?: string
 }
 
-const ResultList: FunctionComponent<Props> = ({ data, query }) => (
+const ResultList: FunctionComponent<Props> = ({ data }) => (
   <div className={styles.results}>
     <div className={styles["results-count"]}>{data.length} resultados</div>
 
@@ -43,7 +41,7 @@ const ResultList: FunctionComponent<Props> = ({ data, query }) => (
       toPairs(groupBy(data, (item) => item.chapter.seasonNumber)),
       "0"
     ).map(([season, results]) => (
-      <Season key={season} season={season} results={results} query={query} />
+      <Season key={season} season={season} results={results} />
     ))}
   </div>
 )
