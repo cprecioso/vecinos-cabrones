@@ -4,6 +4,7 @@ import toPairs from "lodash/toPairs"
 import React, { FunctionComponent } from "react"
 import { SubtitleSearchResponse } from "../../backend/types"
 import styles from "../../styles/local.module.css"
+import LinkToSubtitle from "../LinkToSubtitle"
 import { Result } from "./Result"
 
 type SeasonProps = {
@@ -18,7 +19,11 @@ const Season: FunctionComponent<SeasonProps> = ({ season, results, query }) => (
     <div className={styles.row}>
       {sortBy(sortBy(results, "start"), "chapter.episodeNumber").map(
         (result) => (
-          <Result key={result.id} data={result} />
+          <LinkToSubtitle key={result.id} result={result} query={query}>
+            <a>
+              <Result data={result} />
+            </a>
+          </LinkToSubtitle>
         )
       )}
     </div>
