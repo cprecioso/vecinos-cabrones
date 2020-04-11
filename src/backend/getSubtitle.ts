@@ -7,8 +7,10 @@ interface Payload {
   result: string
 }
 
-export default async function getSubtitle(id: number) {
-  if (!id) throw new Error("No subtitle id given")
+export default async function getSubtitle(idStr: string) {
+  if (!idStr) throw new Error("No subtitle id given")
+  const id = parseInt(idStr, 10)
+  if (isNaN(id)) throw new Error("Not a valid subtitle id")
 
   const response = await new Promise<Lambda.InvocationResponse>(
     (fulfill, reject) => {

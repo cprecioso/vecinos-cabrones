@@ -1,7 +1,7 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import useSWR from "swr"
-import searchSubtitle from "../backend/search"
+import searchSubtitle from "../backend/searchSubtitle"
 import { ErrorView, LoadingView } from "../components/FetchHelpers"
 import ResultList from "../components/ResultList"
 import SearchBar from "../components/SearchBar"
