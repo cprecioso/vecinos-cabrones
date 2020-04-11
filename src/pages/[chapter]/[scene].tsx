@@ -18,7 +18,7 @@ const ScenePage: NextPage = () => {
     <>
       <SearchBar />
 
-      <Scene initialSceneId={sceneId} />
+      <Scene id={sceneId} />
     </>
   )
 }
