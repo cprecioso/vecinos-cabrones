@@ -58,7 +58,11 @@ const SubtitleLine: FunctionComponent<{
         {text ? (
           toHTMLLines(text.split("\n").map(findAndMakeBold(query)))
         ) : (
-          <>&nbsp;</>
+          <>
+            &nbsp;
+            <br />
+            &nbsp;
+          </>
         )}
       </div>
     </div>
