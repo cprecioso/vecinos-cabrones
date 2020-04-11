@@ -13,3 +13,8 @@ export interface SubtitleResult {
 }
 
 export type SubtitleSearchResponse = SubtitleResult[]
+
+export type SubtitleGetResponse = Record<
+  "current" | "next" | "previous",
+  SubtitleResult
+>
