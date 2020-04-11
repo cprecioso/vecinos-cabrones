@@ -1,12 +1,12 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { SearchResult } from "../../backend/search"
 import { getUrlsForSearchResultThumbnail } from "../../backend/thumbnail"
+import { SubtitleResult } from "../../backend/types"
 import styles from "../../styles/local.module.css"
 import makeGifBlobUrl from "../../util/gif"
 
 export type Props = {
-  data: SearchResult
+  data: SubtitleResult
 }
 
 export const Result: FunctionComponent<Props> = ({ data: result }) => {

@@ -1,31 +1,13 @@
 import Lambda from "aws-sdk/clients/lambda"
-import AWS from "aws-sdk/global"
+import { lambdaAgent } from "./lambdaAgent"
+import { SubtitleSearchResponse } from "./types"
 
-AWS.config.region = "us-east-1"
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  IdentityPoolId: "us-east-1:f32f8263-a898-4b1a-a6ff-0edb37c15c0e",
-})
-AWS.config.apiVersion = "2015-03-31"
-
-const lambdaAgent = new Lambda()
-
-interface SearchPayload {
+interface Payload {
   statusCode: number
   results: string
 }
 
-export interface SearchResult {
-  text: string
-  start: string
-  end: string
-  chapter: {
-    id: string
-    episodeNumber: number
-    seasonNumber: number
-  }
-}
-
-export default async function search(search: string) {
+export default async function searchSubtitle(search: string) {
   if (!search) throw new Error("No query given")
 
   const response = await new Promise<Lambda.InvocationResponse>(
@@ -44,11 +26,11 @@ export default async function search(search: string) {
 
   if (response.StatusCode !== 200)
     throw new Error("Unknown status code " + response.StatusCode)
-  const innerResponse = JSON.parse(response.Payload as string) as SearchPayload
+  const innerResponse = JSON.parse(response.Payload as string) as Payload
   if (innerResponse.statusCode !== 200)
     throw new Error("Unknown status code " + innerResponse.statusCode)
 
-  const results = JSON.parse(innerResponse.results) as SearchResult[]
+  const results = JSON.parse(innerResponse.results) as SubtitleSearchResponse
 
   return results
 }
