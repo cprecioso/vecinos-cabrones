@@ -24,7 +24,7 @@ const SearchPage: NextPage = () => {
       {!query ? null : isValidating ? (
         <LoadingView />
       ) : data ? (
-        <ResultList data={data} />
+        <ResultList data={data} query={query} />
       ) : (
         <ErrorView error={error} />
       )}
