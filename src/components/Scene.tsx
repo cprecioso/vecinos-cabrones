@@ -34,10 +34,12 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
 
         {/* <SegmentedControl options={["Fotogramas", "GIF"]} /> */}
 
-        <img
-          className={clsx(styles["scene-image"], isLoading && styles.loading)}
-          src={gifUrl ?? frameUrls[0]}
-        />
+        <a download href={gifUrl}>
+          <img
+            className={clsx(styles["scene-image"], isLoading && styles.loading)}
+            src={gifUrl ?? frameUrls[0]}
+          />
+        </a>
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
