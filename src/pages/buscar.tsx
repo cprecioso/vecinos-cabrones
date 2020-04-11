@@ -2,6 +2,7 @@ import { NextPage } from "next"
 import { useRouter } from "next/router"
 import useSWR from "swr"
 import searchSubtitle from "../backend/search"
+import { ErrorView, LoadingView } from "../components/FetchHelpers"
 import ResultList from "../components/ResultList"
 import SearchBar from "../components/SearchBar"
 
@@ -18,28 +19,14 @@ const SearchPage: NextPage = () => {
 
   return (
     <>
-      <style jsx>{`
-        h1 {
-          text-align: center;
-          margin-top: 1em;
-        }
-
-        pre {
-          color: white;
-        }
-      `}</style>
-
       <SearchBar defaultValue={query} />
 
       {!query ? null : isValidating ? (
-        <h1>Buscando...</h1>
+        <LoadingView />
       ) : data ? (
         <ResultList data={data} />
       ) : (
-        <div>
-          <h1>Error</h1>
-          <pre>{"" + (error ?? "")}</pre>
-        </div>
+        <ErrorView error={error} />
       )}
     </>
   )
