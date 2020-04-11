@@ -40,6 +40,7 @@ const SearchBar: FunctionComponent<Props> = ({ defaultValue, autoFocus }) => {
             defaultValue={defaultValue}
             name="q"
             autoFocus={autoFocus}
+            autoComplete="off"
           />
           <input type="submit" value="" className={styles["search-button"]} />
         </div>
