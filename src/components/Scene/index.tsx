@@ -1,12 +1,13 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { useFrameUrls } from "../backend/thumbnail"
-import { SubtitleGetResponse } from "../backend/types"
-import styles from "../styles/local.module.css"
-import { useGif } from "../util/gif"
-import LinkToSubtitle from "./LinkToSubtitle"
-import SegmentedControl from "./SegmentedControl"
-import SubtitleLine from "./SubtitleLine"
+import { useFrameUrls } from "../../backend/thumbnail"
+import { SubtitleGetResponse } from "../../backend/types"
+import styles from "../../styles/local.module.css"
+import LinkToSubtitle from "../LinkToSubtitle"
+import SegmentedControl from "../SegmentedControl"
+import SubtitleLine from "../SubtitleLine"
+import FrameViewMode from "./FrameViewMode"
+import GIFViewMode from "./GIFViewMode"
 
 export type Props = {
   data: SubtitleGetResponse
@@ -14,24 +15,8 @@ export type Props = {
 }
 
 enum ViewMode {
-  Fotogramas = "Fotogramas",
+  Frame = "Fotogramas",
   Gif = "Gif",
-}
-
-const GIFViewMode: FunctionComponent<{ frameUrls: string[] }> = ({
-  frameUrls,
-}) => {
-  const { gifUrl, isLoading } = useGif(frameUrls, true)
-
-  return (
-    <a download href={gifUrl}>
-      <img
-        crossOrigin="anonymous"
-        className={clsx(styles["scene-image"], isLoading && styles.loading)}
-        src={gifUrl ?? frameUrls[0]}
-      />
-    </a>
-  )
 }
 
 const Scene: FunctionComponent<Props> = ({ data, query }) => {
@@ -40,9 +25,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
   const previousSceneFrameUrls = useFrameUrls(data.previous)[0]
   const nextSceneFrameUrls = useFrameUrls(data.next)[0]
 
-  const [currentViewMode, setCurrentViewMode] = React.useState(
-    ViewMode.Fotogramas
-  )
+  const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Frame)
 
   return (
     <div className={styles.scene}>
@@ -58,14 +41,16 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
         <div style={{ clear: "both" }} />
 
         <SegmentedControl
-          options={[ViewMode.Fotogramas, ViewMode.Gif]}
+          options={[ViewMode.Frame, ViewMode.Gif]}
           selected={currentViewMode}
           setSelected={setCurrentViewMode as (n: string) => void}
         />
 
         {currentViewMode === ViewMode.Gif ? (
           <GIFViewMode frameUrls={frameUrls} />
-        ) : null}
+        ) : (
+          <FrameViewMode frameUrls={frameUrls} />
+        )}
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
