@@ -26,6 +26,7 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
     >
       <div className={styles["item-container"]}>
         <img
+          crossOrigin="anonymous"
           src={currentSource}
           className={clsx(styles["image-result"], isLoading && styles.loading)}
         />
