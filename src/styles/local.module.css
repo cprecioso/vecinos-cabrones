@@ -206,7 +206,7 @@
   border: none;
   height: 100%;
   padding-left: 20px;
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
@@ -257,7 +257,7 @@
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: 600;
   font-size: 13px;
@@ -276,7 +276,7 @@
 .results-count {
   width: 100%;
   text-align: center;
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: 600;
   font-size: 13px;
@@ -288,7 +288,7 @@
 }
 
 .results-season {
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: 600;
   font-size: 13px;
@@ -324,7 +324,7 @@
 }
 
 .chapter-info {
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -339,7 +339,7 @@
 }
 
 .chapter-title {
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -352,7 +352,7 @@
 
 .chapter-view {
   float: right;
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -385,12 +385,17 @@
 .subtitle-line {
   clear: both;
   margin-bottom: 10px;
+  position:relative;
 }
 
 .subtitle-line-indicator {
   width: 25px;
   float: left;
   height: 27px;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .subtitle-line-indicator.current {
@@ -401,13 +406,13 @@
 }
 
 .subtitle-line-text {
-  font-family: SF Pro Display;
+  font-family: "San Francisco";
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 26px;
   color: #ffffff;
-  padding-left: 5px;
+  padding-left: 30px;
   opacity: 0.7;
 }
 
@@ -477,6 +482,31 @@
   margin-right: -15px;
   text-align: left;
   padding-left: 0px;
+}
+.explain-image img{
+	width: 100%;
+	background-color: grey;
+	margin-top: 50px;
+	border-radius: 12px;
+	max-height: 285px;
+}
+.explain-title{
+	font-family: "San Francisco";
+	font-style: normal;
+	font-weight: 800;
+	font-size: 30px;
+	line-height: 36px;
+	color: #FFFFFF;
+	margin-top: 16px;
+}
+.explain-description{
+	font-family: "San Francisco";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 116%;
+	color: rgba(255, 255, 255, 0.6);
+	margin-top: 16px;
 }
 
 @keyframes pulse {
