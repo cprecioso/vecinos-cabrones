@@ -2,21 +2,29 @@ import worker from "file-loader?name=static/[hash].worker.js&publicPath=/_next/!
 import GIF from "gif.js"
 import React from "react"
 
+const loadImage = async (url: string) => {
+  const img = document.createElement("img")
+  try {
+    await new Promise((fulfill, reject) => {
+      img.onload = fulfill
+      img.onerror = reject
+      img.crossOrigin = "anonymous"
+      img.src = url
+    })
+  } finally {
+    img.onload = null
+    img.onerror = null
+  }
+  return img
+}
+
 export default async function makeGifBlobUrl(
   frameUrls: string[],
   abortSignal?: AbortSignal
 ) {
   const gif = new GIF({ workerScript: worker })
 
-  const imgs = await Promise.all(
-    frameUrls.map(async (url) => {
-      const res = await fetch(url, { signal: abortSignal })
-      const blob = await res.blob()
-      const el = document.createElement("img")
-      el.src = URL.createObjectURL(blob)
-      return el
-    })
-  )
+  const imgs = await Promise.all(frameUrls.map(loadImage))
 
   for (const el of imgs) {
     gif.addFrame(el, { delay: 100 })
