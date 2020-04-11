@@ -4,11 +4,13 @@
 $ yarn
 ```
 
-2. Start dev server
+2. Start dev server, all changes will be hot-reloaded
 
 ```sh
 $ yarn next
 ```
+
+---
 
 3. Pull Requests will trigger a build and create a preview URL automatically
 
