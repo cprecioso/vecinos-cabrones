@@ -1,12 +1,16 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
+import { useFrameUrls } from "../../backend/thumbnail"
+import { SubtitleResult } from "../../backend/types"
 import styles from "../../styles/local.module.css"
 import { useGif } from "../../util/gif"
 
 const GIFViewMode: FunctionComponent<{
-  frameUrls: string[]
-}> = ({ frameUrls }) => {
+  scene: SubtitleResult
+}> = ({ scene }) => {
+  const frameUrls = useFrameUrls(scene)
   const { gifUrl, isLoading } = useGif(frameUrls, true)
+
   return (
     <a download href={gifUrl}>
       <img

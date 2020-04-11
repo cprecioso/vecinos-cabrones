@@ -1,5 +1,7 @@
+import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { useQuery } from "../util/query-context"
+import styles from "../../styles/local.module.css"
+import { useQuery } from "../../util/query-context"
 
 // from verbal-expressions
 // https://github.com/VerbalExpressions/JSVerbalExpressions/blob/bce33e6133e204a6dc6ede3f23e42325092ac328/VerbalExpressions.js#L42
@@ -34,10 +36,33 @@ const toHTMLLines = (lines: JSX.Element[]) => {
 }
 
 const SubtitleLine: FunctionComponent<{
-  str: string
-}> = ({ str }) => {
+  text?: string
+  isCurrent?: boolean
+}> = ({ text, isCurrent }) => {
   const { query } = useQuery()
-  return toHTMLLines(str.split("\n").map(findAndMakeBold(query)))
+
+  return (
+    <div className={styles["subtitle-line"]}>
+      <div
+        className={clsx(
+          styles["subtitle-line-indicator"],
+          isCurrent && styles.current
+        )}
+      />
+      <div
+        className={clsx(
+          styles["subtitle-line-text"],
+          isCurrent && styles.current
+        )}
+      >
+        {text ? (
+          toHTMLLines(text.split("\n").map(findAndMakeBold(query)))
+        ) : (
+          <>&nbsp;</>
+        )}
+      </div>
+    </div>
+  )
 }
 
 export default SubtitleLine

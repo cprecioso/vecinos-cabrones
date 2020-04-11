@@ -1,4 +1,5 @@
 import Lambda from "aws-sdk/clients/lambda"
+import { saveInCache } from "../components/Scene/subtitle-fetch"
 import { lambdaAgent } from "./lambdaAgent"
 import { SubtitleSearchResponse } from "./types"
 
@@ -31,6 +32,10 @@ export default async function searchSubtitle(search: string) {
     throw new Error("Unknown status code " + innerResponse.statusCode)
 
   const results = JSON.parse(innerResponse.results) as SubtitleSearchResponse
+
+  for (const scene of results) {
+    saveInCache(scene, {})
+  }
 
   return results
 }

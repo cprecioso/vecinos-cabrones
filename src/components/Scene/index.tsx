@@ -1,16 +1,16 @@
 import clsx from "clsx"
+import { useRouter } from "next/router"
 import React, { FunctionComponent } from "react"
-import { useFrameUrls } from "../../backend/thumbnail"
-import { SubtitleGetResponse } from "../../backend/types"
+import { getClosestFrameUrl } from "../../backend/thumbnail"
 import styles from "../../styles/local.module.css"
-import LinkToSubtitle from "../LinkToSubtitle"
 import SegmentedControl from "../SegmentedControl"
-import SubtitleLine from "../SubtitleLine"
-import FrameViewMode from "./FrameViewMode"
+import FrameViewMode, { EmptyViewMode } from "./FrameViewMode"
 import GIFViewMode from "./GIFViewMode"
+import { useFetchSubtitleInContext } from "./subtitle-fetch"
+import SubtitleView from "./SubtitleView"
 
 export type Props = {
-  data: SubtitleGetResponse
+  initialSceneId: number
 }
 
 enum ViewMode {
@@ -18,11 +18,41 @@ enum ViewMode {
   Gif = "Gif",
 }
 
-const Scene: FunctionComponent<Props> = ({ data }) => {
-  const frameUrls = useFrameUrls(data.current)
+const Scene: FunctionComponent<Props> = ({ initialSceneId }) => {
+  const router = useRouter()
 
-  const previousSceneFrameUrls = useFrameUrls(data.previous)[0]
-  const nextSceneFrameUrls = useFrameUrls(data.next)[0]
+  const [id, setId] = React.useState(initialSceneId)
+
+  const goPrevious = React.useCallback(() => setId((id) => id - 1), [])
+  const goNext = React.useCallback(() => setId((id) => id + 1), [])
+
+  const { current, previous, next } = useFetchSubtitleInContext(id)
+
+  React.useEffect(() => {
+    if (current.data) {
+      router.push(
+        "/[chapter]/[scene]",
+        `/${
+          current.data.scene.chapter.seasonNumber
+        }x${current.data.scene.chapter.episodeNumber
+          .toString(10)
+          .padStart(2, "0")}/${current.data.scene.id}`,
+        {
+          shallow: true,
+        }
+      )
+    }
+  }, [current.data])
+
+  const currentFrameUrl = current.data?.scene
+    ? getClosestFrameUrl(current.data.scene)
+    : undefined
+  const previousSceneFrameUrl = previous.data?.scene
+    ? getClosestFrameUrl(previous.data.scene)
+    : undefined
+  const nextSceneFrameUrl = next.data?.scene
+    ? getClosestFrameUrl(next.data.scene)
+    : undefined
 
   const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Frame)
 
@@ -30,11 +60,17 @@ const Scene: FunctionComponent<Props> = ({ data }) => {
     <div className={styles.scene}>
       <div className={styles["chapter-data"]}>
         <div className={styles["chapter-info"]}>
-          Episodio {data.current.chapter.episodeNumber} - Temporada{" "}
-          {data.current.chapter.seasonNumber}
+          {current.data ? (
+            <>
+              Episodio {current.data.scene.chapter.episodeNumber} - Temporada{" "}
+              {current.data.scene.chapter.seasonNumber}
+            </>
+          ) : (
+            <>&nbsp;</>
+          )}
         </div>
         <div className={styles["chapter-title"]}>
-          {data.current.chapter.title}
+          {current.data?.scene.chapter.title ?? <>&nbsp;</>}
         </div>
 
         <div style={{ clear: "both" }} />
@@ -45,95 +81,59 @@ const Scene: FunctionComponent<Props> = ({ data }) => {
           setSelected={setCurrentViewMode as (n: string) => void}
         />
 
-        {currentViewMode === ViewMode.Gif ? (
-          <GIFViewMode frameUrls={frameUrls} />
+        {currentFrameUrl && current.data ? (
+          currentViewMode === ViewMode.Gif ? (
+            <GIFViewMode scene={current.data.scene} />
+          ) : (
+            <FrameViewMode frameUrl={currentFrameUrl} />
+          )
         ) : (
-          <FrameViewMode frameUrls={frameUrls} />
+          <EmptyViewMode />
         )}
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
-            {data.previous ? (
-              <LinkToSubtitle result={data.previous}>
-                <a>
-                  <div className={styles["subtitle-line"]}>
-                    <div className={styles["subtitle-line-indicator"]} />
-                    <div className={styles["subtitle-line-text"]}>
-                      <SubtitleLine str={data.previous.text} />
-                    </div>
-                  </div>
-                </a>
-              </LinkToSubtitle>
-            ) : null}
-            <div className={styles["subtitle-line"]}>
-              <div
-                className={clsx(
-                  styles["subtitle-line-indicator"],
-                  styles.current
-                )}
-              />
-              <div
-                className={clsx(styles["subtitle-line-text"], styles.current)}
-              >
-                <SubtitleLine str={data.current.text} />
-              </div>
-            </div>
-            {data.next ? (
-              <LinkToSubtitle result={data.next}>
-                <a>
-                  <div className={styles["subtitle-line"]}>
-                    <div className={styles["subtitle-line-indicator"]} />
-                    <div className={styles["subtitle-line-text"]}>
-                      <SubtitleLine str={data.next.text} />
-                    </div>
-                  </div>
-                </a>
-              </LinkToSubtitle>
-            ) : null}
+            <SubtitleView id={id} onGoPrevious={goPrevious} onGoNext={goNext} />
           </div>
 
           <div className={styles["subtitles-navigation"]}>
-            {data.previous ? (
-              <LinkToSubtitle result={data.previous}>
-                <a>
-                  <div className={styles["navigation-left"]}>
-                    <img
-                      crossOrigin="anonymous"
-                      className={styles["navigation-image"]}
-                      src={previousSceneFrameUrls}
-                    />
-                    <div
-                      className={clsx(
-                        styles["navigation-indication"],
-                        styles.left
-                      )}
-                    >
-                      Anterior
-                    </div>
+            {previous.data ? (
+              <a className={styles.link} onClick={goPrevious}>
+                <div className={styles["navigation-left"]}>
+                  <img
+                    crossOrigin="anonymous"
+                    className={styles["navigation-image"]}
+                    src={previousSceneFrameUrl}
+                  />
+                  <div
+                    className={clsx(
+                      styles["navigation-indication"],
+                      styles.left
+                    )}
+                  >
+                    Anterior
                   </div>
-                </a>
-              </LinkToSubtitle>
+                </div>
+              </a>
             ) : null}
-            {data.next ? (
-              <LinkToSubtitle result={data.next}>
-                <a>
-                  <div className={styles["navigation-right"]}>
-                    <img
-                      crossOrigin="anonymous"
-                      className={styles["navigation-image"]}
-                      src={nextSceneFrameUrls}
-                    />
-                    <div
-                      className={clsx(
-                        styles["navigation-indication"],
-                        styles.right
-                      )}
-                    >
-                      Siguiente
-                    </div>
+            {next.data ? (
+              <a className={styles.link} onClick={goNext}>
+                <div className={styles["navigation-right"]}>
+                  <img
+                    crossOrigin="anonymous"
+                    className={styles["navigation-image"]}
+                    src={nextSceneFrameUrl}
+                  />
+                  <div
+                    className={clsx(
+                      styles["navigation-indication"],
+                      styles.right
+                    )}
+                  >
+                    Siguiente
                   </div>
-                </a>
-              </LinkToSubtitle>
+                </div>
+              </a>
             ) : null}
           </div>
         </div>

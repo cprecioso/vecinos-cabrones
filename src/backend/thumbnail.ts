@@ -18,9 +18,7 @@ const urlFromSearchResult = (
     2
   )}.jpg`
 
-export function getUrlsForSearchResultThumbnail(result?: SubtitleResult) {
-  if (!result) return []
-
+export function getUrlsForSearchResultThumbnail(result: SubtitleResult) {
   const season = result.chapter.seasonNumber
   const episode = result.chapter.episodeNumber
   const start = roundToMultiple(parseSubtitleTimestamp(result.start), 200)
@@ -33,5 +31,12 @@ export function getUrlsForSearchResultThumbnail(result?: SubtitleResult) {
   return urlRange
 }
 
-export const useFrameUrls = (result?: SubtitleResult) =>
-  React.useMemo(() => getUrlsForSearchResultThumbnail(result), [result?.id])
+export const useFrameUrls = (result: SubtitleResult) =>
+  React.useMemo(() => getUrlsForSearchResultThumbnail(result), [result.id])
+
+export const getClosestFrameUrl = (result: SubtitleResult) =>
+  urlFromSearchResult(
+    result.chapter.seasonNumber,
+    result.chapter.episodeNumber,
+    roundToMultiple(parseSubtitleTimestamp(result.start), 200)
+  )
