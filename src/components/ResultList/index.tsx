@@ -2,11 +2,11 @@ import groupBy from "lodash/groupBy"
 import sortBy from "lodash/sortBy"
 import toPairs from "lodash/toPairs"
 import React, { FunctionComponent } from "react"
-import { SearchResult } from "../../backend/search"
+import { SubtitleSearchResponse } from "../../backend/types"
 import styles from "../../styles/local.module.css"
 import { Result } from "./Result"
 
-type SeasonProps = { season: number | String; results: SearchResult[] }
+type SeasonProps = { season: number | String; results: SubtitleSearchResponse }
 
 const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
   <>
@@ -14,7 +14,7 @@ const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
     <div className={styles.row}>
       {sortBy(sortBy(results, "start"), "chapter.episodeNumber").map(
         (result) => (
-          <Result data={result} />
+          <Result key={result.id} data={result} />
         )
       )}
     </div>
@@ -22,7 +22,7 @@ const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
 )
 
 export type Props = {
-  data: SearchResult[]
+  data: SubtitleSearchResponse
 }
 
 const ResultList: FunctionComponent<Props> = ({ data }) => (

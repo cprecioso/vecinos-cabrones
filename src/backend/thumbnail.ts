@@ -4,7 +4,7 @@ import {
   range,
   roundToMultiple,
 } from "../util/timestamp"
-import { SearchResult } from "./search"
+import { SubtitleResult } from "./types"
 
 const THUMBNAIL_FREQ_HZ = 5 // 1 frame every 0.2 s
 
@@ -35,7 +35,7 @@ const urlFromSearchResult = (
     2
   )}.jpg`
 
-export function getUrlsForSearchResultThumbnail(result: SearchResult) {
+export function getUrlsForSearchResultThumbnail(result: SubtitleResult) {
   const season = result.chapter.seasonNumber
   const episode = result.chapter.episodeNumber
   const start = roundToMultiple(parseSubtitleTimestamp(result.start), 200)
