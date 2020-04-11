@@ -363,9 +363,9 @@
 }
 
 .scene-image {
+  display: block;
   background: grey;
   width: 100%;
-  padding-top: 75%;
   border-radius: 3px;
   margin-top: 21px;
 }
@@ -442,6 +442,7 @@
 }
 
 .navigation-image {
+  display: block;
   width: 85px;
   height: 63px;
   background-color: gray;
