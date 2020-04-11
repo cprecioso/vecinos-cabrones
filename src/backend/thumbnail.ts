@@ -1,3 +1,9 @@
+import {
+  parseSubtitleTimestamp,
+  printWithDecimalPlaces,
+  range,
+  roundToMultiple,
+} from "../util/timestamp"
 import { SearchResult } from "./search"
 
 const THUMBNAIL_FREQ_HZ = 5 // 1 frame every 0.2 s
@@ -18,9 +24,26 @@ const parseAndRoundTimestamp = (ts: string) => {
   return `${s}.${csRoundedToFreq.toString(10).padEnd(2, "0")}`
 }
 
-export default function getUrlForSearchResultThumbnail(result: SearchResult) {
+const urlFromSearchResult = (
+  season: number,
+  episode: number,
+  timestamp: number
+) =>
+  `https://anhqv.us-east-1.linodeobjects.com/${episode}-${season}/${episode}-${season}-${printWithDecimalPlaces(
+    timestamp,
+    3,
+    2
+  )}.jpg`
+
+export function getUrlsForSearchResultThumbnail(result: SearchResult) {
   const season = result.chapter.seasonNumber
   const episode = result.chapter.episodeNumber
-  const roundedSecond = parseAndRoundTimestamp(result.start)
-  return `https://anhqv.us-east-1.linodeobjects.com/${episode}-${season}/${episode}-${season}-${roundedSecond}.jpg`
+  const start = roundToMultiple(parseSubtitleTimestamp(result.start), 200)
+  const end = roundToMultiple(parseSubtitleTimestamp(result.end), 200)
+  const timestampRange = range(start, end, 200)
+  const urlRange = timestampRange.map((timestamp) =>
+    urlFromSearchResult(season, episode, timestamp)
+  )
+
+  return urlRange
 }
