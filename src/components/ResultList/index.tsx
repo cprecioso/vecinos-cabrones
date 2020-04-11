@@ -1,27 +1,10 @@
-import clsx from "clsx"
 import groupBy from "lodash/groupBy"
 import sortBy from "lodash/sortBy"
 import toPairs from "lodash/toPairs"
 import React, { FunctionComponent } from "react"
-import { SearchResult } from "../backend/search"
-import getUrlForSearchResultThumbnail from "../backend/thumbnail"
-import styles from "../styles/local.module.css"
-
-type ResultProps = { data: SearchResult }
-
-const Result: FunctionComponent<ResultProps> = ({ data: result }) => (
-  <div className={clsx(styles["col-6"], styles.result)}>
-    <div className={styles["item-container"]}>
-      <div
-        className={styles["image-result"]}
-        style={{
-          backgroundSize: "contain",
-          backgroundImage: `url("${getUrlForSearchResultThumbnail(result)}")`,
-        }}
-      ></div>
-    </div>
-  </div>
-)
+import { SearchResult } from "../../backend/search"
+import styles from "../../styles/local.module.css"
+import { Result } from "./Result"
 
 type SeasonProps = { season: number | String; results: SearchResult[] }
 
@@ -42,7 +25,7 @@ export type Props = {
   data: SearchResult[]
 }
 
-const Results: FunctionComponent<Props> = ({ data }) => (
+const ResultList: FunctionComponent<Props> = ({ data }) => (
   <div className={styles.results}>
     <div className={styles["results-count"]}>{data.length} resultados</div>
 
@@ -55,4 +38,4 @@ const Results: FunctionComponent<Props> = ({ data }) => (
   </div>
 )
 
-export default Results
+export default ResultList

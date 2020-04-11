@@ -2,7 +2,7 @@ import { NextPage } from "next"
 import { useRouter } from "next/router"
 import useSWR from "swr"
 import search from "../backend/search"
-import Results from "../components/Results"
+import ResultList from "../components/ResultList"
 import SearchBar from "../components/SearchBar"
 
 const SearchPage: NextPage = () => {
@@ -252,7 +252,7 @@ const SearchPage: NextPage = () => {
       {!query ? null : isValidating ? (
         <h1>Buscando...</h1>
       ) : data ? (
-        <Results data={data} />
+        <ResultList data={data} />
       ) : (
         <div>
           <h1>Error</h1>
