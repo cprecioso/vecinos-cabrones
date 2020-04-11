@@ -5,6 +5,7 @@ import { SubtitleGetResponse } from "../backend/types"
 import styles from "../styles/local.module.css"
 import { useGif } from "../util/gif"
 import LinkToSubtitle from "./LinkToSubtitle"
+import SegmentedControl from "./SegmentedControl"
 import SubtitleLine from "./SubtitleLine"
 
 export type Props = {
@@ -12,12 +13,36 @@ export type Props = {
   query?: string
 }
 
+enum ViewMode {
+  Fotogramas = "Fotogramas",
+  Gif = "Gif",
+}
+
+const GIFViewMode: FunctionComponent<{ frameUrls: string[] }> = ({
+  frameUrls,
+}) => {
+  const { gifUrl, isLoading } = useGif(frameUrls, true)
+
+  return (
+    <a download href={gifUrl}>
+      <img
+        crossOrigin="anonymous"
+        className={clsx(styles["scene-image"], isLoading && styles.loading)}
+        src={gifUrl ?? frameUrls[0]}
+      />
+    </a>
+  )
+}
+
 const Scene: FunctionComponent<Props> = ({ data, query }) => {
   const frameUrls = useFrameUrls(data.current)
-  const { gifUrl, isLoading } = useGif(frameUrls, true)
 
   const previousSceneFrameUrls = useFrameUrls(data.previous)[0]
   const nextSceneFrameUrls = useFrameUrls(data.next)[0]
+
+  const [currentViewMode, setCurrentViewMode] = React.useState(
+    ViewMode.Fotogramas
+  )
 
   return (
     <div className={styles.scene}>
@@ -32,15 +57,15 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
 
         <div style={{ clear: "both" }} />
 
-        {/* <SegmentedControl options={["Fotogramas", "GIF"]} /> */}
+        <SegmentedControl
+          options={[ViewMode.Fotogramas, ViewMode.Gif]}
+          selected={currentViewMode}
+          setSelected={setCurrentViewMode as (n: string) => void}
+        />
 
-        <a download href={gifUrl}>
-          <img
-            crossOrigin="anonymous"
-            className={clsx(styles["scene-image"], isLoading && styles.loading)}
-            src={gifUrl ?? frameUrls[0]}
-          />
-        </a>
+        {currentViewMode === ViewMode.Gif ? (
+          <GIFViewMode frameUrls={frameUrls} />
+        ) : null}
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
