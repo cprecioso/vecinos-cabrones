@@ -11,7 +11,6 @@ import GIFViewMode from "./GIFViewMode"
 
 export type Props = {
   data: SubtitleGetResponse
-  query?: string
 }
 
 enum ViewMode {
@@ -19,7 +18,7 @@ enum ViewMode {
   Gif = "Gif",
 }
 
-const Scene: FunctionComponent<Props> = ({ data, query }) => {
+const Scene: FunctionComponent<Props> = ({ data }) => {
   const frameUrls = useFrameUrls(data.current)
 
   const previousSceneFrameUrls = useFrameUrls(data.previous)[0]
@@ -55,12 +54,12 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
             {data.previous ? (
-              <LinkToSubtitle result={data.previous} query={query}>
+              <LinkToSubtitle result={data.previous}>
                 <a>
                   <div className={styles["subtitle-line"]}>
                     <div className={styles["subtitle-line-indicator"]} />
                     <div className={styles["subtitle-line-text"]}>
-                      <SubtitleLine str={data.previous.text} query={query} />
+                      <SubtitleLine str={data.previous.text} />
                     </div>
                   </div>
                 </a>
@@ -76,16 +75,16 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
               <div
                 className={clsx(styles["subtitle-line-text"], styles.current)}
               >
-                <SubtitleLine str={data.current.text} query={query} />
+                <SubtitleLine str={data.current.text} />
               </div>
             </div>
             {data.next ? (
-              <LinkToSubtitle result={data.next} query={query}>
+              <LinkToSubtitle result={data.next}>
                 <a>
                   <div className={styles["subtitle-line"]}>
                     <div className={styles["subtitle-line-indicator"]} />
                     <div className={styles["subtitle-line-text"]}>
-                      <SubtitleLine str={data.next.text} query={query} />
+                      <SubtitleLine str={data.next.text} />
                     </div>
                   </div>
                 </a>
@@ -95,7 +94,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
 
           <div className={styles["subtitles-navigation"]}>
             {data.previous ? (
-              <LinkToSubtitle result={data.previous} query={query}>
+              <LinkToSubtitle result={data.previous}>
                 <a>
                   <div className={styles["navigation-left"]}>
                     <img
@@ -116,7 +115,7 @@ const Scene: FunctionComponent<Props> = ({ data, query }) => {
               </LinkToSubtitle>
             ) : null}
             {data.next ? (
-              <LinkToSubtitle result={data.next} query={query}>
+              <LinkToSubtitle result={data.next}>
                 <a>
                   <div className={styles["navigation-right"]}>
                     <img

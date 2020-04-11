@@ -5,6 +5,7 @@ import Link from "next/link"
 import { FunctionComponent } from "react"
 import "../styles/global.css"
 import styles from "../styles/local.module.css"
+import { QueryProvider } from "../util/query-context"
 
 const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
@@ -25,7 +26,9 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
           </div>
         </div>
       </div>
-      <Component {...pageProps} />
+      <QueryProvider>
+        <Component {...pageProps} />
+      </QueryProvider>
     </div>
   </>
 )
