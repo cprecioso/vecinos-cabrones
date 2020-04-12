@@ -1,6 +1,7 @@
 import worker from "file-loader?name=static/[hash].worker.js&publicPath=/_next/!gif.js/dist/gif.worker.js"
 import GIF from "gif.js"
 import React from "react"
+import { useQueue } from "./queue-context"
 
 const loadImage = async (url: string) => {
   const img = document.createElement("img")
@@ -58,6 +59,8 @@ const withRetry = async <T>(times: number, fn: () => Promise<T>) => {
 
 export const useGif = (frameUrls: string[], load: boolean) => {
   const [gifUrl, setGifUrl] = React.useState(undefined as string | undefined)
+  const queue = useQueue()
+
   React.useEffect(() => {
     if (frameUrls) {
       return () => setGifUrl(undefined)
@@ -75,13 +78,18 @@ export const useGif = (frameUrls: string[], load: boolean) => {
   React.useEffect(() => {
     if (isLoading) {
       const abortController = new AbortController()
-      withRetry(3, async () => {
-        const blobUrl = await makeGifBlobUrl(frameUrls, abortController.signal)
-        setGifUrl(blobUrl)
-      }).catch(console.error.bind(console, "Error"))
+      withRetry(3, async () =>
+        queue.add(async () => {
+          const blobUrl = await makeGifBlobUrl(
+            frameUrls,
+            abortController.signal
+          )
+          setGifUrl(blobUrl)
+        })
+      ).catch(console.error.bind(console, "Error"))
       return () => abortController.abort()
     }
-  }, [isLoading, frameUrls])
+  }, [isLoading, frameUrls, queue])
 
   return { gifUrl, isLoading }
 }

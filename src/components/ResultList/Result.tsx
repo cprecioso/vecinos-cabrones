@@ -1,5 +1,6 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
+import { useInView } from "react-intersection-observer"
 import { useFrameUrls } from "../../backend/thumbnail"
 import { SubtitleResult } from "../../backend/types"
 import styles from "../../styles/local.module.css"
@@ -10,9 +11,13 @@ export type Props = {
 }
 
 export const Result: FunctionComponent<Props> = ({ data: result }) => {
-  const [isActive, setIsActive] = React.useState(false)
-  const setActive = React.useCallback(() => setIsActive(true), [])
-  const setInactive = React.useCallback(() => setIsActive(false), [])
+  const [isHovering, setIsHovering] = React.useState(false)
+  const onEnter = React.useCallback(() => setIsHovering(true), [])
+  const onLeave = React.useCallback(() => setIsHovering(false), [])
+
+  const [ref, inView] = useInView({ threshold: 0.7 })
+
+  const isActive = isHovering || inView
 
   const frameUrls = useFrameUrls(result)
   const { gifUrl, isLoading } = useGif(frameUrls, isActive)
@@ -21,8 +26,9 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
   return (
     <div
       className={clsx(styles["col-6"], styles.result)}
-      onMouseEnter={setActive}
-      onMouseLeave={setInactive}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      ref={ref}
     >
       <div className={styles["item-container"]}>
         <img

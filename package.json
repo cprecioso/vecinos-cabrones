@@ -4,8 +4,10 @@
     "gif.js": "^0.2.0",
     "lodash": "^4.17.15",
     "next": "^9.3.4",
+    "p-queue": "^6.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-intersection-observer": "^8.26.1",
     "swr": "^0.2.0"
   },
   "devDependencies": {
