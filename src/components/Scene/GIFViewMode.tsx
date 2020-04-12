@@ -12,7 +12,7 @@ const GIFViewMode: FunctionComponent<{
   const { gifUrl, isLoading } = useGif(frameUrls, true)
 
   return (
-    <div className={styles["result-line"]}>
+    <div className={styles["result-gif"]}>
       <a download href={gifUrl}>
         <img
           crossOrigin="anonymous"

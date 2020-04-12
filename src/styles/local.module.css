@@ -368,7 +368,6 @@
   background: grey;
   width: 100%;
   border-radius: 3px;
-  margin-top: 21px;
 }
 
 .subtitles {
@@ -524,16 +523,22 @@
   filter: opacity(1);
 }
 
+.result-gif {
+  display: block;
+  margin-top: 21px;
+}
+
 .result-line {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  flex-flow: row nowrap;
+  grid-auto-columns: 80%;
   overflow: scroll;
-  column-gap: 1em;
+  column-gap: 2em;
   scroll-snap-type: x mandatory;
+  border-radius: 3px;
+  margin-top: 21px;
 }
 
 .result-line > * {
-  scroll-snap-align: start;
+  scroll-snap-align: center;
 }
