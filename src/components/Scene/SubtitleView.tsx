@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from "react"
 import { responseInterface } from "swr"
 import LinkToSubtitle from "../LinkToSubtitle"
-import { CacheEntry, useFetchSubtitleInContext } from "./subtitle-fetch"
+import { CacheEntry } from "./subtitle-fetch"
 import SubtitleLine from "./SubtitleLine"
 
-const SubtitleLineWrapper: FunctionComponent<{
+export const SubtitleLineWrapper: FunctionComponent<{
   response: responseInterface<CacheEntry, any>
   current?: boolean
 }> = ({ response, current }) => {
@@ -21,23 +21,3 @@ const SubtitleLineWrapper: FunctionComponent<{
     </LinkToSubtitle>
   )
 }
-
-const SubtitleView: FunctionComponent<{
-  id: number
-}> = ({ id }) => {
-  const { current, previous, next } = useFetchSubtitleInContext(id)
-
-  return (
-    <>
-      {current.data?.noPrevious ? null : (
-        <SubtitleLineWrapper key={id - 1} response={previous} />
-      )}
-      <SubtitleLineWrapper current key={id} response={current} />
-      {current.data?.noNext ? null : (
-        <SubtitleLineWrapper key={id + 1} response={next} />
-      )}
-    </>
-  )
-}
-
-export default SubtitleView
