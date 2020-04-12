@@ -2,7 +2,7 @@ import getSubtitle from "../../backend/getSubtitle"
 import { SubtitleResult } from "../../backend/types"
 import useRequest from "../../util/request"
 
-interface CacheEntry {
+export interface CacheEntry {
   scene: SubtitleResult
   noPrevious?: boolean
   noNext?: boolean

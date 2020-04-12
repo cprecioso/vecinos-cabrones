@@ -1,5 +1,4 @@
 import clsx from "clsx"
-import { useRouter } from "next/router"
 import React, { FunctionComponent } from "react"
 import { getClosestFrameUrl } from "../../backend/thumbnail"
 import styles from "../../styles/local.module.css"
@@ -20,13 +19,6 @@ enum ViewMode {
 }
 
 const Scene: FunctionComponent<Props> = ({ id }) => {
-  const router = useRouter()
-
-  const [, setId] = React.useState(id)
-
-  const goPrevious = React.useCallback(() => setId((id) => id - 1), [])
-  const goNext = React.useCallback(() => setId((id) => id + 1), [])
-
   const { current, previous, next } = useFetchSubtitleInContext(id)
 
   const currentFrameUrl = current.data?.scene
@@ -78,7 +70,7 @@ const Scene: FunctionComponent<Props> = ({ id }) => {
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
-            <SubtitleView id={id} onGoPrevious={goPrevious} onGoNext={goNext} />
+            <SubtitleView id={id} />
           </div>
 
           <div className={styles["subtitles-navigation"]}>
