@@ -7,7 +7,7 @@ import SegmentedControl from "../SegmentedControl"
 import FrameViewMode, { EmptyViewMode } from "./FrameViewMode"
 import GIFViewMode from "./GIFViewMode"
 import { useFetchSubtitleInContext } from "./subtitle-fetch"
-import SubtitleView from "./SubtitleView"
+import { SubtitleLineWrapper } from "./SubtitleView"
 
 export type Props = {
   id: number
@@ -70,7 +70,13 @@ const Scene: FunctionComponent<Props> = ({ id }) => {
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
-            <SubtitleView id={id} />
+            {current.data?.noPrevious ? null : (
+              <SubtitleLineWrapper response={previous} />
+            )}
+            <SubtitleLineWrapper response={current} current />
+            {current.data?.noNext ? null : (
+              <SubtitleLineWrapper response={next} />
+            )}
           </div>
 
           <div className={styles["subtitles-navigation"]}>
