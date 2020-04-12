@@ -20,8 +20,13 @@ export const saveInCache = (
   return entry
 }
 
-export const useFetchSubtitleInContext = (id: number) => {
-  const current = useRequest("" + id, fetchSubtitle)
+export const useFetchSubtitleInContext = (
+  id: number,
+  initialCurrentSceneData?: CacheEntry
+) => {
+  const current = useRequest("" + id, fetchSubtitle, {
+    initialData: initialCurrentSceneData,
+  })
   const previous = useRequest(() => {
     if (current.data?.noPrevious) throw ""
     return "" + (id - 1)

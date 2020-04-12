@@ -7,11 +7,12 @@ import SegmentedControl from "../SegmentedControl"
 import { PageSeo } from "../Seo"
 import FrameViewMode, { EmptyViewMode } from "./FrameViewMode"
 import GIFViewMode from "./GIFViewMode"
-import { useFetchSubtitleInContext } from "./subtitle-fetch"
+import { CacheEntry, useFetchSubtitleInContext } from "./subtitle-fetch"
 import { SubtitleLineWrapper } from "./SubtitleView"
 
 export type Props = {
   id: number
+  initialCurrentSceneData?: CacheEntry
 }
 
 enum ViewMode {
@@ -19,8 +20,11 @@ enum ViewMode {
   Gif = "Gif",
 }
 
-const Scene: FunctionComponent<Props> = ({ id }) => {
-  const { current, previous, next } = useFetchSubtitleInContext(id)
+const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
+  const { current, previous, next } = useFetchSubtitleInContext(
+    id,
+    initialCurrentSceneData
+  )
 
   const currentFrameUrl = current.data?.scene
     ? getClosestFrameUrl(current.data.scene)
