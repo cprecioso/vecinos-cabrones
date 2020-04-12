@@ -4,6 +4,7 @@ import searchSubtitle from "../backend/searchSubtitle"
 import { ErrorView, LoadingView } from "../components/FetchHelpers"
 import ResultList from "../components/ResultList"
 import SearchBar from "../components/SearchBar"
+import { PageSeo } from "../components/Seo"
 import useRequest from "../util/request"
 
 const SearchPage: NextPage = () => {
@@ -16,6 +17,7 @@ const SearchPage: NextPage = () => {
   return (
     <>
       <SearchBar />
+      <PageSeo pageTitle={`"${query}"`} />
 
       {!query ? null : isValidating ? (
         <LoadingView />

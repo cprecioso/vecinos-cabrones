@@ -4,6 +4,7 @@ import { getClosestFrameUrl } from "../../backend/thumbnail"
 import styles from "../../styles/local.module.css"
 import LinkToSubtitle from "../LinkToSubtitle"
 import SegmentedControl from "../SegmentedControl"
+import { PageSeo } from "../Seo"
 import FrameViewMode, { EmptyViewMode } from "./FrameViewMode"
 import GIFViewMode from "./GIFViewMode"
 import { useFetchSubtitleInContext } from "./subtitle-fetch"
@@ -35,6 +36,19 @@ const Scene: FunctionComponent<Props> = ({ id }) => {
 
   return (
     <div className={styles.scene}>
+      <PageSeo
+        imageUrl={currentFrameUrl}
+        pageTitle={current.data ? `"${current.data.scene.text}"` : undefined}
+        pageDescription={
+          current.data
+            ? `ANHQV ${
+                current.data.scene.chapter.seasonNumber
+              }x${current.data.scene.chapter.episodeNumber
+                .toString(10)
+                .padStart(2, "0")} ${current.data.scene.chapter.title}`
+            : undefined
+        }
+      />
       <div className={styles["chapter-data"]}>
         <div className={styles["chapter-info"]}>
           {current.data ? (
