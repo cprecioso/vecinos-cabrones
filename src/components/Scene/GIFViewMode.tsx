@@ -1,3 +1,4 @@
+import slugify from "@sindresorhus/slugify"
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
 import { useFrameUrls } from "../../backend/thumbnail"
@@ -13,7 +14,7 @@ const GIFViewMode: FunctionComponent<{
 
   return (
     <div className={styles["scene-gif-view"]}>
-      <a download href={gifUrl}>
+      <a download={`${slugify(scene.text).slice(0, 10)}.gif`} href={gifUrl}>
         <img
           crossOrigin="anonymous"
           className={clsx(styles["scene-image"], isLoading && styles.loading)}

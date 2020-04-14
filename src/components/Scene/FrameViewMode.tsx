@@ -1,3 +1,4 @@
+import slugify from "@sindresorhus/slugify"
 import React, { FunctionComponent } from "react"
 import { useFrameUrls } from "../../backend/thumbnail"
 import { SubtitleResult } from "../../backend/types"
@@ -16,7 +17,10 @@ const FrameViewMode: FunctionComponent<{ result: SubtitleResult }> = ({
     <div className={styles["scene-frame-view"]}>
       {frameUrls.map((frameUrl) => (
         <div key={frameUrl} className={styles["scene-frame-view-frame"]}>
-          <a href={frameUrl} download>
+          <a
+            href={frameUrl}
+            download={`${slugify(result.text).slice(0, 10)}.gif`}
+          >
             <img
               crossOrigin="anonymous"
               className={styles["scene-image"]}
