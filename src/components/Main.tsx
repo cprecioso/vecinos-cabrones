@@ -60,9 +60,7 @@ const Main: FunctionComponent = () => (
         <div className={styles["explain-description"]}>
           Gracias a los subtítulos de la serie, se ha vinculado cada frase a los
           fotogramas correspondientes y se ha generado una base de datos en la
-          que consultar y obtener la información rápidamente.
-          <br /> Puede leer más acerca de la tecnología usada{" "}
-          <a href="medium.com/">aquí.</a>{" "}
+          que consultar y obtener la información rápidamente.{" "}
         </div>
       </div>
       <div className={styles["explain-image"]}>
@@ -71,11 +69,12 @@ const Main: FunctionComponent = () => (
           Las personas que han hecho esta web posible son:
           <br />
           <br />
-          @pabgn: idea original y backend
+          <a href="https://twitter.com/pabgn">@pabgn</a>: idea original y
+          backend
           <br />
-          @adrimartin: diseño UI/UX
+          <a href="https://twitter.com/adrimartin">@adrimartin</a>: diseño UI/UX
           <br />
-          @cprecioso: frontend
+          <a href="https://twitter.com/_cprecioso">@cprecioso</a>: frontend
           <br />
         </div>
       </div>
