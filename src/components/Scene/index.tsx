@@ -20,6 +20,9 @@ enum ViewMode {
   Gif = "Gif",
 }
 
+const quoteIdempotent = (str: string) =>
+  /^["'“‘].+["'”’]$/.test(str) ? str : `“${str}”`
+
 const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
   const { current, previous, next } = useFetchSubtitleInContext(
     id,
@@ -42,7 +45,9 @@ const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
     <div className={styles.scene}>
       <PageSeo
         imageUrl={currentFrameUrl}
-        pageTitle={current.data ? `"${current.data.scene.text}"` : undefined}
+        pageTitle={
+          current.data ? quoteIdempotent(current.data.scene.text) : undefined
+        }
         pageDescription={
           current.data
             ? `ANHQV ${
