@@ -75,16 +75,15 @@ const Main: FunctionComponent = () => (
       <div className={styles["explain-image"]}>
         <div className={styles["explain-title"]}>Los creadores</div>
         <div className={styles["explain-description"]}>
-          <p>Las personas que han hecho esta web posible son:</p>
-          <p>
-            <a href="https://twitter.com/pabgn">@pabgn</a>: idea original y
-            backend
-            <br />
-            <a href="https://twitter.com/adrimartin">@adrimartin</a>: diseño
-            UI/UX
-            <br />
-            <a href="https://twitter.com/_cprecioso">@_cprecioso</a>: frontend
-          </p>
+          Las personas que han hecho esta web posible son:
+          <br />
+          <br />
+          <a href="https://twitter.com/pabgn">@pabgn</a>: idea original y
+          backend
+          <br />
+          <a href="https://twitter.com/adrimartin">@adrimartin</a>: diseño UI/UX
+          <br />
+          <a href="https://twitter.com/_cprecioso">@_cprecioso</a>: frontend
         </div>
       </div>
     </div>
