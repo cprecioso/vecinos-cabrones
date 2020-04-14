@@ -29,12 +29,10 @@ const ScenePage: NextPage<{ initialCurrentSceneData?: CacheEntry }> = ({
 }
 
 ScenePage.getInitialProps = async (ctx) => {
-  if (ctx.req) {
+  if (ctx.req && ctx.query.scene) {
     // We're in the server
-    const sceneId = Number.parseInt(
-      (ctx.query.scene as string | undefined) ?? "",
-      10
-    )
+    const sceneId = Number.parseInt(ctx.query.scene as string, 10)
+
     const cachedEntry = await fetchSubtitle(sceneId, false)
     return { initialCurrentSceneData: cachedEntry }
   }
