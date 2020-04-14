@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import Link from "next/link"
 import React, { FunctionComponent } from "react"
 import styles from "../styles/local.module.css"
 import SearchBar from "./SearchBar"
@@ -23,21 +24,25 @@ const Main: FunctionComponent = () => (
         </div>
       </div>
       <div className={styles["explain-image"]}>
-        <a href="/2x10/23950">
-          <img src="/static/emilio.jpg" />
-        </a>
+        <Link href="/[chapter]/[scene]" as="/2x10/23950">
+          <a>
+            <img src="/static/emilio.jpg" />
+          </a>
+        </Link>
         <div className={styles["explain-title"]}>
           Todas las escenas de ANHQV con una búsqueda
         </div>
         <div className={styles["explain-description"]}>
           Puedes buscar en todos los diálogos de la serie y encontrar la escena
-          que buscas en los 90 capítulos de la serie.{" "}
+          que buscas en los 90 capítulos de la serie.
         </div>
       </div>
       <div className={styles["explain-image"]}>
-        <a href="/2x04/18033">
-          <img src="/static/movil_anhqv.jpg" />
-        </a>
+        <Link href="/[chapter]/[scene]" as="/2x04/18033">
+          <a>
+            <img src="/static/movil_anhqv.jpg" />
+          </a>
+        </Link>
         <div className={styles["explain-title"]}>
           Descarga un GIF de cualquier escena
         </div>
@@ -64,22 +69,22 @@ const Main: FunctionComponent = () => (
         <div className={styles["explain-description"]}>
           Gracias a los subtítulos de la serie, se ha vinculado cada frase a los
           fotogramas correspondientes y se ha generado una base de datos en la
-          que consultar y obtener la información rápidamente.{" "}
+          que consultar y obtener la información rápidamente.
         </div>
       </div>
       <div className={styles["explain-image"]}>
         <div className={styles["explain-title"]}>Los creadores</div>
         <div className={styles["explain-description"]}>
-          Las personas que han hecho esta web posible son:
-          <br />
-          <br />
-          <a href="https://twitter.com/pabgn">@pabgn</a>: idea original y
-          backend
-          <br />
-          <a href="https://twitter.com/adrimartin">@adrimartin</a>: diseño UI/UX
-          <br />
-          <a href="https://twitter.com/_cprecioso">@_cprecioso</a>: frontend
-          <br />
+          <p>Las personas que han hecho esta web posible son:</p>
+          <p>
+            <a href="https://twitter.com/pabgn">@pabgn</a>: idea original y
+            backend
+            <br />
+            <a href="https://twitter.com/adrimartin">@adrimartin</a>: diseño
+            UI/UX
+            <br />
+            <a href="https://twitter.com/_cprecioso">@_cprecioso</a>: frontend
+          </p>
         </div>
       </div>
     </div>

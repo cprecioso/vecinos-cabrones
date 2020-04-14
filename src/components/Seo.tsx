@@ -118,3 +118,26 @@ export const PageSeo: FunctionComponent<{
     </Head>
   )
 }
+
+export const GoogleAnalytics: FunctionComponent = () => (
+  <Head>
+    <script
+      key="ga_script"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-163615540-1"
+    />
+    <script
+      key="ga_init"
+      dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag("js", new Date());
+          gtag("config", "UA-163615540-1");
+        `,
+      }}
+    />
+  </Head>
+)
