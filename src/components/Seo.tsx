@@ -119,25 +119,45 @@ export const PageSeo: FunctionComponent<{
   )
 }
 
-export const GoogleAnalytics: FunctionComponent = () => (
-  <Head>
-    <script
-      key="ga_script"
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-163615540-1"
-    />
-    <script
-      key="ga_init"
-      dangerouslySetInnerHTML={{
-        __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag("js", new Date());
-          gtag("config", "UA-163615540-1");
-        `,
-      }}
-    />
-  </Head>
-)
+declare global {
+  interface Window {
+    ga?(...args: any[]): void
+  }
+}
+
+export const GoogleAnalytics: FunctionComponent = () => {
+  const { asPath } = useRouter()
+  const [initialPath, setInitialPath] = React.useState<string | null>(asPath)
+  React.useEffect(() => {
+    if (window.ga && asPath !== initialPath) {
+      setInitialPath(null)
+      setTimeout(() => {
+        window.ga!("set", "page", asPath)
+        window.ga!("send", "pageview")
+      }, 10)
+    }
+  }, [asPath])
+
+  return (
+    <Head>
+      <script
+        key="ga_script"
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-163615540-1"
+      />
+      <script
+        key="ga_init"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "UA-163615540-1");
+          `,
+        }}
+      />
+    </Head>
+  )
+}
