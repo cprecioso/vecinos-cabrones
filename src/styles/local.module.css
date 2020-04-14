@@ -523,12 +523,12 @@
   filter: opacity(1);
 }
 
-.result-gif {
+.scene-gif-view {
   display: block;
   margin-top: 21px;
 }
 
-.result-line {
+.scene-frame-view {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 80%;
@@ -539,6 +539,6 @@
   margin-top: 21px;
 }
 
-.result-line > * {
+.scene-frame-view-frame {
   scroll-snap-align: center;
 }

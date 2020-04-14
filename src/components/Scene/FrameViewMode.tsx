@@ -13,15 +13,17 @@ const FrameViewMode: FunctionComponent<{ result: SubtitleResult }> = ({
   const frameUrls = useFrameUrls(result)
 
   return (
-    <div className={styles["result-line"]}>
+    <div className={styles["scene-frame-view"]}>
       {frameUrls.map((frameUrl) => (
-        <a key={frameUrl} href={frameUrl} download>
-          <img
-            crossOrigin="anonymous"
-            className={styles["scene-image"]}
-            src={frameUrl}
-          />
-        </a>
+        <div key={frameUrl} className={styles["scene-frame-view-frame"]}>
+          <a href={frameUrl} download>
+            <img
+              crossOrigin="anonymous"
+              className={styles["scene-image"]}
+              src={frameUrl}
+            />
+          </a>
+        </div>
       ))}
     </div>
   )
