@@ -23,7 +23,9 @@ const Main: FunctionComponent = () => (
         </div>
       </div>
       <div className={styles["explain-image"]}>
-        <img src="/static/emilio.jpg" />
+        <a href="/2x10/23950">
+          <img src="/static/emilio.jpg" />
+        </a>
         <div className={styles["explain-title"]}>
           Todas las escenas de ANHQV con una búsqueda
         </div>
@@ -33,7 +35,9 @@ const Main: FunctionComponent = () => (
         </div>
       </div>
       <div className={styles["explain-image"]}>
-        <img src="/static/movil_anhqv.jpg" />
+        <a href="/2x04/18033">
+          <img src="/static/movil_anhqv.jpg" />
+        </a>
         <div className={styles["explain-title"]}>
           Descarga un GIF de cualquier escena
         </div>
