@@ -24,7 +24,6 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
             <Link href="/" prefetch={false}>
               <a>
                 <img className={styles.logo} />
-                <div className={styles.brand}>vecinoscabrones.com</div>
               </a>
             </Link>
           </div>

@@ -164,11 +164,11 @@
   padding-bottom: 1em;
 }
 .home-content {
-  margin-left: 22px;
-  margin-right: 22px;
+  margin-left: 24px;
+  margin-right: 24px;
 }
 .header {
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .brand {
@@ -186,9 +186,10 @@
 
 .title {
   margin-top: 55px;
+  margin-bottom: 56px;
 }
 .search {
-  margin-top: 55px;
+  margin-top: 24px;
 }
 .search-box {
   width: 100%;
@@ -216,11 +217,12 @@
   float: left;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
+  border-radius: 12px;
   box-sizing: border-box;
 }
 
 .search-button {
-  width: 54px;
+  width: 60px;
   height: 60px;
   background: #fec32a;
   position: absolute;
@@ -228,6 +230,7 @@
   top: -2px;
   border: 2px solid #d6a11c;
   border-left: none;
+  border-radius: 0 12px 12px 0;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   background-image: url("../img/search.svg");
@@ -238,6 +241,7 @@
 
 .explain {
   margin-top: 110px;
+  margin-bottom: 100px;
 }
 
 .line-group {
@@ -256,8 +260,8 @@
   background-color: #16181b;
   width: fit-content;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 24px;
+  padding-right: 24px;
   font-family: "San Francisco";
   font-style: normal;
   font-weight: 600;
@@ -269,11 +273,20 @@
 }
 
 .results {
-  margin-top: 20px;
+  margin-top: 24px;
   background-color: #212326;
   padding: 8px;
+  margin-bottom: 100px;
 }
-
+@media screen and (min-width: 600px) {
+  .results {
+    border-radius: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+}
 .results-count {
   width: 100%;
   text-align: center;
@@ -285,7 +298,7 @@
   letter-spacing: 0.17em;
   text-transform: uppercase;
   color: #898b8d;
-  padding-top: 6px;
+  padding-top: 8px;
 }
 
 .results-season {
@@ -322,8 +335,16 @@
   margin-top: 20px;
   background-color: #212326;
   padding: 8px;
+  margin-bottom: 100px;
 }
-
+.spinner {
+  width: 100%;
+  height: 70px;
+  background-image: url("../img/rolling.svg");
+  background-size: 70px 70px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .chapter-info {
   font-family: "San Francisco";
   font-style: normal;
@@ -489,6 +510,7 @@
   border-radius: 12px;
   max-height: 285px;
   object-fit: cover;
+  max-width: 380px;
 }
 .explain-title {
   font-family: "San Francisco";
