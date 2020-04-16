@@ -13,6 +13,23 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Vecinos Cabrones</title>
+      <script
+        key="ga_script"
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-163615540-1"
+      ></script>
+
+      <script
+        key="ga_init"
+        dangerouslySetInnerHTML={{
+          __html: `
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'UA-163615540-1');
+		`,
+        }}
+      />
     </Head>
     <IconTheming />
     <PageSeo />
