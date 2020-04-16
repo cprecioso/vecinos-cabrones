@@ -78,7 +78,7 @@ const Main: FunctionComponent = () => (
           <br />
           <a href="https://twitter.com/adrimartin">@adrimartin</a>: diseño UI/UX
           <br />
-          <a href="https://twitter.com/_cprecioso">@cprecioso</a>: frontend
+          <a href="https://twitter.com/_cprecioso">@_cprecioso</a>: frontend
           <br />
         </div>
       </div>
