@@ -489,6 +489,7 @@
   margin-top: 50px;
   border-radius: 12px;
   max-height: 285px;
+  object-fit: cover;
 }
 .explain-title {
   font-family: "San Francisco";
