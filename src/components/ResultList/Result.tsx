@@ -5,22 +5,16 @@ import { useFrameUrls } from "../../backend/thumbnail"
 import { SubtitleResult } from "../../backend/types"
 import styles from "../../styles/local.module.css"
 import { useGif } from "../../util/gif"
+import { useHovering, useIsImageLoaded } from "../../util/hooks"
 
 export type Props = {
   data: SubtitleResult
 }
 
 export const Result: FunctionComponent<Props> = ({ data: result }) => {
-  const [isHovering, setIsHovering] = React.useState(false)
-  const onEnter = React.useCallback(() => setIsHovering(true), [])
-  const onLeave = React.useCallback(() => setIsHovering(false), [])
-
+  const { isHovering, onEnter, onLeave } = useHovering()
   const [ref, inView] = useInView({ threshold: 0.7 })
-
-  const [isLoaded, setIsLoaded] = React.useState(false)
-  const onLoad = React.useCallback(() => {
-    setIsLoaded(true)
-  }, [])
+  const { isLoaded, handleLoad } = useIsImageLoaded()
 
   const isActive = isHovering || (inView && isLoaded)
 
@@ -37,7 +31,7 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
     >
       <div className={styles["item-container"]}>
         <img
-          onLoad={onLoad}
+          onLoad={handleLoad}
           crossOrigin="anonymous"
           src={currentSource}
           className={clsx(styles["image-result"], isLoading && styles.loading)}
