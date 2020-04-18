@@ -17,7 +17,12 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
 
   const [ref, inView] = useInView({ threshold: 0.7 })
 
-  const isActive = isHovering || inView
+  const [isLoaded, setIsLoaded] = React.useState(false)
+  const onLoad = React.useCallback(() => {
+    setIsLoaded(true)
+  }, [])
+
+  const isActive = isHovering || (inView && isLoaded)
 
   const frameUrls = useFrameUrls(result)
   const { gifUrl, isLoading } = useGif(frameUrls, isActive)
@@ -32,6 +37,7 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
     >
       <div className={styles["item-container"]}>
         <img
+          onLoad={onLoad}
           crossOrigin="anonymous"
           src={currentSource}
           className={clsx(styles["image-result"], isLoading && styles.loading)}
