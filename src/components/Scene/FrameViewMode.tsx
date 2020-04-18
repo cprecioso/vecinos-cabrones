@@ -8,6 +8,21 @@ export const EmptyViewMode: FunctionComponent = () => (
   <img crossOrigin="anonymous" className={styles["scene-image"]} />
 )
 
+const Frame: FunctionComponent<{ url: string; text: string }> = ({
+  url,
+  text,
+}) => (
+  <div className={styles["scene-frame-view-frame"]}>
+    <a href={url} download={`${slugify(text).slice(0, 10)}.gif`}>
+      <img
+        crossOrigin="anonymous"
+        className={styles["scene-image"]}
+        src={url}
+      />
+    </a>
+  </div>
+)
+
 const FrameViewMode: FunctionComponent<{ result: SubtitleResult }> = ({
   result,
 }) => {
@@ -16,18 +31,7 @@ const FrameViewMode: FunctionComponent<{ result: SubtitleResult }> = ({
   return (
     <div className={styles["scene-frame-view"]}>
       {frameUrls.map((frameUrl) => (
-        <div key={frameUrl} className={styles["scene-frame-view-frame"]}>
-          <a
-            href={frameUrl}
-            download={`${slugify(result.text).slice(0, 10)}.gif`}
-          >
-            <img
-              crossOrigin="anonymous"
-              className={styles["scene-image"]}
-              src={frameUrl}
-            />
-          </a>
-        </div>
+        <Frame key={frameUrl} url={frameUrl} text={result.text} />
       ))}
     </div>
   )
