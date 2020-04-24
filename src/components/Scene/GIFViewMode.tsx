@@ -10,7 +10,7 @@ const GIFViewMode: FunctionComponent<{
   scene: SubtitleResult
 }> = ({ scene }) => {
   const frameUrls = useFrameUrls(scene)
-  const { gifUrl, isLoading } = useGif(frameUrls, true)
+  const { gifUrl, isLoading } = useGif(frameUrls, true, scene.text)
 
   return (
     <div className={styles["scene-gif-view"]}>

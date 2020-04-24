@@ -14,7 +14,7 @@ const withRetry = async <T>(times: number, fn: () => Promise<T>) => {
   throw error
 }
 
-export const useGif = (frameUrls: string[], load: boolean) => {
+export const useGif = (frameUrls: string[], load: boolean, text?: string) => {
   const [gifUrl, setGifUrl] = React.useState(undefined as string | undefined)
   const queue = useQueue()
 
@@ -39,6 +39,7 @@ export const useGif = (frameUrls: string[], load: boolean) => {
         queue.add(async () => {
           const blobUrl = await makeGifBlobUrl(
             frameUrls,
+            text,
             abortController.signal
           )
           setGifUrl(blobUrl)
@@ -46,7 +47,7 @@ export const useGif = (frameUrls: string[], load: boolean) => {
       ).catch(console.error.bind(console, "Error"))
       return () => abortController.abort()
     }
-  }, [isLoading, frameUrls, queue])
+  }, [isLoading, frameUrls, queue, text])
 
   return { gifUrl, isLoading }
 }
