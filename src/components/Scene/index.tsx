@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { getClosestFrameUrl } from "../../backend/thumbnail"
+import { getClosestFrameUrl } from "../../api/backend/thumbnail"
 import styles from "../../styles/local.module.css"
 import LinkToSubtitle from "../LinkToSubtitle"
 import SegmentedControl from "../SegmentedControl"

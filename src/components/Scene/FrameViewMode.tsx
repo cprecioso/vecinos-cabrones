@@ -1,7 +1,7 @@
 import slugify from "@sindresorhus/slugify"
 import React, { FunctionComponent } from "react"
-import { useFrameUrls } from "../../backend/thumbnail"
-import { SubtitleResult } from "../../backend/types"
+import { useFrameUrls } from "../../api/backend/thumbnail"
+import { SubtitleResult } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
 
 export const EmptyViewMode: FunctionComponent = () => (

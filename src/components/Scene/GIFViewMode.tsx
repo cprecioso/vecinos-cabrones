@@ -1,8 +1,8 @@
 import slugify from "@sindresorhus/slugify"
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { useFrameUrls } from "../../backend/thumbnail"
-import { SubtitleResult } from "../../backend/types"
+import { useFrameUrls } from "../../api/backend/thumbnail"
+import { SubtitleResult } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
 import { useGif } from "../../util/gif"
 

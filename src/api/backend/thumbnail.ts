@@ -4,7 +4,7 @@ import {
   printWithDecimalPlaces,
   range,
   roundToMultiple,
-} from "../util/timestamp"
+} from "../../util/timestamp"
 import { SubtitleResult } from "./types"
 
 const urlFromSearchResult = (
