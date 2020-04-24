@@ -29,7 +29,7 @@ export const addText = async (img: HTMLImageElement, text: string) => {
   ctx.drawImage(img, 0, 0)
 
   const fontSize = 30
-  ctx.font = `bold ${fontSize}px ${await font}`
+  ctx.font = `${fontSize}px ${await font}`
   ctx.fillStyle = "white"
   ctx.lineWidth = 1.5
   ctx.strokeStyle = "black"
