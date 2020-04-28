@@ -16,6 +16,7 @@
   margin: 0 auto;
   margin-top: 20px;
   overflow: hidden;
+  max-width: 240px;
 }
 
 .segmentedControl .option {

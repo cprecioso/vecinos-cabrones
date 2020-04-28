@@ -16,8 +16,8 @@ export type Props = {
 }
 
 enum ViewMode {
-  Frame = "Fotogramas",
-  Gif = "Gif",
+  Frame = "Fotos",
+  Gif = "GIF",
 }
 
 const quoteIdempotent = (str: string) =>
@@ -61,10 +61,7 @@ const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
       <div className={styles["chapter-data"]}>
         <div className={styles["chapter-info"]}>
           {current.data ? (
-            <>
-              Episodio {current.data.scene.chapter.episodeNumber} - Temporada{" "}
-              {current.data.scene.chapter.seasonNumber}
-            </>
+            <>Temporada {current.data.scene.chapter.seasonNumber}</>
           ) : (
             <>&nbsp;</>
           )}

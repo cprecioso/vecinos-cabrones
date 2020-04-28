@@ -230,9 +230,9 @@
   top: -2px;
   border: 2px solid #d6a11c;
   border-left: none;
-  border-radius: 0 12px 12px 0;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-radius: 0 6px 6px 0;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
   background-image: url("../img/search.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -275,7 +275,7 @@
 .results {
   margin-top: 24px;
   background-color: #212326;
-  padding: 8px;
+  padding: 4px;
   margin-bottom: 100px;
 }
 @media screen and (min-width: 600px) {
@@ -312,6 +312,7 @@
   text-transform: uppercase;
   margin-top: 15px;
   margin-bottom: 15px;
+  margin-left: 8px;
 }
 
 .result {
@@ -320,8 +321,7 @@
 }
 
 .item-container {
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding: 4px;
 }
 
 .image-result {
@@ -503,7 +503,6 @@
   border-radius: 12px;
   max-height: 285px;
   object-fit: cover;
-  max-width: 380px;
 }
 .explain-title {
   font-family: "San Francisco";
