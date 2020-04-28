@@ -21,9 +21,7 @@ const ScenePage: NextPage<{ initialCurrentSceneData?: CacheEntry }> = ({
 
   return (
     <>
-      <div style={{ paddingRight: 24, paddingLeft: 24 }}>
-        <SearchBar />
-      </div>
+      <SearchBar compact />
       <Scene id={sceneId} initialCurrentSceneData={initialCurrentSceneData} />
     </>
   )

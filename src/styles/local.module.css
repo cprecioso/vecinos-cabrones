@@ -188,9 +188,16 @@
   margin-top: 55px;
   margin-bottom: 56px;
 }
+
 .search {
   margin-top: 24px;
 }
+
+.search.compact {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 .search-box {
   width: 100%;
   background-color: white;

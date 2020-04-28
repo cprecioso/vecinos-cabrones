@@ -4,11 +4,11 @@ import React, { DOMAttributes, FunctionComponent } from "react"
 import styles from "../styles/local.module.css"
 import { useQuery } from "../util/query-context"
 
-export type Props = { autoFocus?: boolean }
+export type Props = { autoFocus?: boolean; compact?: boolean }
 
 type OnSubmitCallback = NonNullable<DOMAttributes<HTMLFormElement>["onSubmit"]>
 
-const SearchBar: FunctionComponent<Props> = ({ autoFocus }) => {
+const SearchBar: FunctionComponent<Props> = ({ autoFocus, compact }) => {
   const router = useRouter()
   const { query, setQuery } = useQuery()
 
@@ -30,7 +30,7 @@ const SearchBar: FunctionComponent<Props> = ({ autoFocus }) => {
 
   return (
     <form
-      className={clsx(styles.row, styles.search)}
+      className={clsx(styles.row, styles.search, compact && styles.compact)}
       method="GET"
       action="/search"
       onSubmit={onSubmit}

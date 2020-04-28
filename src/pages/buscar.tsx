@@ -16,10 +16,10 @@ const SearchPage: NextPage = () => {
 
   return (
     <>
-      <div style={{ paddingRight: 24, paddingLeft: 24 }}>
-        <SearchBar />
-      </div>
+      <SearchBar compact />
       <PageSeo pageTitle={`"${query}"`} />
+
+      <LoadingView />
 
       {!query ? null : isValidating ? (
         <LoadingView />
