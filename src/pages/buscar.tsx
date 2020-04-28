@@ -19,8 +19,6 @@ const SearchPage: NextPage = () => {
       <SearchBar compact />
       <PageSeo pageTitle={`"${query}"`} />
 
-      <LoadingView />
-
       {!query ? null : isValidating ? (
         <LoadingView />
       ) : data ? (
