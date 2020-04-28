@@ -14,13 +14,11 @@ const GIFViewMode: FunctionComponent<{
 
   return (
     <div className={styles["scene-gif-view"]}>
-      <a download={`${slugify(scene.text).slice(0, 10)}.gif`} href={gifUrl}>
-        <img
-          crossOrigin="anonymous"
-          className={clsx(styles["scene-image"], isLoading && styles.loading)}
-          src={gifUrl ?? frameUrls[0]}
-        />
-      </a>
+      <img
+        crossOrigin="anonymous"
+        className={clsx(styles["scene-image"], isLoading && styles.loading)}
+        src={gifUrl ?? frameUrls[0]}
+      />
     </div>
   )
 }

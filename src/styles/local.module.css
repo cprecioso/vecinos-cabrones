@@ -532,7 +532,38 @@
 .explain-description a {
   color: #fec32a;
 }
-
+.actions-holder {
+  width: 280px;
+  height: 35px;
+  margin: 0 auto;
+  padding-top: 16px;
+}
+.action-button {
+  width: 90px;
+  height: 35px;
+  background: #fff;
+  border-radius: 6px;
+  font-family: San Francisco;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 35px;
+  color: #16181b;
+  padding-left: 42px;
+  cursor: pointer;
+}
+.action-button.download {
+  float: left;
+  background-image: url("../img/download.svg");
+  background-repeat: no-repeat;
+  background-position: 16px;
+}
+.action-button.share {
+  float: right;
+  background-image: url("../img/share.svg");
+  background-repeat: no-repeat;
+  background-position: 16px;
+}
 @keyframes pulse {
   from {
     filter: opacity(1);
