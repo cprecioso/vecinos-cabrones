@@ -85,7 +85,7 @@ const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
             <FrameViewMode result={current.data.scene} />
           )
         ) : (
-          <EmptyViewMode result={current.data?.scene} />
+          <EmptyViewMode />
         )}
 
         <div className={styles.subtitles}>

@@ -5,13 +5,8 @@ import { SubtitleResult } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
 import { ActionButtons } from "./ActionButtons"
 
-export const EmptyViewMode: FunctionComponent<{ result?: SubtitleResult }> = ({
-  result,
-}) => (
-  <>
-    <img crossOrigin="anonymous" className={styles["scene-image"]} />
-    <ActionButtons enableDownload title={result?.text} />
-  </>
+export const EmptyViewMode: FunctionComponent = ({}) => (
+  <img crossOrigin="anonymous" className={styles["scene-image"]} />
 )
 
 const Frame: FunctionComponent<{ url: string; text: string }> = ({

@@ -1,4 +1,3 @@
-import slugify from "@sindresorhus/slugify"
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
 import { useFrameUrls } from "../../api/backend/thumbnail"
@@ -22,12 +21,7 @@ const GIFViewMode: FunctionComponent<{
           src={gifUrl ?? frameUrls[0]}
         />
       </div>
-      <ActionButtons
-        enableDownload
-        title={scene.text}
-        downloadUrl={gifUrl}
-        downloadName={`${slugify(scene.text).slice(0, 30)}}.gif`}
-      />
+      <ActionButtons fileType="gif" fileUrl={gifUrl} title={scene.text} />
     </>
   )
 }

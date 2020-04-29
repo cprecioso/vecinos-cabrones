@@ -1,74 +1,54 @@
+import slugify from "@sindresorhus/slugify"
 import clsx from "clsx"
 import { useRouter } from "next/router"
-import React, { DOMAttributes, FunctionComponent } from "react"
+import React, { FunctionComponent } from "react"
+import { useWebShare } from "../../api/webshare"
 import styles from "../../styles/local.module.css"
 
-declare global {
-  interface Navigator {
-    share(options: {
-      url?: string
-      title?: string
-      text?: string
-    }): Promise<void>
+const ShareButton: FunctionComponent<{ title: string }> = ({ title }) => {
+  const { asPath: url } = useRouter()
+  const { canShare, share } = useWebShare(title, url)
+
+  if (canShare) {
+    return (
+      <a className={clsx(!title && styles.disabled)} onClick={share}>
+        <div className={clsx(styles["action-button"], styles.share)}>
+          Compartir
+        </div>
+      </a>
+    )
+  } else {
+    return null
   }
 }
 
-const detectCanShare = () => {
-  try {
-    return !!window.navigator.share
-  } catch (_) {}
-  return false
-}
-
-const ShareButton: FunctionComponent<{ title?: string }> = ({ title }) => {
-  const [canShare, setCanShare] = React.useState(false)
-  React.useEffect(() => setCanShare(detectCanShare()), [])
-
-  const { asPath: url } = useRouter()
-
-  const handleShare = React.useCallback<
-    NonNullable<DOMAttributes<HTMLAnchorElement>["onClick"]>
-  >(
-    (e) => {
-      navigator.share({ url, title, text: title })
-      e.preventDefault()
-    },
-    [title, url]
-  )
-
-  if (!canShare) return null
-
-  return (
-    <a
-      href="#"
-      className={clsx(!title && styles.disabled)}
-      onClick={handleShare}
-    >
-      <div className={clsx(styles["action-button"], styles.share)}>
-        Compartir
-      </div>
-    </a>
-  )
-}
+const DownloadButton: FunctionComponent<{ url?: string; name?: string }> = ({
+  url,
+  name,
+}) => (
+  <a
+    className={clsx(!url && styles.disabled)}
+    download={name || true}
+    href={url}
+  >
+    <div className={clsx(styles["action-button"], styles.download)}>
+      Descargar
+    </div>
+  </a>
+)
 
 export const ActionButtons: FunctionComponent<{
-  enableDownload?: boolean
-  title?: string
-  downloadUrl?: string
-  downloadName?: string
-}> = ({ downloadName, downloadUrl, title, enableDownload }) => (
+  fileUrl?: string
+  fileType?: string
+  title: string
+}> = ({ fileUrl, title, fileType }) => (
   <div className={styles["actions-holder"]}>
-    <ShareButton title={title} />
-    {enableDownload ? (
-      <a
-        className={clsx(!downloadUrl && styles.disabled)}
-        download={downloadName || true}
-        href={downloadUrl}
-      >
-        <div className={clsx(styles["action-button"], styles.download)}>
-          Descargar
-        </div>
-      </a>
+    {fileType ? (
+      <DownloadButton
+        name={title && `${slugify(title).slice(0, 30)}.${fileType}`}
+        url={fileUrl}
+      />
     ) : null}
+    <ShareButton title={title} />
   </div>
 )
