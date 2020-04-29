@@ -934,6 +934,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@cprecioso/canvas-text-layout@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@cprecioso/canvas-text-layout/-/canvas-text-layout-1.0.1.tgz#dd5add4194eea15df820789b54813f46aa087808"
+  integrity sha512-NvoVNaZ1IDVXmmyLHlmrp4SDo6x1pg9XLT27swNP1Jnu6zw1s90jgOpZl03L4f1m59d6qnTrgbTXjQT3Gyqj7g==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"

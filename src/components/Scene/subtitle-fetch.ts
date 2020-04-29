@@ -1,5 +1,5 @@
-import getSubtitle from "../../backend/getSubtitle"
-import { SubtitleResult } from "../../backend/types"
+import getSubtitle from "../../api/backend/getSubtitle"
+import { SubtitleResult } from "../../api/backend/types"
 import useRequest from "../../util/request"
 
 export interface CacheEntry {

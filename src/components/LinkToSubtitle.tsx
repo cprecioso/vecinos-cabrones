@@ -1,6 +1,6 @@
 import Link from "next/link"
 import React, { FunctionComponent } from "react"
-import { SubtitleResult } from "../backend/types"
+import { SubtitleResult } from "../api/backend/types"
 
 const LinkToSubtitle: FunctionComponent<{
   result?: SubtitleResult

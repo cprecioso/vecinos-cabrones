@@ -1,10 +1,11 @@
 import slugify from "@sindresorhus/slugify"
 import React, { FunctionComponent } from "react"
-import { useFrameUrls } from "../../backend/thumbnail"
-import { SubtitleResult } from "../../backend/types"
+import { useFrameUrls } from "../../api/backend/thumbnail"
+import { SubtitleResult } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
+import { ActionButtons } from "./ActionButtons"
 
-export const EmptyViewMode: FunctionComponent = () => (
+export const EmptyViewMode: FunctionComponent = ({}) => (
   <img crossOrigin="anonymous" className={styles["scene-image"]} />
 )
 
@@ -29,11 +30,14 @@ const FrameViewMode: FunctionComponent<{ result: SubtitleResult }> = ({
   const frameUrls = useFrameUrls(result)
 
   return (
-    <div className={styles["scene-frame-view"]}>
-      {frameUrls.map((frameUrl) => (
-        <Frame key={frameUrl} url={frameUrl} text={result.text} />
-      ))}
-    </div>
+    <>
+      <div className={styles["scene-frame-view"]}>
+        {frameUrls.map((frameUrl) => (
+          <Frame key={frameUrl} url={frameUrl} text={result.text} />
+        ))}
+      </div>
+      <ActionButtons title={result.text} />
+    </>
   )
 }
 

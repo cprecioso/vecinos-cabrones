@@ -1,5 +1,5 @@
 import Lambda from "aws-sdk/clients/lambda"
-import { saveInCache } from "../components/Scene/subtitle-fetch"
+import { saveInCache } from "../../components/Scene/subtitle-fetch"
 import { lambdaAgent } from "./lambdaAgent"
 import { SubtitleSearchResponse } from "./types"
 

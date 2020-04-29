@@ -191,6 +191,7 @@
 
 .search {
   margin-top: 24px;
+  box-sizing: border-box;
 }
 
 .search.compact {
@@ -532,6 +533,47 @@
 .explain-description a {
   color: #fec32a;
 }
+.actions-holder {
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.actions-holder > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.action-button {
+  width: 90px;
+  height: 35px;
+  background: #fff;
+  border-radius: 6px;
+  font-family: San Francisco;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 35px;
+  color: #16181b;
+  padding-left: 42px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: 16px;
+  transition: filter 0.3s ease-in-out;
+}
+
+.disabled .action-button {
+  filter: opacity(0.5);
+  cursor: default;
+}
+
+.action-button.download {
+  background-image: url("../img/download.svg");
+}
+
+.action-button.share {
+  background-image: url("../img/share.svg");
+}
 
 @keyframes pulse {
   from {
@@ -563,8 +605,9 @@
 
   content: " ";
 
-  background: no-repeat center url("../img/download.svg");
-  background-size: contain;
+  border-radius: 3px;
+  background: white no-repeat center url("../img/download.svg");
+  background-size: 50%;
 }
 
 .scene-gif-view {
