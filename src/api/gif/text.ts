@@ -6,6 +6,22 @@ import {
 } from "@cprecioso/canvas-text-layout"
 import fontUrl from "file-loader?name=static/[hash].[ext]&publicPath=/_next/!./anhqv-font.ttf"
 
+declare global {
+  interface Document {
+    fonts: FontFaceSet
+  }
+
+  class FontFace {
+    constructor(family: string, source: string)
+    load(): Promise<this>
+    family: string
+  }
+
+  class FontFaceSet {
+    add(font: FontFace): void
+  }
+}
+
 const font = (async () => {
   try {
     const font = new FontFace("anhqv", `url(${fontUrl})`)
@@ -13,7 +29,6 @@ const font = (async () => {
     document.fonts.add(font)
     return font.family
   } catch (err) {
-    console.log(err)
     return "sans-serif"
   }
 })()

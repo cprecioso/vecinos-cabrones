@@ -3,6 +3,16 @@ import { useRouter } from "next/router"
 import React, { DOMAttributes, FunctionComponent } from "react"
 import styles from "../../styles/local.module.css"
 
+declare global {
+  interface Navigator {
+    share(options: {
+      url?: string
+      title?: string
+      text?: string
+    }): Promise<void>
+  }
+}
+
 const detectCanShare = () => {
   try {
     return !!window.navigator.share
