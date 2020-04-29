@@ -4,7 +4,7 @@ import {
   layoutBlock,
   Origin,
 } from "@cprecioso/canvas-text-layout"
-import fontUrl from "file-loader?name=static/[hash].[ext]&publicPath=/_next/!./anhqv-font.ttf"
+import fontUrl from "file-loader?name=static/[hash].[ext]&publicPath=/_next/!./asap-condensed-medium.woff2"
 
 declare global {
   interface Document {
@@ -24,7 +24,7 @@ declare global {
 
 const font = (async () => {
   try {
-    const font = new FontFace("anhqv", `url(${fontUrl})`)
+    const font = new FontFace("AsapCondensedMedium", `url(${fontUrl})`)
     await font.load()
     document.fonts.add(font)
     return font.family
@@ -43,10 +43,10 @@ export const addText = async (img: HTMLImageElement, text: string) => {
   const ctx = canvas.getContext("2d")!
   ctx.drawImage(img, 0, 0)
 
-  const fontSize = 30
+  const fontSize = 32.5
   ctx.font = `${fontSize}px ${await font}`
   ctx.fillStyle = "white"
-  ctx.lineWidth = 1.5
+  ctx.lineWidth = 4
   ctx.strokeStyle = "black"
   ctx.textAlign = "left"
 
@@ -62,8 +62,8 @@ export const addText = async (img: HTMLImageElement, text: string) => {
     lineOptions: {
       horizontalAlignment: Alignment.Middle,
       drawFn: (ctx, line, options) => {
-        ctx.fillText(line.text, options.x, options.y)
         ctx.strokeText(line.text, options.x, options.y)
+        ctx.fillText(line.text, options.x, options.y)
       },
     },
   })
