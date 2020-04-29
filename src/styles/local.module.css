@@ -191,6 +191,7 @@
 
 .search {
   margin-top: 24px;
+  box-sizing: border-box;
 }
 
 .search.compact {
