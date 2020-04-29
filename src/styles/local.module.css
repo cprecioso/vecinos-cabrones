@@ -533,11 +533,16 @@
   color: #fec32a;
 }
 .actions-holder {
-  width: 280px;
-  height: 35px;
-  margin: 0 auto;
   padding-top: 16px;
+  display: flex;
+  justify-content: space-around;
 }
+
+.actions-holder > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
 .action-button {
   width: 90px;
   height: 35px;
@@ -551,19 +556,24 @@
   color: #16181b;
   padding-left: 42px;
   cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: 16px;
+  transition: filter 0.3s ease-in-out;
 }
+
+.disabled .action-button {
+  filter: opacity(0.5);
+  cursor: default;
+}
+
 .action-button.download {
-  float: left;
   background-image: url("../img/download.svg");
-  background-repeat: no-repeat;
-  background-position: 16px;
 }
+
 .action-button.share {
-  float: right;
   background-image: url("../img/share.svg");
-  background-repeat: no-repeat;
-  background-position: 16px;
 }
+
 @keyframes pulse {
   from {
     filter: opacity(1);
@@ -594,8 +604,9 @@
 
   content: " ";
 
-  background: no-repeat center url("../img/download.svg");
-  background-size: contain;
+  border-radius: 3px;
+  background: white no-repeat center url("../img/download.svg");
+  background-size: 50%;
 }
 
 .scene-gif-view {

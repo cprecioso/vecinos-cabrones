@@ -85,16 +85,9 @@ const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
             <FrameViewMode result={current.data.scene} />
           )
         ) : (
-          <EmptyViewMode />
+          <EmptyViewMode result={current.data?.scene} />
         )}
-        <div className={styles["actions-holder"]}>
-          <div className={styles["action-button"] + " " + styles.download}>
-            Descargar
-          </div>
-          <div className={styles["action-button"] + " " + styles.share}>
-            Compartir
-          </div>
-        </div>
+
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
             {current.data?.noPrevious ? null : (

@@ -19,3 +19,7 @@ class FontFace {
 class FontFaceSet {
   add(font: FontFace): void
 }
+
+interface Navigator {
+  share(options: { url?: string; title?: string; text?: string }): Promise<void>
+}
