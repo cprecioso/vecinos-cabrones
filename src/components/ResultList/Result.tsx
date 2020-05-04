@@ -1,14 +1,14 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
 import { useInView } from "react-intersection-observer"
-import { useFrameUrls } from "../../api/backend/thumbnail"
-import { SubtitleResult } from "../../api/backend/types"
+import { useFrames } from "../../api/backend/frames"
+import { Scene } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
 import { useGif } from "../../util/gif"
 import { useHovering, useIsImageLoaded } from "../../util/hooks"
 
 export type Props = {
-  data: SubtitleResult
+  data: Scene
 }
 
 export const Result: FunctionComponent<Props> = ({ data: result }) => {
@@ -18,7 +18,7 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
 
   const isActive = isHovering || (inView && isLoaded)
 
-  const frameUrls = useFrameUrls(result)
+  const frameUrls = useFrames(result)
   const { gifUrl, isLoading } = useGif(frameUrls, isActive)
   const currentSource = isActive && gifUrl ? gifUrl : frameUrls[0]
 

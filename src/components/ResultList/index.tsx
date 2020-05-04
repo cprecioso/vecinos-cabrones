@@ -2,15 +2,15 @@ import groupBy from "lodash/groupBy"
 import sortBy from "lodash/sortBy"
 import toPairs from "lodash/toPairs"
 import React, { FunctionComponent } from "react"
-import { SubtitleSearchResponse } from "../../api/backend/types"
+import { Scene } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
 import { QueueProvider } from "../../util/queue-context"
-import LinkToSubtitle from "../LinkToSubtitle"
+import LinkToScene from "../LinkToScene"
 import { Result } from "./Result"
 
 type SeasonProps = {
   season: number | String
-  results: SubtitleSearchResponse
+  results: Scene[]
 }
 
 const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
@@ -19,11 +19,11 @@ const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
     <div className={styles.row}>
       {sortBy(sortBy(results, "start"), "chapter.episodeNumber").map(
         (result) => (
-          <LinkToSubtitle key={result.id} result={result}>
+          <LinkToScene key={result.id} scene={result}>
             <a>
               <Result data={result} />
             </a>
-          </LinkToSubtitle>
+          </LinkToScene>
         )
       )}
     </div>
@@ -31,7 +31,7 @@ const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
 )
 
 export type Props = {
-  data: SubtitleSearchResponse
+  data: Scene[]
 }
 
 const ResultList: FunctionComponent<Props> = ({ data }) => (
