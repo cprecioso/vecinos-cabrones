@@ -73,9 +73,9 @@ const Scene: FunctionComponent<Props> = ({ id, scene }) => {
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
-            <SubtitleLineWrapper id={data.id - 1} />
+            <SubtitleLineWrapper id={prevSceneId} />
             <SubtitleLineWrapper id={data.id} scene={data} current />
-            <SubtitleLineWrapper id={data.id + 1} />
+            <SubtitleLineWrapper id={nextSceneId} />
           </div>
 
           <div className={styles["subtitles-navigation"]}>
