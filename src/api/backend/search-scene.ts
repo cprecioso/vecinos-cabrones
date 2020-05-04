@@ -1,16 +1,19 @@
-import Lambda from "aws-sdk/clients/lambda"
-import { saveInCache } from "../../components/Scene/subtitle-fetch"
+import type { Lambda } from "aws-sdk/clients/all"
+import useStaticDataFetch from "../data-fetch"
 import { lambdaAgent } from "./lambdaAgent"
-import { SubtitleSearchResponse } from "./types"
+import { saveScene } from "./scene"
+import { Scene } from "./types"
+
+const NAMESPACE = "search"
+
+type SubtitleSearchResponse = Scene[]
 
 interface Payload {
   statusCode: number
   results: string
 }
 
-export default async function searchSubtitle(search: string) {
-  if (!search) throw new Error("No query given")
-
+const searchSubtitle = async (search: string) => {
   const response = await new Promise<Lambda.InvocationResponse>(
     (fulfill, reject) => {
       lambdaAgent.invoke(
@@ -33,9 +36,16 @@ export default async function searchSubtitle(search: string) {
 
   const results = JSON.parse(innerResponse.results) as SubtitleSearchResponse
 
-  for (const scene of results) {
-    saveInCache(scene, {})
-  }
-
   return results
 }
+
+const searchSceneFetcher = async (_: typeof NAMESPACE, query: string) => {
+  const results = await searchSubtitle(query)
+  for (const scene of results) saveScene(scene)
+  return results
+}
+
+const useSearchScene = (query?: string, initialData?: Scene[]) =>
+  useStaticDataFetch(NAMESPACE, query, searchSceneFetcher, initialData)
+
+export default useSearchScene

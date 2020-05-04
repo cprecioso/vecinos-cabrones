@@ -5,9 +5,9 @@ import {
   range,
   roundToMultiple,
 } from "../../util/timestamp"
-import { SubtitleResult } from "./types"
+import { Scene } from "./types"
 
-const urlFromSearchResult = (
+const thumbnailUrlFromSceneInfo = (
   season: number,
   episode: number,
   timestamp: number
@@ -18,25 +18,29 @@ const urlFromSearchResult = (
     2
   )}.jpg`
 
-export function getUrlsForSearchResultThumbnail(result: SubtitleResult) {
-  const season = result.chapter.seasonNumber
-  const episode = result.chapter.episodeNumber
-  const start = roundToMultiple(parseSubtitleTimestamp(result.start), 200)
-  const end = roundToMultiple(parseSubtitleTimestamp(result.end), 200)
+function getUrlsForSearchResultThumbnail(scene: Scene) {
+  const season = scene.chapter.seasonNumber
+  const episode = scene.chapter.episodeNumber
+  const start = roundToMultiple(parseSubtitleTimestamp(scene.start), 200)
+  const end = roundToMultiple(parseSubtitleTimestamp(scene.end), 200)
   const timestampRange = range(start, end, 200)
   const urlRange = timestampRange.map((timestamp) =>
-    urlFromSearchResult(season, episode, timestamp)
+    thumbnailUrlFromSceneInfo(season, episode, timestamp)
   )
-
   return urlRange
 }
 
-export const useFrameUrls = (result: SubtitleResult) =>
+export const useFrames = (result: Scene) =>
   React.useMemo(() => getUrlsForSearchResultThumbnail(result), [result.id])
 
-export const getClosestFrameUrl = (result: SubtitleResult) =>
-  urlFromSearchResult(
+const getClosestFrameUrl = (result: Scene) =>
+  thumbnailUrlFromSceneInfo(
     result.chapter.seasonNumber,
     result.chapter.episodeNumber,
     roundToMultiple(parseSubtitleTimestamp(result.start), 200)
   )
+
+export const useMainFrame = (scene?: Scene) =>
+  React.useMemo(() => (scene ? getClosestFrameUrl(scene) : undefined), [
+    scene?.id,
+  ])

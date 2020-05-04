@@ -1,23 +1,28 @@
 import React, { FunctionComponent } from "react"
-import { responseInterface } from "swr"
-import LinkToSubtitle from "../LinkToSubtitle"
-import { CacheEntry } from "./subtitle-fetch"
+import useScene from "../../api/backend/scene"
+import { Scene } from "../../api/backend/types"
+import LinkToScene from "../LinkToScene"
 import SubtitleLine from "./SubtitleLine"
 
 export const SubtitleLineWrapper: FunctionComponent<{
-  response: responseInterface<CacheEntry, any>
   current?: boolean
-}> = ({ response, current }) => {
+  id: number
+  scene?: Scene
+}> = ({ id, scene, current }) => {
+  const { data, error } = useScene(id, scene)
+
+  const line = (
+    <SubtitleLine
+      isCurrent={current}
+      text={data?.text ?? (error != null ? `⚠️ ${error ?? ""}` : "")}
+    />
+  )
+
+  if (current) return line
+
   return (
-    <LinkToSubtitle result={response.data?.scene} shallow={true} scroll={false}>
-      <a>
-        <SubtitleLine
-          isCurrent={current}
-          text={
-            response.error ? "⚠️" + response.error : response.data?.scene.text
-          }
-        />
-      </a>
-    </LinkToSubtitle>
+    <LinkToScene scene={data} shallow={true} scroll={false}>
+      <a>{line}</a>
+    </LinkToScene>
   )
 }

@@ -1,16 +1,16 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { useFrameUrls } from "../../api/backend/thumbnail"
-import { SubtitleResult } from "../../api/backend/types"
+import { useFrames } from "../../api/backend/frames"
+import { Scene } from "../../api/backend/types"
+import { useGif } from "../../api/gif/base"
 import styles from "../../styles/local.module.css"
-import { useGif } from "../../util/gif"
 import { ActionButtons } from "./ActionButtons"
 
 const GIFViewMode: FunctionComponent<{
-  scene: SubtitleResult
+  scene: Scene
 }> = ({ scene }) => {
-  const frameUrls = useFrameUrls(scene)
-  const { gifUrl, isLoading } = useGif(frameUrls, true, scene.text)
+  const frameUrls = useFrames(scene)
+  const { gifUrl, isLoading } = useGif(scene, { text: scene.text })
 
   return (
     <>

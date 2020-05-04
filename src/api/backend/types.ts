@@ -5,18 +5,10 @@ export interface Chapter {
   title: string
 }
 
-export interface SubtitleResult {
+export interface Scene {
   id: number
   text: string
   start: string
   end: string
   chapter: Chapter
-}
-
-export type SubtitleSearchResponse = SubtitleResult[]
-
-export type SubtitleGetResponse = {
-  current: SubtitleResult
-  previous?: SubtitleResult
-  next?: SubtitleResult
 }

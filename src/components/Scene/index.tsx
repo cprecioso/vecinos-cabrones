@@ -1,18 +1,19 @@
-import clsx from "clsx"
 import React, { FunctionComponent } from "react"
-import { getClosestFrameUrl } from "../../api/backend/thumbnail"
+import { useMainFrame } from "../../api/backend/frames"
+import useScene, { getSceneContext } from "../../api/backend/scene"
+import { Scene as IScene } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
-import LinkToSubtitle from "../LinkToSubtitle"
+import { ErrorView, LoadingView } from "../FetchHelpers"
 import SegmentedControl from "../SegmentedControl"
 import { PageSeo } from "../Seo"
-import FrameViewMode, { EmptyViewMode } from "./FrameViewMode"
+import FrameViewMode from "./FrameViewMode"
 import GIFViewMode from "./GIFViewMode"
-import { CacheEntry, useFetchSubtitleInContext } from "./subtitle-fetch"
+import { NavigationDirection, SceneNavigation } from "./SceneNavigation"
 import { SubtitleLineWrapper } from "./SubtitleView"
 
 export type Props = {
   id: number
-  initialCurrentSceneData?: CacheEntry
+  scene?: IScene
 }
 
 enum ViewMode {
@@ -23,52 +24,38 @@ enum ViewMode {
 const quoteIdempotent = (str: string) =>
   /^["'“‘].+["'”’]$/.test(str) ? str : `“${str}”`
 
-const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
-  const { current, previous, next } = useFetchSubtitleInContext(
-    id,
-    initialCurrentSceneData
-  )
-
-  const currentFrameUrl = current.data?.scene
-    ? getClosestFrameUrl(current.data.scene)
-    : undefined
-  const previousSceneFrameUrl = previous.data?.scene
-    ? getClosestFrameUrl(previous.data.scene)
-    : undefined
-  const nextSceneFrameUrl = next.data?.scene
-    ? getClosestFrameUrl(next.data.scene)
-    : undefined
-
+const Scene: FunctionComponent<Props> = ({ id, scene }) => {
+  const { data, error, isValidating } = useScene(id, scene)
   const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Gif)
+  const mainFrame = useMainFrame(data)
+
+  if (!data) {
+    return (
+      <>
+        {isValidating ? <LoadingView /> : null}
+        {error ? <ErrorView error={error} /> : null}
+      </>
+    )
+  }
+
+  const { prevSceneId, nextSceneId } = getSceneContext(data)
 
   return (
     <div className={styles.scene}>
       <PageSeo
-        imageUrl={currentFrameUrl}
-        pageTitle={
-          current.data ? quoteIdempotent(current.data.scene.text) : undefined
-        }
-        pageDescription={
-          current.data
-            ? `ANHQV ${
-                current.data.scene.chapter.seasonNumber
-              }x${current.data.scene.chapter.episodeNumber
-                .toString(10)
-                .padStart(2, "0")} ${current.data.scene.chapter.title}`
-            : undefined
-        }
+        imageUrl={mainFrame}
+        pageTitle={quoteIdempotent(data.text)}
+        pageDescription={`ANHQV ${
+          data.chapter.seasonNumber
+        }x${data.chapter.episodeNumber.toString(10).padStart(2, "0")} ${
+          data.chapter.title
+        }`}
       />
       <div className={styles["chapter-data"]}>
         <div className={styles["chapter-info"]}>
-          {current.data ? (
-            <>Temporada {current.data.scene.chapter.seasonNumber}</>
-          ) : (
-            <>&nbsp;</>
-          )}
+          Temporada {data.chapter.seasonNumber}
         </div>
-        <div className={styles["chapter-title"]}>
-          {current.data?.scene.chapter.title ?? <>&nbsp;</>}
-        </div>
+        <div className={styles["chapter-title"]}>{data.chapter.title}</div>
 
         <div style={{ clear: "both" }} />
 
@@ -78,78 +65,28 @@ const Scene: FunctionComponent<Props> = ({ id, initialCurrentSceneData }) => {
           setSelected={setCurrentViewMode as (n: string) => void}
         />
 
-        {currentFrameUrl && current.data ? (
-          currentViewMode === ViewMode.Gif ? (
-            <GIFViewMode scene={current.data.scene} />
-          ) : (
-            <FrameViewMode result={current.data.scene} />
-          )
+        {currentViewMode === ViewMode.Gif ? (
+          <GIFViewMode scene={data} />
         ) : (
-          <EmptyViewMode />
+          <FrameViewMode result={data} />
         )}
 
         <div className={styles.subtitles}>
           <div className={styles["subtitles-container"]}>
-            {current.data?.noPrevious ? null : (
-              <SubtitleLineWrapper response={previous} />
-            )}
-            <SubtitleLineWrapper response={current} current />
-            {current.data?.noNext ? null : (
-              <SubtitleLineWrapper response={next} />
-            )}
+            <SubtitleLineWrapper id={prevSceneId} />
+            <SubtitleLineWrapper id={data.id} scene={data} current />
+            <SubtitleLineWrapper id={nextSceneId} />
           </div>
 
           <div className={styles["subtitles-navigation"]}>
-            {previous.data ? (
-              <LinkToSubtitle
-                result={previous.data.scene}
-                shallow={true}
-                scroll={false}
-              >
-                <a>
-                  <div className={styles["navigation-left"]}>
-                    <img
-                      crossOrigin="anonymous"
-                      className={styles["navigation-image"]}
-                      src={previousSceneFrameUrl}
-                    />
-                    <div
-                      className={clsx(
-                        styles["navigation-indication"],
-                        styles.left
-                      )}
-                    >
-                      Anterior
-                    </div>
-                  </div>
-                </a>
-              </LinkToSubtitle>
-            ) : null}
-            {next.data ? (
-              <LinkToSubtitle
-                result={next.data.scene}
-                shallow={true}
-                scroll={false}
-              >
-                <a>
-                  <div className={styles["navigation-right"]}>
-                    <img
-                      crossOrigin="anonymous"
-                      className={styles["navigation-image"]}
-                      src={nextSceneFrameUrl}
-                    />
-                    <div
-                      className={clsx(
-                        styles["navigation-indication"],
-                        styles.right
-                      )}
-                    >
-                      Siguiente
-                    </div>
-                  </div>
-                </a>
-              </LinkToSubtitle>
-            ) : null}
+            <SceneNavigation
+              id={prevSceneId}
+              direction={NavigationDirection.Left}
+            />
+            <SceneNavigation
+              id={nextSceneId}
+              direction={NavigationDirection.Right}
+            />
           </div>
         </div>
       </div>
