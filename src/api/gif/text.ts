@@ -33,15 +33,10 @@ const font = (async () => {
   }
 })()
 
-export const addText = async (img: HTMLImageElement, text: string) => {
-  const { naturalHeight: height, naturalWidth: width } = img
-
-  const canvas = document.createElement("canvas")
-  canvas.width = width
-  canvas.height = height
+export const addText = async (canvas: HTMLCanvasElement, text: string) => {
+  const { height, width } = canvas
 
   const ctx = canvas.getContext("2d")!
-  ctx.drawImage(img, 0, 0)
 
   const fontSize = 32.5
   ctx.font = `${fontSize}px ${await font}`

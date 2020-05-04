@@ -3,16 +3,21 @@ import GIF from "gif.js"
 import { loadImage } from "./load"
 import { addText } from "./text"
 
+export interface Options {
+  text?: string
+  resizeToWidth?: number
+  abortSignal?: AbortSignal
+}
+
 export async function makeGifBlobUrl(
   frameUrls: string[],
-  text?: string,
-  abortSignal?: AbortSignal
+  { text, abortSignal, resizeToWidth }: Options
 ) {
   const gif = new GIF({ workerScript: worker })
 
   const imgs = await Promise.all(
     frameUrls.map(async (frameUrl) => {
-      const img = await loadImage(frameUrl)
+      const img = await loadImage(frameUrl, resizeToWidth)
       if (text) {
         return addText(img, text)
       } else {

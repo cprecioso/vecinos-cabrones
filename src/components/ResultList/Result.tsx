@@ -3,8 +3,8 @@ import React, { FunctionComponent } from "react"
 import { useInView } from "react-intersection-observer"
 import { useFrames } from "../../api/backend/frames"
 import { Scene } from "../../api/backend/types"
+import { useGif } from "../../api/gif/base"
 import styles from "../../styles/local.module.css"
-import { useGif } from "../../util/gif"
 import { useHovering, useIsImageLoaded } from "../../util/hooks"
 
 export type Props = {
@@ -19,7 +19,11 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
   const isActive = isHovering || (inView && isLoaded)
 
   const frameUrls = useFrames(result)
-  const { gifUrl, isLoading } = useGif(frameUrls, isActive)
+  const { gifUrl, isLoading } = useGif(
+    result,
+    { resizeToWidth: 150 },
+    !isActive
+  )
   const currentSource = isActive && gifUrl ? gifUrl : frameUrls[0]
 
   return (
