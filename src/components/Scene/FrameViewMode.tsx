@@ -1,7 +1,7 @@
 import slugify from "@sindresorhus/slugify"
 import React, { FunctionComponent } from "react"
-import { useFrameUrls } from "../../api/backend/thumbnail"
-import { SubtitleResult } from "../../api/backend/types"
+import { useFrames } from "../../api/backend/frames"
+import { Scene } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
 import { ActionButtons } from "./ActionButtons"
 
@@ -24,10 +24,8 @@ const Frame: FunctionComponent<{ url: string; text: string }> = ({
   </div>
 )
 
-const FrameViewMode: FunctionComponent<{ result: SubtitleResult }> = ({
-  result,
-}) => {
-  const frameUrls = useFrameUrls(result)
+const FrameViewMode: FunctionComponent<{ result: Scene }> = ({ result }) => {
+  const frameUrls = useFrames(result)
 
   return (
     <>

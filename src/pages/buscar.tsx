@@ -1,18 +1,16 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router"
-import searchSubtitle from "../api/backend/searchSubtitle"
+import useSearchScene from "../api/backend/search-scene"
 import { ErrorView, LoadingView } from "../components/FetchHelpers"
 import ResultList from "../components/ResultList"
 import SearchBar from "../components/SearchBar"
 import { PageSeo } from "../components/Seo"
-import useRequest from "../util/request"
 
 const SearchPage: NextPage = () => {
   const router = useRouter()
-  const query = (router.query.q as string) ?? ""
-
-  const response = useRequest(query, searchSubtitle)
-  const { data, error, isValidating } = response
+  let query = router.query.q
+  if (Array.isArray(query)) query = query[0]
+  const { data, error, isValidating } = useSearchScene(query)
 
   return (
     <>

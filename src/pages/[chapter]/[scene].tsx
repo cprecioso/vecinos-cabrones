@@ -1,41 +1,48 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import React from "react"
+import { _sceneFetcher } from "../../api/backend/scene"
+import { Scene as IScene } from "../../api/backend/types"
 import { ErrorView } from "../../components/FetchHelpers"
 import Scene from "../../components/Scene"
-import fetchSubtitle, {
-  CacheEntry,
-} from "../../components/Scene/subtitle-fetch"
 import SearchBar from "../../components/SearchBar"
 
-const ScenePage: NextPage<{ initialCurrentSceneData?: CacheEntry }> = ({
-  initialCurrentSceneData,
-}) => {
+const useSceneId = () => {
   const router = useRouter()
-  const sceneId = Number.parseInt(
-    (router.query.scene as string | undefined) ?? "",
-    10
-  )
+  let sceneIdStr = router.query.scene
+  if (Array.isArray(sceneIdStr)) sceneIdStr = sceneIdStr[0]
+  if (!sceneIdStr) return null
 
-  if (isNaN(sceneId)) return <ErrorView error="Invalid scene id" />
+  const sceneId = Number.parseInt(sceneIdStr, 10)
+  if (isNaN(sceneId)) return null
 
-  return (
-    <>
-      <SearchBar compact />
-      <Scene id={sceneId} initialCurrentSceneData={initialCurrentSceneData} />
-    </>
-  )
+  return sceneId
+}
+
+const ScenePage: NextPage<{ initialScene?: IScene }> = ({ initialScene }) => {
+  const sceneId = useSceneId()
+
+  if (sceneId != null) {
+    return (
+      <>
+        <SearchBar compact />
+        <Scene id={sceneId} scene={initialScene} />
+      </>
+    )
+  } else {
+    return <ErrorView error="Invalid scene id" />
+  }
 }
 
 ScenePage.getInitialProps = async (ctx) => {
   if (ctx.req && ctx.query.scene) {
     // We're in the server
     const sceneId = Number.parseInt(ctx.query.scene as string, 10)
-
-    const cachedEntry = await fetchSubtitle(sceneId, false)
-    return { initialCurrentSceneData: cachedEntry }
+    const scene = await _sceneFetcher("scene", "" + sceneId)
+    return { initialScene: scene }
+  } else {
+    return {}
   }
-  return {}
 }
 
 export default ScenePage
