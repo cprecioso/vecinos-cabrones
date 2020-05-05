@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react"
+import { Flipped, Flipper } from "react-flip-toolkit"
 import useScene from "../../api/backend/scene"
 import { Scene } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
@@ -30,6 +31,33 @@ function getSceneId(scene?: number | Scene) {
   return scene.id
 }
 
+const animationDuration = 200
+const animateEnter = (el: HTMLElement) => {
+  el.style.opacity = "0"
+  requestAnimationFrame(() => {
+    el.style.transition = `${animationDuration}ms opacity`
+    el.style.opacity = "1"
+    setTimeout(() => {
+      el.style.transition = ""
+    }, animationDuration)
+  })
+}
+
+const animateLeave = (
+  el: HTMLElement,
+  i: number,
+  removeElement: () => void
+) => {
+  el.style.opacity = "1"
+  requestAnimationFrame(() => {
+    el.style.transition = `${animationDuration}ms opacity`
+    el.style.opacity = "0"
+    setTimeout(() => {
+      removeElement()
+    }, animationDuration)
+  })
+}
+
 export const SubtitleView: FunctionComponent<{
   prev?: number | Scene
   current?: number | Scene
@@ -40,15 +68,30 @@ export const SubtitleView: FunctionComponent<{
   ) as any
 
   return (
-    <div className={styles["subtitles-container"]}>
-      {items.map((scene) => {
-        const isCurrent = scene != null && scene === current
-        return (
-          <div>
-            <SubtitleLineWrapper scene={scene} current={isCurrent} />
-          </div>
-        )
-      })}
-    </div>
+    <Flipper
+      flipKey={getSceneId(current)}
+      spring="veryGentle"
+      staggerConfig={{ default: { speed: 0.1 } }}
+    >
+      <div className={styles["subtitles-container"]}>
+        {items.map((scene) => {
+          const sceneId = getSceneId(scene)
+          const isCurrent = scene != null && scene === current
+          return (
+            <Flipped
+              key={sceneId}
+              flipId={sceneId}
+              stagger
+              onAppear={animateEnter}
+              onExit={animateLeave}
+            >
+              <div>
+                <SubtitleLineWrapper scene={scene} current={isCurrent} />
+              </div>
+            </Flipped>
+          )
+        })}
+      </div>
+    </Flipper>
   )
 }
