@@ -7,10 +7,9 @@ import SubtitleLine from "./SubtitleLine"
 
 const SubtitleLineWrapper: FunctionComponent<{
   current?: boolean
-  id: number
-  scene?: Scene
-}> = ({ id, scene, current }) => {
-  const { data, error } = useScene(id, scene)
+  scene: Scene | number
+}> = ({ scene, current }) => {
+  const { data, error } = useScene(scene)
 
   const line = (
     <a>
@@ -30,30 +29,16 @@ const SubtitleLineWrapper: FunctionComponent<{
   )
 }
 
-const getIdOrScene = (
-  scene?: number | Scene
-): { id: number; scene?: Scene } | undefined => {
-  if (scene == null) return undefined
-  if (typeof scene === "number") return { id: scene, scene: undefined }
-  return { id: scene.id, scene }
-}
-
 export const SubtitleView: FunctionComponent<{
   prev?: number | Scene
   current?: number | Scene
   next?: number | Scene
 }> = ({ prev, next, current }) => {
-  const _prev = getIdOrScene(prev)
-  const _current = getIdOrScene(current)
-  const _next = getIdOrScene(next)
-
   return (
     <div className={styles["subtitles-container"]}>
-      {_prev ? <SubtitleLineWrapper id={_prev.id} scene={_prev.scene} /> : null}
-      {_current ? (
-        <SubtitleLineWrapper id={_current.id} scene={_current.scene} current />
-      ) : null}
-      {_next ? <SubtitleLineWrapper id={_next.id} scene={_next.scene} /> : null}
+      {prev ? <SubtitleLineWrapper scene={prev} /> : null}
+      {current ? <SubtitleLineWrapper scene={current} current /> : null}
+      {next ? <SubtitleLineWrapper scene={next} /> : null}
     </div>
   )
 }

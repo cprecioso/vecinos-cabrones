@@ -26,7 +26,7 @@ const ScenePage: NextPage<{ initialScene?: IScene }> = ({ initialScene }) => {
     return (
       <>
         <SearchBar compact />
-        <Scene id={sceneId} scene={initialScene} />
+        <Scene scene={initialScene ?? sceneId} />
       </>
     )
   } else {

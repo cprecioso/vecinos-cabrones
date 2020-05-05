@@ -61,13 +61,17 @@ export const _sceneFetcher = async (_: typeof NAMESPACE, id: string) => {
   return scenes.current
 }
 
-const useScene = (id?: number, initialData?: Scene) =>
-  useStaticDataFetch(
+const useScene = (scene?: number | Scene) => {
+  const id = typeof scene === "number" ? scene : scene?.id
+  const initialData = typeof scene !== "number" ? scene : undefined
+
+  return useStaticDataFetch(
     NAMESPACE,
     id != null ? "" + id : undefined,
     _sceneFetcher,
     initialData
   )
+}
 
 export default useScene
 

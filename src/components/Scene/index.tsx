@@ -12,8 +12,7 @@ import { NavigationDirection, SceneNavigation } from "./SceneNavigation"
 import { SubtitleView } from "./SubtitleView"
 
 export type Props = {
-  id: number
-  scene?: IScene
+  scene: IScene | number
 }
 
 enum ViewMode {
@@ -24,8 +23,8 @@ enum ViewMode {
 const quoteIdempotent = (str: string) =>
   /^["'“‘].+["'”’]$/.test(str) ? str : `“${str}”`
 
-const Scene: FunctionComponent<Props> = ({ id, scene }) => {
-  const { data, error, isValidating } = useScene(id, scene)
+const Scene: FunctionComponent<Props> = ({ scene }) => {
+  const { data, error, isValidating } = useScene(scene)
   const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Gif)
   const mainFrame = useMainFrame(data)
 
@@ -75,11 +74,11 @@ const Scene: FunctionComponent<Props> = ({ id, scene }) => {
           <SubtitleView prev={prevSceneId} current={data} next={nextSceneId} />
           <div className={styles["subtitles-navigation"]}>
             <SceneNavigation
-              id={prevSceneId}
+              scene={prevSceneId}
               direction={NavigationDirection.Left}
             />
             <SceneNavigation
-              id={nextSceneId}
+              scene={nextSceneId}
               direction={NavigationDirection.Right}
             />
           </div>
