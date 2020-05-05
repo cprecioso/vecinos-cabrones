@@ -1,8 +1,11 @@
 import { NextPage } from "next"
 import { useRouter } from "next/router"
 import React from "react"
-import { _sceneFetcher } from "../../api/backend/scene"
-import { Scene as IScene } from "../../api/backend/types"
+import {
+  getPreloadSceneData,
+  PreloadedSceneData,
+  usePreloadedSceneData,
+} from "../../api/backend/scene"
 import { ErrorView } from "../../components/FetchHelpers"
 import Scene from "../../components/Scene"
 import SearchBar from "../../components/SearchBar"
@@ -19,14 +22,17 @@ const useSceneId = () => {
   return sceneId
 }
 
-const ScenePage: NextPage<{ initialScene?: IScene }> = ({ initialScene }) => {
+const ScenePage: NextPage<{ preloadedData?: PreloadedSceneData }> = ({
+  preloadedData,
+}) => {
+  usePreloadedSceneData(preloadedData)
   const sceneId = useSceneId()
 
   if (sceneId != null) {
     return (
       <>
         <SearchBar compact />
-        <Scene scene={initialScene ?? sceneId} />
+        <Scene scene={sceneId} />
       </>
     )
   } else {
@@ -38,8 +44,8 @@ ScenePage.getInitialProps = async (ctx) => {
   if (ctx.req && ctx.query.scene) {
     // We're in the server
     const sceneId = Number.parseInt(ctx.query.scene as string, 10)
-    const scene = await _sceneFetcher("scene", "" + sceneId)
-    return { initialScene: scene }
+    const preloadedData = await getPreloadSceneData(sceneId)
+    return { preloadedData }
   } else {
     return {}
   }

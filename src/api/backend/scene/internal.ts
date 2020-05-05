@@ -1,9 +1,9 @@
 import type { Lambda } from "aws-sdk/clients/all"
-import useStaticDataFetch, { mutate } from "../data-fetch"
-import { lambdaAgent } from "./lambdaAgent"
-import { Scene } from "./types"
+import { mutate } from "../../data-fetch"
+import { lambdaAgent } from "../lambdaAgent"
+import { Scene } from "../types"
 
-const NAMESPACE = "scene"
+export const NAMESPACE = "scene"
 
 type SubtitleGetResponse = {
   current?: Scene
@@ -16,7 +16,7 @@ interface Payload {
   result: string
 }
 
-const getSubtitle = async (_id: string) => {
+export const getSubtitle = async (_id: string) => {
   const id = Number.parseInt(_id)
 
   const response = await new Promise<Lambda.InvocationResponse>(
@@ -51,31 +51,3 @@ const getSubtitle = async (_id: string) => {
 
 export const saveScene = (scene: Scene) =>
   mutate(NAMESPACE, "" + scene.id, scene)
-
-export const _sceneFetcher = async (_: typeof NAMESPACE, id: string) => {
-  const scenes = await getSubtitle(id)
-
-  if (scenes.previous) saveScene(scenes.previous)
-  if (scenes.next) saveScene(scenes.next)
-
-  return scenes.current
-}
-
-const useScene = (scene?: number | Scene) => {
-  const id = typeof scene === "number" ? scene : scene?.id
-  const initialData = typeof scene !== "number" ? scene : undefined
-
-  return useStaticDataFetch(
-    NAMESPACE,
-    id != null ? "" + id : undefined,
-    _sceneFetcher,
-    initialData
-  )
-}
-
-export default useScene
-
-export const getSceneContext = (scene: Scene) => ({
-  prevSceneId: scene.id - 1,
-  nextSceneId: scene.id + 1,
-})
