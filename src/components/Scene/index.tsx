@@ -21,7 +21,7 @@ enum ViewMode {
 }
 
 const quoteIdempotent = (str: string) =>
-  /^["'“‘].+["'”’]$/.test(str) ? str : `“${str}”`
+  /^["'“‘].+["'”’]$/s.test(str) ? str : `“${str}”`
 
 const Scene: FunctionComponent<Props> = ({ scene }) => {
   const { data, error, isValidating } = useScene(scene)
