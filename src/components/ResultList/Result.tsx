@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react"
 import { useInView } from "react-intersection-observer"
 import { useFrames } from "../../api/backend/frames"
 import { Scene } from "../../api/backend/types"
-import { useGif } from "../../api/gif/base"
+import { useGif } from "../../api/gif/hook"
 import styles from "../../styles/local.module.css"
 import { useHovering, useIsImageLoaded } from "../../util/hooks"
 
