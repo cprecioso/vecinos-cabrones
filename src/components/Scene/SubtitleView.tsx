@@ -10,23 +10,24 @@ const SubtitleLineWrapper: FunctionComponent<{
   scene: Scene | number
 }> = ({ scene, current }) => {
   const { data, error } = useScene(scene)
-
-  const line = (
-    <a>
-      <SubtitleLine
-        isCurrent={current}
-        text={data?.text ?? (error != null ? `⚠️ ${error ?? ""}` : "")}
-      />
-    </a>
-  )
-
-  if (current) return line
-
   return (
     <LinkToScene scene={data} shallow={true} scroll={false}>
-      {line}
+      <a>
+        <SubtitleLine
+          isCurrent={current}
+          text={data?.text ?? (error != null ? `⚠️ ${error ?? ""}` : "")}
+        />
+      </a>
     </LinkToScene>
   )
+}
+
+function getSceneId(scene: number | Scene): number
+function getSceneId(scene?: number | Scene): number | null
+function getSceneId(scene?: number | Scene) {
+  if (scene == null) return null
+  if (typeof scene == "number") return scene
+  return scene.id
 }
 
 export const SubtitleView: FunctionComponent<{
@@ -34,11 +35,20 @@ export const SubtitleView: FunctionComponent<{
   current?: number | Scene
   next?: number | Scene
 }> = ({ prev, next, current }) => {
+  const items: (number | Scene)[] = [prev, current, next].filter(
+    (v) => v != null
+  ) as any
+
   return (
     <div className={styles["subtitles-container"]}>
-      {prev ? <SubtitleLineWrapper scene={prev} /> : null}
-      {current ? <SubtitleLineWrapper scene={current} current /> : null}
-      {next ? <SubtitleLineWrapper scene={next} /> : null}
+      {items.map((scene) => {
+        const isCurrent = scene != null && scene === current
+        return (
+          <div>
+            <SubtitleLineWrapper scene={scene} current={isCurrent} />
+          </div>
+        )
+      })}
     </div>
   )
 }
