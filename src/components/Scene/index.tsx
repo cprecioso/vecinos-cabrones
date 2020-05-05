@@ -9,7 +9,7 @@ import { PageSeo } from "../Seo"
 import FrameViewMode from "./FrameViewMode"
 import GIFViewMode from "./GIFViewMode"
 import { NavigationDirection, SceneNavigation } from "./SceneNavigation"
-import { SubtitleLineWrapper } from "./SubtitleView"
+import { SubtitleView } from "./SubtitleView"
 
 export type Props = {
   id: number
@@ -72,12 +72,7 @@ const Scene: FunctionComponent<Props> = ({ id, scene }) => {
         )}
 
         <div className={styles.subtitles}>
-          <div className={styles["subtitles-container"]}>
-            <SubtitleLineWrapper id={prevSceneId} />
-            <SubtitleLineWrapper id={data.id} scene={data} current />
-            <SubtitleLineWrapper id={nextSceneId} />
-          </div>
-
+          <SubtitleView prev={prevSceneId} current={data} next={nextSceneId} />
           <div className={styles["subtitles-navigation"]}>
             <SceneNavigation
               id={prevSceneId}
