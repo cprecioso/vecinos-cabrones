@@ -7,11 +7,13 @@ export interface Options {
   text?: string
   resizeToWidth?: number
   abortSignal?: AbortSignal
+  step?: number
+  delay?: number
 }
 
 export async function makeGifBlobUrl(
   frameUrls: string[],
-  { text, abortSignal, resizeToWidth }: Options
+  { text, abortSignal, resizeToWidth, step = 1, delay = 100 }: Options
 ) {
   const gif = new GIF({ workerScript: worker })
 
@@ -26,8 +28,9 @@ export async function makeGifBlobUrl(
     })
   )
 
+  let i = 0
   for (const el of imgs) {
-    gif.addFrame(el, { delay: 100 })
+    if (i++ % step === 0) gif.addFrame(el, { delay })
   }
 
   if (abortSignal?.aborted) throw new Error("Aborted")
