@@ -21,7 +21,7 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
   const frameUrls = useFrames(result)
   const { gifUrl, isLoading } = useGif(
     result,
-    { resizeToWidth: 150 },
+    { resizeToWidth: 150, step: 2, delay: 200 },
     !isActive
   )
   const currentSource = isActive && gifUrl ? gifUrl : frameUrls[0]
