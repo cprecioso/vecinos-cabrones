@@ -30,8 +30,18 @@ const findAndMakeBold = (substr?: string) =>
       }
 
 const toHTMLLines = (lines: JSX.Element[]) => {
-  const els: JSX.Element[] = [<>{lines.shift()}</>]
-  for (const line of lines) els.push(<br />, <>{line}</>)
+  let i = 0
+
+  const els: JSX.Element[] = [
+    <React.Fragment key={i++}>{lines.shift()}</React.Fragment>,
+  ]
+
+  for (const line of lines)
+    els.push(
+      <br key={i++} />,
+      <React.Fragment key={i++}>{line}</React.Fragment>
+    )
+
   return <>{els}</>
 }
 
