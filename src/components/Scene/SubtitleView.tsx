@@ -12,17 +12,19 @@ export const SubtitleLineWrapper: FunctionComponent<{
   const { data, error } = useScene(id, scene)
 
   const line = (
-    <SubtitleLine
-      isCurrent={current}
-      text={data?.text ?? (error != null ? `⚠️ ${error ?? ""}` : "")}
-    />
+    <a>
+      <SubtitleLine
+        isCurrent={current}
+        text={data?.text ?? (error != null ? `⚠️ ${error ?? ""}` : "")}
+      />
+    </a>
   )
 
   if (current) return line
 
   return (
     <LinkToScene scene={data} shallow={true} scroll={false}>
-      <a>{line}</a>
+      {line}
     </LinkToScene>
   )
 }
