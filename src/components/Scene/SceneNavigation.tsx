@@ -12,11 +12,10 @@ export enum NavigationDirection {
 }
 
 export const SceneNavigation: FunctionComponent<{
-  id: number
-  scene?: Scene
+  scene: Scene | number
   direction: NavigationDirection
-}> = ({ id, scene, direction }) => {
-  const { data } = useScene(id, scene)
+}> = ({ scene, direction }) => {
+  const { data } = useScene(scene)
   const mainFrame = useMainFrame(data)
 
   if (!data) return null

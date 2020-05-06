@@ -9,6 +9,7 @@
     "p-queue": "^6.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-flip-toolkit": "^7.0.9",
     "react-intersection-observer": "^8.26.1",
     "swr": "^0.2.0"
   },

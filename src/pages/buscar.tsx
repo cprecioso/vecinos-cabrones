@@ -17,13 +17,11 @@ const SearchPage: NextPage = () => {
       <SearchBar compact />
       <PageSeo pageTitle={`"${query}"`} />
 
-      {!query ? null : isValidating ? (
-        <LoadingView />
-      ) : data ? (
-        <ResultList data={data} />
-      ) : (
-        <ErrorView error={error} />
-      )}
+      {isValidating ? <LoadingView /> : null}
+
+      {error ? <ErrorView error={error} /> : null}
+
+      {data ? <ResultList data={data} /> : null}
     </>
   )
 }
