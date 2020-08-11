@@ -69,11 +69,13 @@ const SubtitleLineWrapper: FunctionComponent<{ current: boolean }> = ({
 export const SubtitleView: FunctionComponent = () => {
   const currentId = useSceneId()
 
-  const items = [
-    getPrevSceneId(currentId),
-    currentId,
-    getNextSceneId(currentId),
-  ].filter((v: number | null): v is number => v != null)
+  const sceneIds = React.useMemo(
+    () =>
+      [getPrevSceneId(currentId), currentId, getNextSceneId(currentId)].filter(
+        (v: number | null): v is number => v != null
+      ),
+    [currentId]
+  )
 
   return (
     <Flipper
@@ -82,7 +84,7 @@ export const SubtitleView: FunctionComponent = () => {
       staggerConfig={{ default: { speed: 0.1 } }}
     >
       <div className={styles["subtitles-container"]}>
-        {items.map((sceneId) => {
+        {sceneIds.map((sceneId) => {
           const isCurrent = sceneId === currentId
           return (
             <SceneProvider key={sceneId} sceneId={sceneId}>
