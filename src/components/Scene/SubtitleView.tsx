@@ -12,7 +12,7 @@ const LinkedSubtitleLine: FunctionComponent<{
   const data = useScene()
 
   return (
-    <LinkToScene scene={data} shallow={false} scroll={false}>
+    <LinkToScene scene={data} shallow={true} scroll={false}>
       <a>
         <SubtitleLine isCurrent={current} text={data?.text ?? ""} />
       </a>
