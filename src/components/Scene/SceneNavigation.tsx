@@ -16,8 +16,6 @@ export const SceneNavigation: FunctionComponent<{
   const data = useScene()
   const mainFrame = useMainFrame(data)
 
-  if (!data) return null
-
   return (
     <LinkToScene scene={data} shallow={true} scroll={false}>
       <a>
