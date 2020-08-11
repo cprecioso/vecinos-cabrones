@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import React, { FunctionComponent } from "react"
 import { useWebShare } from "../../api/webshare"
 import styles from "../../styles/local.module.css"
+import { WatchButton } from "./WatchButton"
 
 const ShareButton: FunctionComponent<{ title: string }> = ({ title }) => {
   const { asPath: url } = useRouter()
@@ -50,5 +51,6 @@ export const ActionButtons: FunctionComponent<{
       />
     ) : null}
     <ShareButton title={title} />
+    <WatchButton />
   </div>
 )

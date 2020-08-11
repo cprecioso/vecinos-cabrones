@@ -545,6 +545,23 @@
   flex-shrink: 0;
 }
 
+.button {
+  background: #fff;
+  border-radius: 6px;
+  font-family: San Francisco;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #16181b;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: 16px;
+  transition: filter 0.3s ease-in-out;
+  padding: 5px 10px;
+  line-height: 16px;
+  text-align: center;
+}
+
 .action-button {
   width: 90px;
   height: 35px;
@@ -574,6 +591,10 @@
 
 .action-button.share {
   background-image: url("../img/share.svg");
+}
+
+.action-button.watch {
+  background-image: url("../img/watch.svg");
 }
 
 @keyframes pulse {
