@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import React, { FunctionComponent } from "react"
 
 const queryContext = React.createContext<{
@@ -7,7 +8,10 @@ const queryContext = React.createContext<{
 
 const { Provider } = queryContext
 export const QueryProvider: FunctionComponent = ({ children }) => {
-  const [query, setQuery] = React.useState<string | undefined>()
+  const router = useRouter()
+  const [query, setQuery] = React.useState<string | undefined>(
+    router.query.q as string | undefined
+  )
   return <Provider value={{ query, setQuery }}>{children}</Provider>
 }
 
