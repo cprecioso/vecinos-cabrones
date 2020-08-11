@@ -49,7 +49,6 @@ const useSearchScene = (query?: string, initialData?: Scene[]) =>
     refreshWhenOffline: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    revalidateOnMount: false,
   })
 
 export default useSearchScene
