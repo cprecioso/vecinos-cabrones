@@ -1,51 +1,50 @@
 import React, { FunctionComponent } from "react"
 import useSWR from "swr"
-import { ErrorView, LoadingView } from "../../../components/FetchHelpers"
+import { ErrorView } from "../../../components/FetchHelpers"
 import { Scene, SceneId } from "../types"
-import { fetchScene, NAMESPACE, SceneFetchData as Data } from "./fetcher"
+import { fetchScene, NAMESPACE } from "./fetcher"
+import { useSceneCache } from "./SceneCacheProvider"
 
-type DataContext = {
-  sceneId: SceneId
-  data?: Data
-}
-
+type DataContext = { sceneId: SceneId; scene: Scene | undefined }
 const DataContext = React.createContext<DataContext>({
-  get sceneId(): DataContext["sceneId"] {
-    throw new Error("No SceneProvider found")
+  get sceneId(): SceneId {
+    throw new Error("No SceneProvider")
   },
+  scene: undefined,
 })
 
-export const SceneProvider: FunctionComponent<DataContext> = ({
+export const SceneProvider: FunctionComponent<{ sceneId: SceneId }> = ({
   children,
   sceneId,
-  data: propsData,
 }) => {
-  const { data: ctxData } = React.useContext(DataContext)
-  const preloadedData = React.useMemo<Data>(
-    () => ({ ...ctxData, ...propsData }),
-    [ctxData, propsData]
-  )
-  const initialData = preloadedData[sceneId] ? preloadedData : undefined
+  const { cache, addToCache } = useSceneCache()
 
-  const { data, error, isValidating } = useSWR(
-    [NAMESPACE, sceneId, preloadedData],
+  const cachedScene = cache.get(sceneId)
+
+  const { data, error } = useSWR(
+    cachedScene ? null : [NAMESPACE, sceneId],
     fetchScene,
     {
-      initialData,
       refreshInterval: 0,
       refreshWhenHidden: false,
       refreshWhenOffline: false,
       revalidateOnFocus: false,
-      revalidateOnMount: false,
       revalidateOnReconnect: false,
     }
   )
 
+  React.useEffect(() => {
+    if (data) {
+      if (data.current) addToCache(data.current)
+      if (data.previous) addToCache(data.previous)
+      if (data.next) addToCache(data.next)
+    }
+  }, [data])
+
   return (
     <>
-      {isValidating ? <LoadingView /> : null}
       {error ? <ErrorView error={error || "Error desconocido"} /> : null}
-      <DataContext.Provider value={{ sceneId, data }}>
+      <DataContext.Provider value={{ sceneId, scene: cachedScene }}>
         {children}
       </DataContext.Provider>
     </>
@@ -53,8 +52,5 @@ export const SceneProvider: FunctionComponent<DataContext> = ({
 }
 
 export const useSceneId = (): SceneId => React.useContext(DataContext).sceneId
-
-export const useScene = (): Scene | undefined => {
-  const sceneId = useSceneId()
-  return React.useContext(DataContext).data?.[sceneId]
-}
+export const useScene = (): Scene | undefined =>
+  React.useContext(DataContext).scene

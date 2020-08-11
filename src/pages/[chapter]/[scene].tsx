@@ -1,11 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import React from "react"
-import {
-  preloadScene,
-  SceneFetchData,
-  SceneProvider,
-} from "../../api/backend/scene"
+import { preloadScene, SceneProvider } from "../../api/backend/scene"
+import { SceneCacheProvider } from "../../api/backend/scene/SceneCacheProvider"
+import { Scene as IScene } from "../../api/backend/types"
 import { ErrorView, LoadingView } from "../../components/FetchHelpers"
 import Scene from "../../components/Scene"
 import SearchBar from "../../components/SearchBar"
@@ -20,7 +18,7 @@ const parseSceneId = (sceneIdStr?: string | string[]) => {
 }
 
 type Props = {
-  preloadedData?: SceneFetchData
+  preloadedData?: IScene[]
 }
 type Params = { chapter: string; scene: string }
 
@@ -28,22 +26,24 @@ const ScenePage: NextPage<Props> = ({ preloadedData }) => {
   const router = useRouter()
   const sceneId = parseSceneId(router.query.scene)
 
-  if (sceneId != null || router.isFallback) {
-    return (
-      <>
-        <SearchBar compact />
-        {sceneId != null ? (
-          <SceneProvider sceneId={sceneId} data={preloadedData}>
-            <Scene />
-          </SceneProvider>
-        ) : (
-          <LoadingView />
-        )}
-      </>
-    )
-  } else {
-    return <ErrorView error="Invalid scene id" />
-  }
+  return (
+    <SceneCacheProvider initialCache={preloadedData}>
+      {sceneId != null || router.isFallback ? (
+        <>
+          <SearchBar compact />
+          {sceneId != null ? (
+            <SceneProvider sceneId={sceneId}>
+              <Scene />
+            </SceneProvider>
+          ) : (
+            <LoadingView />
+          )}
+        </>
+      ) : (
+        <ErrorView error="Invalid scene id" />
+      )}
+    </SceneCacheProvider>
+  )
 }
 export default ScenePage
 

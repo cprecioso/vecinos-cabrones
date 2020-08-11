@@ -48,22 +48,12 @@ const getSubtitle = async (id: number) => {
 
 export type SceneFetchData = Record<SceneId, Scene>
 
-export const fetchScene = async (
-  _: typeof NAMESPACE,
-  sceneId: SceneId,
-  preloadedData?: SceneFetchData
-): Promise<SceneFetchData> => {
-  if (preloadedData && preloadedData[sceneId]) return preloadedData
+export const fetchScene = async (_: typeof NAMESPACE, sceneId: SceneId) =>
+  await getSubtitle(sceneId)
 
-  const res = await getSubtitle(sceneId)
-
-  return {
-    ...preloadedData,
-    ...(res.current?.id ? { [res.current.id]: res.current } : undefined),
-    ...(res.previous?.id ? { [res.previous.id]: res.previous } : undefined),
-    ...(res.next?.id ? { [res.next.id]: res.next } : undefined),
-  }
+export const preloadScene = async (sceneId: SceneId): Promise<Scene[]> => {
+  const scenes = await fetchScene(NAMESPACE, sceneId)
+  return [scenes.current, scenes.previous, scenes.next].filter(
+    (v: Scene | undefined): v is Scene => v != null
+  )
 }
-
-export const preloadScene = async (sceneId: SceneId) =>
-  fetchScene(NAMESPACE, sceneId)
