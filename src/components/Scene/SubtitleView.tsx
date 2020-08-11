@@ -1,34 +1,23 @@
 import React, { FunctionComponent } from "react"
 import { Flipped, Flipper } from "react-flip-toolkit"
-import useScene from "../../api/backend/scene"
-import { Scene } from "../../api/backend/types"
+import { SceneProvider, useScene, useSceneId } from "../../api/backend/scene"
+import { getNextSceneId, getPrevSceneId } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
 import LinkToScene from "../LinkToScene"
 import SubtitleLine from "./SubtitleLine"
 
-const SubtitleLineWrapper: FunctionComponent<{
+const LinkedSubtitleLine: FunctionComponent<{
   current?: boolean
-  scene: Scene | number
-}> = ({ scene, current }) => {
-  const { data, error } = useScene(scene)
+}> = ({ current }) => {
+  const data = useScene()
+
   return (
-    <LinkToScene scene={data} shallow={true} scroll={false}>
+    <LinkToScene scene={data} shallow={false} scroll={false}>
       <a>
-        <SubtitleLine
-          isCurrent={current}
-          text={data?.text ?? (error != null ? `⚠️ ${error ?? ""}` : "")}
-        />
+        <SubtitleLine isCurrent={current} text={data?.text ?? ""} />
       </a>
     </LinkToScene>
   )
-}
-
-function getSceneId(scene: number | Scene): number
-function getSceneId(scene?: number | Scene): number | null
-function getSceneId(scene?: number | Scene) {
-  if (scene == null) return null
-  if (typeof scene == "number") return scene
-  return scene.id
 }
 
 const animationDuration = 200
@@ -58,37 +47,47 @@ const animateLeave = (
   })
 }
 
-export const SubtitleView: FunctionComponent<{
-  prev?: number | Scene
-  current?: number | Scene
-  next?: number | Scene
-}> = ({ prev, next, current }) => {
-  const items: (number | Scene)[] = [prev, current, next].filter(
-    (v) => v != null
-  ) as any
+const SubtitleLineWrapper: FunctionComponent<{ current: boolean }> = ({
+  current,
+}) => {
+  const sceneId = useSceneId()
+
+  return (
+    <Flipped
+      flipId={sceneId}
+      stagger
+      onAppear={animateEnter}
+      onExit={animateLeave}
+    >
+      <div>
+        <LinkedSubtitleLine current={current} />
+      </div>
+    </Flipped>
+  )
+}
+
+export const SubtitleView: FunctionComponent = () => {
+  const currentId = useSceneId()
+
+  const items = [
+    getPrevSceneId(currentId),
+    currentId,
+    getNextSceneId(currentId),
+  ].filter((v: number | null): v is number => v != null)
 
   return (
     <Flipper
-      flipKey={getSceneId(current)}
+      flipKey={currentId}
       spring="veryGentle"
       staggerConfig={{ default: { speed: 0.1 } }}
     >
       <div className={styles["subtitles-container"]}>
-        {items.map((scene) => {
-          const sceneId = getSceneId(scene)
-          const isCurrent = scene != null && scene === current
+        {items.map((sceneId) => {
+          const isCurrent = sceneId === currentId
           return (
-            <Flipped
-              key={sceneId}
-              flipId={sceneId}
-              stagger
-              onAppear={animateEnter}
-              onExit={animateLeave}
-            >
-              <div>
-                <SubtitleLineWrapper scene={scene} current={isCurrent} />
-              </div>
-            </Flipped>
+            <SceneProvider key={sceneId} sceneId={sceneId}>
+              <SubtitleLineWrapper current={isCurrent} />
+            </SceneProvider>
           )
         })}
       </div>

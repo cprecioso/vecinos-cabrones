@@ -1,7 +1,6 @@
 import type { Lambda } from "aws-sdk/clients/all"
-import useStaticDataFetch from "../data-fetch"
+import useSWR from "swr"
 import { lambdaAgent } from "./lambdaAgent"
-import { saveScene } from "./scene"
 import { Scene } from "./types"
 
 const NAMESPACE = "search"
@@ -39,13 +38,18 @@ const searchSubtitle = async (search: string) => {
   return results
 }
 
-const searchSceneFetcher = async (_: typeof NAMESPACE, query: string) => {
-  const results = await searchSubtitle(query)
-  for (const scene of results) saveScene(scene)
-  return results
-}
+const searchSceneFetcher = async (_: typeof NAMESPACE, query: string) =>
+  searchSubtitle(query)
 
 const useSearchScene = (query?: string, initialData?: Scene[]) =>
-  useStaticDataFetch(NAMESPACE, query, searchSceneFetcher, initialData)
+  useSWR(query ? [NAMESPACE, query] : null, searchSceneFetcher, {
+    initialData,
+    refreshInterval: 0,
+    refreshWhenHidden: false,
+    refreshWhenOffline: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    revalidateOnMount: false,
+  })
 
 export default useSearchScene

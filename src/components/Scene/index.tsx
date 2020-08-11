@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from "react"
 import { useMainFrame } from "../../api/backend/frames"
-import useScene, { getSceneContext } from "../../api/backend/scene"
-import { Scene as IScene } from "../../api/backend/types"
+import { SceneProvider, useScene } from "../../api/backend/scene"
+import { getNextSceneId, getPrevSceneId } from "../../api/backend/types"
 import styles from "../../styles/local.module.css"
-import { ErrorView, LoadingView } from "../FetchHelpers"
 import SegmentedControl from "../SegmentedControl"
 import { PageSeo } from "../Seo"
 import FrameViewMode from "./FrameViewMode"
@@ -11,9 +10,7 @@ import GIFViewMode from "./GIFViewMode"
 import { NavigationDirection, SceneNavigation } from "./SceneNavigation"
 import { SubtitleView } from "./SubtitleView"
 
-export type Props = {
-  scene: IScene | number
-}
+export type Props = {}
 
 enum ViewMode {
   Frame = "Fotos",
@@ -23,21 +20,15 @@ enum ViewMode {
 const quoteIdempotent = (str: string) =>
   /^["'“‘].+["'”’]$/s.test(str) ? str : `“${str}”`
 
-const Scene: FunctionComponent<Props> = ({ scene }) => {
-  const { data, error, isValidating } = useScene(scene)
+const Scene: FunctionComponent<Props> = ({}) => {
+  const data = useScene()
   const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Gif)
   const mainFrame = useMainFrame(data)
 
-  if (!data) {
-    return (
-      <>
-        {isValidating ? <LoadingView /> : null}
-        {error ? <ErrorView error={error} /> : null}
-      </>
-    )
-  }
+  if (!data) return null
 
-  const { prevSceneId, nextSceneId } = getSceneContext(data)
+  const nextSceneId = getNextSceneId(data)
+  const prevSceneId = getPrevSceneId(data)
 
   return (
     <div className={styles.scene}>
@@ -71,16 +62,18 @@ const Scene: FunctionComponent<Props> = ({ scene }) => {
         )}
 
         <div className={styles.subtitles}>
-          <SubtitleView prev={prevSceneId} current={data} next={nextSceneId} />
+          <SubtitleView />
           <div className={styles["subtitles-navigation"]}>
-            <SceneNavigation
-              scene={prevSceneId}
-              direction={NavigationDirection.Left}
-            />
-            <SceneNavigation
-              scene={nextSceneId}
-              direction={NavigationDirection.Right}
-            />
+            {prevSceneId ? (
+              <SceneProvider sceneId={prevSceneId}>
+                <SceneNavigation direction={NavigationDirection.Left} />
+              </SceneProvider>
+            ) : null}
+            {nextSceneId ? (
+              <SceneProvider sceneId={nextSceneId}>
+                <SceneNavigation direction={NavigationDirection.Right} />
+              </SceneProvider>
+            ) : null}
           </div>
         </div>
       </div>

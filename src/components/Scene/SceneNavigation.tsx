@@ -1,8 +1,7 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
 import { useMainFrame } from "../../api/backend/frames"
-import useScene from "../../api/backend/scene"
-import { Scene } from "../../api/backend/types"
+import { useScene } from "../../api/backend/scene"
 import styles from "../../styles/local.module.css"
 import LinkToScene from "../LinkToScene"
 
@@ -12,10 +11,9 @@ export enum NavigationDirection {
 }
 
 export const SceneNavigation: FunctionComponent<{
-  scene: Scene | number
   direction: NavigationDirection
-}> = ({ scene, direction }) => {
-  const { data } = useScene(scene)
+}> = ({ direction }) => {
+  const data = useScene()
   const mainFrame = useMainFrame(data)
 
   if (!data) return null

@@ -1,54 +1,64 @@
-import { NextPage } from "next"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import React from "react"
 import {
-  getPreloadSceneData,
-  PreloadedSceneData,
-  usePreloadedSceneData,
+  preloadScene,
+  SceneFetchData,
+  SceneProvider,
 } from "../../api/backend/scene"
-import { ErrorView } from "../../components/FetchHelpers"
+import { ErrorView, LoadingView } from "../../components/FetchHelpers"
 import Scene from "../../components/Scene"
 import SearchBar from "../../components/SearchBar"
 
-const useSceneId = () => {
-  const router = useRouter()
-  let sceneIdStr = router.query.scene
+const parseSceneId = (sceneIdStr?: string | string[]) => {
   if (Array.isArray(sceneIdStr)) sceneIdStr = sceneIdStr[0]
   if (!sceneIdStr) return null
 
   const sceneId = Number.parseInt(sceneIdStr, 10)
   if (isNaN(sceneId)) return null
-
   return sceneId
 }
 
-const ScenePage: NextPage<{ preloadedData?: PreloadedSceneData }> = ({
-  preloadedData,
-}) => {
-  usePreloadedSceneData(preloadedData)
-  const sceneId = useSceneId()
+type Props = {
+  preloadedData?: SceneFetchData
+}
+type Params = { chapter: string; scene: string }
 
-  if (sceneId != null) {
+const ScenePage: NextPage<Props> = ({ preloadedData }) => {
+  const router = useRouter()
+  const sceneId = parseSceneId(router.query.scene)
+
+  if (sceneId != null || router.isFallback) {
     return (
       <>
         <SearchBar compact />
-        <Scene scene={sceneId} />
+        {sceneId != null ? (
+          <SceneProvider sceneId={sceneId} data={preloadedData}>
+            <Scene />
+          </SceneProvider>
+        ) : (
+          <LoadingView />
+        )}
       </>
     )
   } else {
     return <ErrorView error="Invalid scene id" />
   }
 }
+export default ScenePage
 
-ScenePage.getInitialProps = async (ctx) => {
-  if (ctx.req && ctx.query.scene) {
-    // We're in the server
-    const sceneId = Number.parseInt(ctx.query.scene as string, 10)
-    const preloadedData = await getPreloadSceneData(sceneId)
-    return { preloadedData }
-  } else {
-    return {}
+export const getStaticProps: GetStaticProps<Props, Params> = async ({
+  params,
+}) => {
+  const sceneId = parseSceneId(params?.scene)
+  if (sceneId) {
+    const preloadedData = await preloadScene(sceneId)
+    return { props: { preloadedData } }
   }
+  return { props: {} }
 }
 
-export default ScenePage
+export const getStaticPaths: GetStaticPaths<Params> = async () => ({
+  paths: [],
+  fallback: true,
+})

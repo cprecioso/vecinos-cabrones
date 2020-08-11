@@ -1,7 +1,6 @@
 import type { Lambda } from "aws-sdk/clients/all"
-import { mutate } from "../../data-fetch"
 import { lambdaAgent } from "../lambdaAgent"
-import { Scene } from "../types"
+import { Scene, SceneId } from "../types"
 
 export const NAMESPACE = "scene"
 
@@ -16,9 +15,7 @@ interface Payload {
   result: string
 }
 
-export const getSubtitle = async (_id: string) => {
-  const id = Number.parseInt(_id)
-
+const getSubtitle = async (id: number) => {
   const response = await new Promise<Lambda.InvocationResponse>(
     (fulfill, reject) => {
       lambdaAgent.invoke(
@@ -49,5 +46,24 @@ export const getSubtitle = async (_id: string) => {
   return results
 }
 
-export const saveScene = (scene: Scene) =>
-  mutate(NAMESPACE, "" + scene.id, scene)
+export type SceneFetchData = Record<SceneId, Scene>
+
+export const fetchScene = async (
+  _: typeof NAMESPACE,
+  sceneId: SceneId,
+  preloadedData?: SceneFetchData
+): Promise<SceneFetchData> => {
+  if (preloadedData && preloadedData[sceneId]) return preloadedData
+
+  const res = await getSubtitle(sceneId)
+
+  return {
+    ...preloadedData,
+    ...(res.current?.id ? { [res.current.id]: res.current } : undefined),
+    ...(res.previous?.id ? { [res.previous.id]: res.previous } : undefined),
+    ...(res.next?.id ? { [res.next.id]: res.next } : undefined),
+  }
+}
+
+export const preloadScene = async (sceneId: SceneId) =>
+  fetchScene(NAMESPACE, sceneId)
