@@ -13,19 +13,22 @@ export const WatchButton: FunctionComponent<{}> = () => {
     <div>
       <style jsx>{`
         p {
-          font-size: 0.8em;
+          font-size: 1em;
           line-height: 1.3em;
           text-align: center;
           color: white;
+          font-weight: normal;
         }
 
         .${styles["button"]} {
-          margin-bottom: 0.3em;
+          margin: 0.3em;
+          margin-bottom: 0.5em;
         }
 
         & :global(.popup-content) {
           border-radius: 9px;
           z-index: 20 !important;
+          padding: 8px !important;
         }
         & :global(.popup-content),
         & :global(.popup-arrow) {
