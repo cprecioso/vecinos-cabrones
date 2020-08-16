@@ -537,12 +537,15 @@
 .actions-holder {
   padding-top: 16px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-flow: row wrap;
+  margin-bottom: -8px;
 }
 
 .actions-holder > * {
   flex-grow: 0;
   flex-shrink: 0;
+  margin: 8px;
 }
 
 .button {
