@@ -53,7 +53,12 @@ export const useWebShare = (title: string, url: string) => {
       case ShareAvailability.None:
         return
       case ShareAvailability.SharePlain: {
-        return navigator.share!({ title, text: title, url })
+        try {
+          await navigator.share!({ title, text: title, url })
+        } catch (e) {
+          if (e instanceof DOMException && e.name === "AbortError") {
+          } else throw e
+        }
       }
     }
   }, [shareAvailability, title, url])
