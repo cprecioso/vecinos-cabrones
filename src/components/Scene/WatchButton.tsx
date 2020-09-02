@@ -9,6 +9,13 @@ import primeEpisodes from "./prime-episodes.json"
 export const WatchButton: FunctionComponent<{}> = () => {
   const scene = useScene()
 
+  const episodeLink =
+    primeEpisodes[(scene?.chapter.seasonNumber ?? 0) - 1]?.[
+      (scene?.chapter.episodeNumber ?? 0) - 1
+    ]
+
+  if (!episodeLink) return null
+
   return (
     <div>
       <style jsx>{`
@@ -58,11 +65,9 @@ export const WatchButton: FunctionComponent<{}> = () => {
         closeOnDocumentClick
       >
         <a
-          href={`${
-            primeEpisodes[(scene?.chapter.seasonNumber ?? 0) - 1][
-              (scene?.chapter.episodeNumber ?? 0) - 1
-            ]
-          }&t=${(parseSubtitleTimestamp(scene?.start ?? "") / 1000) | 0}`}
+          href={`${episodeLink}&t=${
+            (parseSubtitleTimestamp(scene?.start ?? "") / 1000) | 0
+          }`}
         >
           <div className={clsx(styles["button"], "ver")}>
             Ver en Prime Video
