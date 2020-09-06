@@ -57,3 +57,6 @@ export const preloadScene = async (sceneId: SceneId): Promise<Scene[]> => {
     (v: Scene | undefined): v is Scene => v != null
   )
 }
+
+export const getScene = async (sceneId: SceneId) =>
+  (await getSubtitle(sceneId)).current

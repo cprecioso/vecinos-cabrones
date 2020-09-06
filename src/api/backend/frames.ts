@@ -33,6 +33,8 @@ function getUrlsForSearchResultThumbnail(scene: Scene) {
 export const useFrames = (result: Scene) =>
   React.useMemo(() => getUrlsForSearchResultThumbnail(result), [result.id])
 
+export const getFrames = getUrlsForSearchResultThumbnail
+
 const getClosestFrameUrl = (result: Scene) =>
   thumbnailUrlFromSceneInfo(
     result.chapter.seasonNumber,
