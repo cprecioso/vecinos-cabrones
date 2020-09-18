@@ -69,12 +69,16 @@ export const WatchButton: FunctionComponent<{}> = () => {
           href={`${episodeLink}&t=${
             (parseSubtitleTimestamp(scene?.start ?? "") / 1000) | 0
           }`}
+          event={["amazon", "watch"]}
         >
           <div className={clsx(styles["button"], "ver")}>
             Ver en Prime Video
           </div>
         </AnalyticsEventLink>
-        <AnalyticsEventLink href="https://www.primevideo.com/?&tag=vecinos0c-21">
+        <AnalyticsEventLink
+          href="https://www.primevideo.com/?&tag=vecinos0c-21"
+          event={["amazon", "subscribe"]}
+        >
           <div className={clsx(styles["button"], "prueba")}>
             Prueba gratuita de Prime Video
           </div>

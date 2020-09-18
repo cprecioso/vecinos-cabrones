@@ -159,29 +159,43 @@ export const GoogleAnalytics: FunctionComponent = () => {
   )
 }
 
-export const AnalyticsEventLink: FunctionComponent<Omit<
-  JSX.IntrinsicElements["a"],
-  "onClick"
->> = ({ children, href, ...props }) => {
+export const sendEvent = async (
+  eventCategory: string,
+  eventAction: string,
+  eventLabel?: string,
+  eventValue?: number
+) => {
+  await new Promise((f, r) => {
+    setTimeout(r, 3000)
+    window.ga!("send", "event", {
+      eventCategory,
+      eventAction,
+      eventLabel,
+      eventValue,
+      hitCallback: f,
+    })
+  })
+}
+export type EventData = typeof sendEvent extends (...args: infer Args) => any
+  ? Args
+  : never
+
+export const AnalyticsEventLink: FunctionComponent<
+  Omit<JSX.IntrinsicElements["a"], "onClick"> & {
+    event?: EventData
+  }
+> = ({ children, href, event, ...props }) => {
   return (
     <a
       {...props}
       href={href}
       onClick={async (e) => {
         e.preventDefault()
-
-        try {
-          await new Promise((f, r) => {
-            setTimeout(r, 3000)
-            window.ga!("send", "event", {
-              eventCategory: "link",
-              eventAction: "click",
-              eventLabel: href,
-              hitCallback: f,
-            })
-          })
-        } catch {}
-
+        if (event) {
+          try {
+            await sendEvent(...event)
+          } catch {}
+        }
         if (href) window.location.href = href
       }}
     >
