@@ -4,6 +4,7 @@ import Popup from "reactjs-popup"
 import { useScene } from "../../api/backend/scene"
 import styles from "../../styles/local.module.css"
 import { parseSubtitleTimestamp } from "../../util/timestamp"
+import { AnalyticsEventLink } from "../Seo"
 import primeEpisodes from "./prime-episodes.json"
 
 export const WatchButton: FunctionComponent<{}> = () => {
@@ -64,7 +65,7 @@ export const WatchButton: FunctionComponent<{}> = () => {
         position="top right"
         closeOnDocumentClick
       >
-        <a
+        <AnalyticsEventLink
           href={`${episodeLink}&t=${
             (parseSubtitleTimestamp(scene?.start ?? "") / 1000) | 0
           }`}
@@ -72,12 +73,12 @@ export const WatchButton: FunctionComponent<{}> = () => {
           <div className={clsx(styles["button"], "ver")}>
             Ver en Prime Video
           </div>
-        </a>
-        <a href="https://www.primevideo.com/?&tag=vecinos0c-21">
+        </AnalyticsEventLink>
+        <AnalyticsEventLink href="https://www.primevideo.com/?&tag=vecinos0c-21">
           <div className={clsx(styles["button"], "prueba")}>
             Prueba gratuita de Prime Video
           </div>
-        </a>
+        </AnalyticsEventLink>
         <p>
           Si usas estos enlaces para suscribirte a Prime Video, nos ayudas a
           mantener la web en funcionamiento.

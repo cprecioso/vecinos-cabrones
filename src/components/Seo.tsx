@@ -158,3 +158,37 @@ export const GoogleAnalytics: FunctionComponent = () => {
     </Head>
   )
 }
+
+export const AnalyticsEventLink: FunctionComponent<Omit<
+  JSX.IntrinsicElements["a"],
+  "onClick"
+>> = ({ children, href, ...props }) => {
+  return (
+    <a
+      {...props}
+      href={href}
+      onClick={async (e) => {
+        e.preventDefault()
+
+        try {
+          await new Promise((f, r) => {
+            setTimeout(r, 3000)
+            window.ga!("send", "event", {
+              eventCategory: "link",
+              eventAction: "click",
+              eventLabel: href,
+              hitCallback: f,
+            })
+          })
+          console.log("hit registered")
+        } catch (e) {
+          console.error(e)
+        }
+
+        if (href) window.location.href = href
+      }}
+    >
+      {children}
+    </a>
+  )
+}
