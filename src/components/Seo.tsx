@@ -180,10 +180,7 @@ export const AnalyticsEventLink: FunctionComponent<Omit<
               hitCallback: f,
             })
           })
-          console.log("hit registered")
-        } catch (e) {
-          console.error(e)
-        }
+        } catch {}
 
         if (href) window.location.href = href
       }}
