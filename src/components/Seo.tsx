@@ -141,22 +141,19 @@ export const GoogleAnalytics: FunctionComponent = () => {
   return (
     <Head>
       <script
-        key="ga_script"
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-163615540-1"
-      />
-      <script
         key="ga_init"
         dangerouslySetInnerHTML={{
           __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-163615540-1");
+            window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+            ga('create', 'UA-163615540-1', 'auto');
+            ga('send', 'pageview');
           `,
         }}
+      />
+      <script
+        key="ga"
+        async
+        src="https://www.google-analytics.com/analytics.js"
       />
     </Head>
   )
