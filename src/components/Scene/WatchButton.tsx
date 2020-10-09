@@ -76,7 +76,7 @@ export const WatchButton: FunctionComponent<{}> = () => {
           </div>
         </AnalyticsEventLink>
         <AnalyticsEventLink
-          href="https://www.primevideo.com/?&tag=vecinos0c-21"
+          href="http://www.amazon.es/prime?tag=vecinos0c-21"
           event={["amazon", "subscribe"]}
         >
           <div className={clsx(styles["button"], "prueba")}>
