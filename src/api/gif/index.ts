@@ -1,5 +1,5 @@
-import worker from "file-loader?name=static/[hash].worker.js&publicPath=/_next/!gif.js/dist/gif.worker.js"
 import GIF from "gif.js"
+import workerUrl from "gif.js/dist/gif.worker.js?inline"
 import { loadImage } from "./load"
 import { addText } from "./text"
 
@@ -15,7 +15,7 @@ export async function makeGifBlobUrl(
   frameUrls: string[],
   { text, abortSignal, resizeToWidth, step = 1, delay = 100 }: Options
 ) {
-  const gif = new GIF({ workerScript: worker })
+  const gif = new GIF({ workerScript: workerUrl })
 
   const imgs = await Promise.all(
     frameUrls.map(async (frameUrl) => {

@@ -1,7 +1,7 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
 
-declare module "file-loader*" {
+declare module "*?inline" {
   declare const url: string
   export default url
 }

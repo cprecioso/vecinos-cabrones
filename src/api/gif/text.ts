@@ -4,34 +4,7 @@ import {
   layoutBlock,
   Origin,
 } from "@cprecioso/canvas-text-layout"
-import fontUrl from "file-loader?name=static/[hash].[ext]&publicPath=/_next/!./asap-condensed-medium.woff2"
-
-declare global {
-  interface Document {
-    fonts: FontFaceSet
-  }
-
-  class FontFace {
-    constructor(family: string, source: string)
-    load(): Promise<this>
-    family: string
-  }
-
-  class FontFaceSet {
-    add(font: FontFace): void
-  }
-}
-
-const font = (async () => {
-  try {
-    const font = new FontFace("AsapCondensedMedium", `url(${fontUrl})`)
-    await font.load()
-    document.fonts.add(font)
-    return font.family
-  } catch (err) {
-    return "sans-serif"
-  }
-})()
+import font from "./font"
 
 export const addText = async (canvas: HTMLCanvasElement, text: string) => {
   const { height, width } = canvas
