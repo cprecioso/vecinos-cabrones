@@ -1,4 +1,11 @@
 {
+  "name": "vecinos-cabrones",
+  "version": "1.0.0",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "dependencies": {
     "@cprecioso/canvas-text-layout": "^1.0.1",
     "@sindresorhus/slugify": "^1.1.0",
@@ -29,9 +36,10 @@
     "typescript": "^3.9.7",
     "typescript-plugin-css-modules": "^2.4.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "engines": {
+    "node": "14.x"
+  },
+  "volta": {
+    "node": "14.17.0"
   }
 }
