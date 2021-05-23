@@ -1,14 +1,13 @@
 {
   "name": "vecinos-cabrones",
   "version": "1.0.0",
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "scripts": {
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@cprecioso/canvas-text-layout": "^1.0.1",
     "@sindresorhus/slugify": "^1.1.0",
+    "@types/prettier": "^2.2.3",
     "aws-sdk": "^2.730.0",
     "clsx": "^1.1.1",
     "gif.js": "^0.2.0",
@@ -29,10 +28,12 @@
     "@types/react-dom": "^16.9.6",
     "cssnano": "^4.1.10",
     "file-loader": "^6.0.0",
-    "husky": "^4.2.3",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "organize-imports-cli": "^0.8.0",
     "postcss-preset-env": "^6.7.0",
-    "prettier": "^2.0.4",
-    "pretty-quick": "^2.0.1",
+    "prettier": "^2.3.0",
+    "sort-package-json": "^1.50.0",
     "typescript": "^3.9.7",
     "typescript-plugin-css-modules": "^2.4.0"
   },
