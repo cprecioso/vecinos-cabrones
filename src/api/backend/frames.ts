@@ -29,6 +29,7 @@ function getUrlsForSearchResultThumbnail(scene: Scene) {
   )
   return urlRange
 }
+export const getFrames = getUrlsForSearchResultThumbnail
 
 export const useFrames = (result: Scene) =>
   React.useMemo(() => getUrlsForSearchResultThumbnail(result), [result.id])
@@ -41,6 +42,7 @@ const getClosestFrameUrl = (result: Scene) =>
   )
 
 export const useMainFrame = (scene?: Scene) =>
-  React.useMemo(() => (scene ? getClosestFrameUrl(scene) : undefined), [
-    scene?.id,
-  ])
+  React.useMemo(
+    () => (scene ? getClosestFrameUrl(scene) : undefined),
+    [scene?.id]
+  )

@@ -1,40 +1,73 @@
-import {
-  Alignment,
-  drawBlockLayout,
-  layoutBlock,
-  Origin,
-} from "@cprecioso/canvas-text-layout"
-import font from "./font"
+import { Paint, Surface } from "canvaskit-wasm"
+import fs from "fs"
+import url from "url"
+import CanvasKit from "../canvas"
 
-export const addText = async (canvas: HTMLCanvasElement, text: string) => {
-  const { height, width } = canvas
+const readImport = async (importUrl: URL) =>
+  await fs.promises.readFile(url.fileURLToPath(importUrl.href))
 
-  const ctx = canvas.getContext("2d")!
+const fontData = await readImport(
+  new URL("./asap-condensed-medium.woff2", import.meta.url)
+)
+const FONT_NAME = "ASAP"
 
-  const fontSize = 32.5
-  ctx.font = `${fontSize}px ${await font}`
-  ctx.fillStyle = "white"
-  ctx.lineWidth = 4
-  ctx.strokeStyle = "black"
-  ctx.textAlign = "left"
+const Provider = CanvasKit.TypefaceFontProvider.Make()
+Provider.registerFont(fontData, FONT_NAME)
 
+export const addText = async (surface: Surface, text: string) => {
+  const width = surface.width()
+  const height = surface.height()
   const maxWidth = width * 0.9
-  const block = layoutBlock(ctx, text, maxWidth, fontSize)
 
-  drawBlockLayout(ctx, block, {
-    x: 0,
-    containerWidth: width,
-    y: height * 0.9,
-    origin: Origin.Bottom | Origin.Left,
-    horizontalAlignment: Alignment.Middle,
-    lineOptions: {
-      horizontalAlignment: Alignment.Middle,
-      drawFn: (ctx, line, options) => {
-        ctx.strokeText(line.text, options.x, options.y)
-        ctx.fillText(line.text, options.x, options.y)
-      },
-    },
+  const canvas = surface.getCanvas()
+
+  const fillPaint = new CanvasKit.Paint()
+  fillPaint.setStyle(CanvasKit.PaintStyle.Fill)
+  fillPaint.setColor(CanvasKit.WHITE)
+
+  const strokePaint = new CanvasKit.Paint()
+  strokePaint.setStyle(CanvasKit.PaintStyle.Stroke)
+  strokePaint.setColor(CanvasKit.BLACK)
+  strokePaint.setStrokeWidth(4)
+
+  const textStyle = new CanvasKit.TextStyle({
+    color: CanvasKit.WHITE,
+    fontFamilies: [FONT_NAME],
+    fontSize: 32.5,
+    heightMultiplier: 1,
   })
 
-  return canvas
+  const bgPaint = new CanvasKit.Paint()
+  bgPaint.setAlphaf(0)
+
+  const paragraphStyle = new CanvasKit.ParagraphStyle({
+    textStyle,
+    textAlign: CanvasKit.TextAlign.Center,
+    maxLines: 3,
+    ellipsis: "...",
+  })
+
+  const drawText = (fgPaint: Paint) => {
+    const paragraphBuilder = CanvasKit.ParagraphBuilder.MakeFromFontProvider(
+      paragraphStyle,
+      Provider
+    )
+    paragraphBuilder.pushPaintStyle(textStyle, fgPaint, bgPaint)
+    paragraphBuilder.addText(text)
+    const paragraph = paragraphBuilder.build()
+    paragraph.layout(maxWidth)
+
+    const paragraphHeight = paragraph.getHeight()
+
+    canvas.drawParagraph(
+      paragraph,
+      (width - maxWidth) / 2,
+      height * 0.9 - paragraphHeight
+    )
+  }
+
+  drawText(strokePaint)
+  drawText(fillPaint)
+
+  return surface
 }

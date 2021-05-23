@@ -1,48 +1,51 @@
-import GIF from "gif.js"
-import workerUrl from "gif.js/dist/gif.worker.js?inline"
-import { loadImage } from "./load"
+import GifEncoder from "gif-encoder-2"
+import { loadImage } from "./image"
 import { addText } from "./text"
 
 export interface Options {
   text?: string
-  resizeToWidth?: number
-  abortSignal?: AbortSignal
   step?: number
   delay?: number
 }
 
-export async function makeGifBlobUrl(
+export async function makeGifStream(
   frameUrls: string[],
-  { text, abortSignal, resizeToWidth, step = 1, delay = 100 }: Options
+  { text, step = 1, delay = 100 }: Options
 ) {
-  const gif = new GIF({ workerScript: workerUrl })
+  const surfaces = frameUrls.map(async (frameUrl) => {
+    const surface = await loadImage(frameUrl)
+    if (text) {
+      return addText(surface, text)
+    } else {
+      return surface
+    }
+  })
 
-  const imgs = await Promise.all(
-    frameUrls.map(async (frameUrl) => {
-      const img = await loadImage(frameUrl, resizeToWidth)
-      if (text) {
-        return addText(img, text)
-      } else {
-        return img
-      }
-    })
+  const firstImage = await surfaces[0]
+
+  const gif = new GifEncoder(
+    firstImage.width(),
+    firstImage.height(),
+    "neuquant",
+    true,
+    frameUrls.length
   )
+  gif.setDelay(delay)
 
-  let i = 0
-  for (const el of imgs) {
-    if (i++ % step === 0) gif.addFrame(el, { delay })
-  }
+  void (async () => {
+    gif.start()
+    let i = 0
+    for (const surface of surfaces) {
+      if (i++ % step === 0) {
+        const s = await surface
+        const info = s.imageInfo()
+        const canvas = s.getCanvas()
+        const pixels = canvas.readPixels(0, 0, info)
+        gif.addFrame(pixels as any)
+      }
+    }
+    gif.finish()
+  })()
 
-  if (abortSignal?.aborted) throw new Error("Aborted")
-
-  try {
-    const blob = await new Promise<Blob>((fulfill, reject) => {
-      gif.once("finished", (blob) => fulfill(blob))
-      gif.once("abort", () => reject())
-      gif.render()
-    })
-    return URL.createObjectURL(blob)
-  } finally {
-    gif.removeAllListeners()
-  }
+  return gif.createReadStream()
 }

@@ -262,13 +262,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:^7.0.6":
-  version: 7.0.7
-  resolution: "@types/json-schema@npm:7.0.7"
-  checksum: b9d2c509fa4e0b82f58e73f5e6ab76c60ff1884ba41bb82f37fb1cece226d4a3e5a62fedf78a43da0005373a6713d9abe61c1e592906402c41c08ad6ab26d52b
-  languageName: node
-  linkType: hard
-
 "@types/json5@npm:^0.0.29":
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
@@ -403,16 +396,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-keywords@npm:^3.5.2":
-  version: 3.5.2
-  resolution: "ajv-keywords@npm:3.5.2"
-  peerDependencies:
-    ajv: ^6.9.1
-  checksum: 01f26c292304870c03a1cd14fc1ddcf7c713a05611a122c5193694d4050063d5fba46cbf8b5b2ebde364166fddd3c2e0abdcd97df655b7a7fbb3e6634eeb056a
-  languageName: node
-  linkType: hard
-
-"ajv@npm:^6.12.5, ajv@npm:^6.5.5":
+"ajv@npm:^6.5.5":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -1023,6 +1007,13 @@ __metadata:
   version: 1.0.30001228
   resolution: "caniuse-lite@npm:1.0.30001228"
   checksum: a4eb04288e9b7f7bda158126f37e8dab97a5fc851dab192083f36906d8bf76e0526afa0692a662267ea4b3df0b0ba13f847457ac2be0f1ea209ec3013b7caabe
+  languageName: node
+  linkType: hard
+
+"canvaskit-wasm@npm:^0.27.0":
+  version: 0.27.0
+  resolution: "canvaskit-wasm@npm:0.27.0"
+  checksum: b9fe05b37eb3b1f89f2bf4c334172d5a4031ba4697d9b5f48178e6119273ac01b6c503c3e8adb1e81b7d5e9e46da0d70e08e2eaa6ecbf2d80d2ffd6bc93c37b2
   languageName: node
   linkType: hard
 
@@ -1885,13 +1876,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emojis-list@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "emojis-list@npm:3.0.0"
-  checksum: a79126b55bc86ee8fd938235a6adf9d457c05fb5bb934e8608b7d35c878d9d1e312a67759244f5c3fba0810b508eb5617e5e6ad6886496ebcfa6832d1c8de3c4
-  languageName: node
-  linkType: hard
-
 "encoding@npm:0.1.13, encoding@npm:^0.1.12":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
@@ -2175,18 +2159,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-loader@npm:^6.0.0":
-  version: 6.2.0
-  resolution: "file-loader@npm:6.2.0"
-  dependencies:
-    loader-utils: ^2.0.0
-    schema-utils: ^3.0.0
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 0f103418c072ec66c081a9908cd7824ee19905e18be16889cb050f5f373998afaf7ca4c2fd2df4cabf703a2cd526aefe59105930e3f8d266a5b35e6d5f5b3cf4
-  languageName: node
-  linkType: hard
-
 "fill-range@npm:^7.0.1":
   version: 7.0.1
   resolution: "fill-range@npm:7.0.1"
@@ -2379,10 +2351,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gif.js@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "gif.js@npm:0.2.0"
-  checksum: a939511bde68dfb4f1e369ad3aecfed321769376018a8ca5270ee83c7cb47bc412ddd35ba360590b3fb30d69587ba71c9b3847e4a931c2c9bccb2ccdf5f53bb4
+"gif-encoder-2@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "gif-encoder-2@npm:1.0.5"
+  checksum: f986566da52d460c60d938c13334ff068c582c045dc60aa2d870aa6464de455fafc37ac2099632f9369c3aa58d8c3d3001a92e7fcb6808eecf2e4a7b9a095964
   languageName: node
   linkType: hard
 
@@ -3235,17 +3207,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"json5@npm:^2.1.2":
-  version: 2.2.0
-  resolution: "json5@npm:2.2.0"
-  dependencies:
-    minimist: ^1.2.5
-  bin:
-    json5: lib/cli.js
-  checksum: 07b1f90c2801dc52df2b0ac8d606cc400a85cda79130e754780fa2ab9805d0fb85a0e61b6a5cdd68e88e5d0c8f9109ec415af08283175556cdccaa8563853908
-  languageName: node
-  linkType: hard
-
 "jsonfile@npm:^6.0.1":
   version: 6.1.0
   resolution: "jsonfile@npm:6.1.0"
@@ -3379,17 +3340,6 @@ fsevents@~2.3.1:
     json5: ^0.5.0
     object-assign: ^4.0.1
   checksum: aae13ef9f1f67290ac6bf401e3b250f192b96ee023729e3a8cb140a2cb2e8edb02eca5531c9a789f888878bb510ca3ee2b6a204008a712a893df73b76746eaad
-  languageName: node
-  linkType: hard
-
-"loader-utils@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "loader-utils@npm:2.0.0"
-  dependencies:
-    big.js: ^5.2.2
-    emojis-list: ^3.0.0
-    json5: ^2.1.2
-  checksum: a1c2e48781e1501e126a32c39bc1fb1a7e2f02bd99e5aeb8853ddaf3c121fffefcc4579367f97ca6890b58369e571af1c9ec82e4e20db238d560ab359ff25c33
   languageName: node
   linkType: hard
 
@@ -5346,16 +5296,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"reactjs-popup@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "reactjs-popup@npm:2.0.4"
-  peerDependencies:
-    react: ">=16"
-    react-dom: ">=16"
-  checksum: ec611d7feba3b74659fc995702815b92c1b17d34ffe14c310f87f109372a1bcf96af51a0328c9164ec36ec8d56bd655869382285212509b3eb2f92761b28d852
-  languageName: node
-  linkType: hard
-
 "readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.6, readable-stream@npm:^2.3.3, readable-stream@npm:^2.3.6":
   version: 2.3.7
   resolution: "readable-stream@npm:2.3.7"
@@ -5639,17 +5579,6 @@ fsevents@~2.3.1:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: 2ba121e53e8a438394598612ec9a8f465b39157042f912d2dd5956af643e0d45ec6937ae4eeb0a807d1945b209515263aed12fc3bca95c7a027ec2a54e76b399
-  languageName: node
-  linkType: hard
-
-"schema-utils@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "schema-utils@npm:3.0.0"
-  dependencies:
-    "@types/json-schema": ^7.0.6
-    ajv: ^6.12.5
-    ajv-keywords: ^3.5.2
-  checksum: a084f593f222560c412a4d8f40c92386c01c1c709f27c0672c2f02927a4d4d475f57f8b8e91198d0defb452add160476a03f07a05b26200a64b5124fa874e158
   languageName: node
   linkType: hard
 
@@ -6724,10 +6653,10 @@ typescript@~4.0.2:
     "@types/react": ^17.0.6
     "@types/react-dom": ^17.0.5
     aws-sdk: ^2.912.0
+    canvaskit-wasm: ^0.27.0
     clsx: ^1.1.1
     cssnano: ^5.0.4
-    file-loader: ^6.0.0
-    gif.js: ^0.2.0
+    gif-encoder-2: ^1.0.5
     husky: ^6.0.0
     lint-staged: ^11.0.0
     lodash: ^4.17.21
@@ -6740,7 +6669,6 @@ typescript@~4.0.2:
     react-dom: ^17.0.2
     react-flip-toolkit: ^7.0.13
     react-intersection-observer: ^8.32.0
-    reactjs-popup: ^2.0.4
     sort-package-json: ^1.50.0
     swr: ^0.5.6
     typescript: ^4.2.4
