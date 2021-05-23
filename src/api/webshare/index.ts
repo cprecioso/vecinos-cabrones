@@ -1,17 +1,5 @@
 import React from "react"
 
-declare global {
-  interface ShareData {
-    url?: string
-    title?: string
-    text?: string
-  }
-
-  interface Navigator {
-    share?(data: ShareData): Promise<void>
-  }
-}
-
 enum ShareAvailability {
   Unknown,
   None,

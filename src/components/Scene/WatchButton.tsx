@@ -1,6 +1,7 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
 import Popup from "reactjs-popup"
+import "reactjs-popup/dist/index.css"
 import { useScene } from "../../api/backend/scene"
 import styles from "../../styles/local.module.css"
 import { parseSubtitleTimestamp } from "../../util/timestamp"
