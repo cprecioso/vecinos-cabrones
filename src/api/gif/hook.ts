@@ -1,5 +1,5 @@
 import React from "react"
-import { makeGifBlobUrl, Options } from "."
+import type { Options } from "."
 import { useFrames } from "../backend/frames"
 import { Scene } from "../backend/types"
 import { addToQueue } from "./queue"
@@ -37,6 +37,7 @@ export const useGif = (
 
       addToQueue(
         async () => {
+          const { makeGifBlobUrl } = await import(/* webpackMode: "lazy" */ ".")
           const blobUrl = await makeGifBlobUrl(frames, {
             ...options,
             abortSignal: abortController.signal,
