@@ -5,6 +5,7 @@ import { preloadScene, SceneProvider } from "../../api/backend/scene"
 import { SceneCacheProvider } from "../../api/backend/scene/SceneCacheProvider"
 import { Scene as IScene } from "../../api/backend/types"
 import { ErrorView, LoadingView } from "../../components/FetchHelpers"
+import { sceneLink, sceneToParams } from "../../components/LinkToScene"
 import Scene from "../../components/Scene"
 import SearchBar from "../../components/SearchBar"
 
@@ -53,6 +54,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   const sceneId = parseSceneId(params?.scene)
   if (sceneId) {
     const preloadedData = await preloadScene(sceneId)
+
+    const mainScene = preloadedData[0]
+    const actualParams = sceneToParams(mainScene)
+
+    if (
+      params?.chapter !== actualParams.chapter ||
+      params.scene !== actualParams.sceneId
+    ) {
+      return {
+        redirect: { destination: sceneLink(mainScene), permanent: true },
+      }
+    }
+
     return { props: { preloadedData } }
   }
   return { props: {} }
