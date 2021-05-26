@@ -1,7 +1,7 @@
 import GIF from "gif.js"
-import workerUrl from "gif.js/dist/gif.worker.js?inline"
 import { loadImage } from "./load"
 import { addText } from "./text"
+import workerUrl from "./worker"
 
 export interface Options {
   text?: string
