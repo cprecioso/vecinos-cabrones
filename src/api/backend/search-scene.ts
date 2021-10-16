@@ -43,7 +43,7 @@ const searchSceneFetcher = async (_: typeof NAMESPACE, query: string) =>
 
 const useSearchScene = (query?: string, initialData?: Scene[]) =>
   useSWR(query ? [NAMESPACE, query] : null, searchSceneFetcher, {
-    initialData,
+    fallbackData: initialData,
     refreshInterval: 0,
     refreshWhenHidden: false,
     refreshWhenOffline: false,
