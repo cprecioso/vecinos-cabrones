@@ -1,9 +1,9 @@
 // @ts-check
 
-/** @type {import("next/dist/next-server/server/config-shared").NextConfig} */
+/** @type {import("next").NextConfig} */
 module.exports = {
   i18n: { defaultLocale: "es-ES", locales: ["es-ES"] },
-  future: { webpack5: true, strictPostcssConfiguration: true },
+  future: { strictPostcssConfiguration: true },
   webpack(/** @type {import("webpack").Configuration} */ config) {
     if (!config.experiments) config.experiments = {}
     config.experiments.topLevelAwait = true
