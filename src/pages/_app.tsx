@@ -1,9 +1,11 @@
 import clsx from "clsx"
 import { AppProps } from "next/app"
 import Head from "next/head"
+import Image from "next/image"
 import Link from "next/link"
 import { FunctionComponent } from "react"
 import { GoogleAnalytics, IconTheming, PageSeo } from "../components/Seo"
+import logoSvg from "../img/logo.svg"
 import "../styles/global.css"
 import styles from "../styles/local.module.css"
 import { QueryProvider } from "../util/query-context"
@@ -21,9 +23,9 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
       <div className={styles["home-content"]}>
         <div className={clsx(styles.row, styles.header)}>
           <div className={styles["col-12"]}>
-            <Link href="/" prefetch={false}>
+            <Link href="/">
               <a>
-                <img className={styles.logo} />
+                <Image src={logoSvg} alt="" className={styles.logo} priority />
               </a>
             </Link>
           </div>

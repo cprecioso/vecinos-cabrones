@@ -15,4 +15,8 @@ module.exports = {
 
     return config
   },
+
+  images: {
+    domains: ["anhqv.us-east-1.linodeobjects.com"],
+  },
 }

@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import Image from "next/image"
 import React, { FunctionComponent } from "react"
 import { useFrames } from "../../api/backend/frames"
 import { Scene } from "../../api/backend/types"
@@ -15,10 +16,13 @@ const GIFViewMode: FunctionComponent<{
   return (
     <>
       <div className={styles["scene-gif-view"]}>
-        <img
-          crossOrigin="anonymous"
-          className={clsx(styles["scene-image"], isLoading && styles.loading)}
+        <Image
+          priority
+          alt={scene.text}
+          width={500}
+          height={375}
           src={gifUrl ?? frameUrls[0]}
+          className={clsx(styles["scene-image"], isLoading && styles.loading)}
         />
       </div>
       <ActionButtons fileType="gif" fileUrl={gifUrl} title={scene.text} />

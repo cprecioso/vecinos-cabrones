@@ -153,7 +153,6 @@
 /* custom */
 
 .logo {
-  content: url("../img/logo.svg");
   margin-right: 18px;
   float: left;
 }
@@ -331,6 +330,7 @@
 
 .item-container {
   padding: 4px;
+  position: relative;
 }
 
 .image-result {
@@ -505,13 +505,17 @@
   text-align: left;
   padding-left: 0px;
 }
-.explain-image img {
-  width: 100%;
-  background-color: grey;
+.explain-container {
   margin-top: 50px;
-  border-radius: 12px;
+}
+.explain-figure {
+  width: 100%;
+  height: 50vh;
   max-height: 285px;
-  object-fit: cover;
+  position: relative;
+}
+.explain-image {
+  border-radius: 14px;
 }
 .explain-title {
   font-family: "San Francisco";

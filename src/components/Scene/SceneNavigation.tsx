@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import Image from "next/image"
 import React, { FunctionComponent } from "react"
 import { useMainFrame } from "../../api/backend/frames"
 import { useScene } from "../../api/backend/scene"
@@ -20,11 +21,15 @@ export const SceneNavigation: FunctionComponent<{
     <LinkToScene scene={data} shallow={true} scroll={false}>
       <a>
         <div className={styles[`navigation-${direction}`]}>
-          <img
-            crossOrigin="anonymous"
-            className={styles["navigation-image"]}
-            src={mainFrame}
-          />
+          {data && mainFrame ? (
+            <Image
+              alt={data.text}
+              className={styles["navigation-image"]}
+              src={mainFrame}
+              width={85}
+              height={63}
+            />
+          ) : null}
           <div
             className={clsx(styles["navigation-indication"], styles[direction])}
           >
