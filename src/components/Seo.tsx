@@ -1,5 +1,6 @@
 import Head from "next/head"
 import { useRouter } from "next/router"
+import Script from "next/script"
 import React, { FunctionComponent } from "react"
 
 export const IconTheming: FunctionComponent = () => (
@@ -139,24 +140,20 @@ export const GoogleAnalytics: FunctionComponent = () => {
   }, [asPath, initialPath])
 
   return (
-    <Head>
-      <script
-        key="ga_init"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-            ga('create', 'UA-163615540-1', 'auto');
-            ga('set', 'dimension1', document.monetization == null ? 'false' : 'true');
-            ga('send', 'pageview');
-          `,
-        }}
-      />
-      <script
-        key="ga"
-        async
+    <>
+      <Script id="ga_init" strategy="afterInteractive">
+        {`
+          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+          ga('create', 'UA-163615540-1', 'auto');
+          ga('set', 'dimension1', document.monetization == null ? 'false' : 'true');
+          ga('send', 'pageview');
+        `}
+      </Script>
+      <Script
         src="https://www.google-analytics.com/analytics.js"
+        strategy="afterInteractive"
       />
-    </Head>
+    </>
   )
 }
 
