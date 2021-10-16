@@ -1,11 +1,17 @@
 import clsx from "clsx"
 import React, { FunctionComponent } from "react"
 import { useScene } from "../../api/backend/scene"
-import { makeWatchLink } from "../../pages/api/watch/[...args]"
+import {
+  LinkType,
+  makeWatchLink,
+} from "../../pages/api/watch/[season]/[episode]/[ts]/[type]"
 import styles from "../../styles/local.module.css"
 import { AnalyticsEventLink } from "../Seo"
 
-export const WatchButton: FunctionComponent<{}> = () => {
+export const WatchButton: FunctionComponent<{ type: LinkType }> = ({
+  children,
+  type,
+}) => {
   const scene = useScene()
 
   return (
@@ -26,8 +32,8 @@ export const WatchButton: FunctionComponent<{}> = () => {
       `}</style>
 
       <AnalyticsEventLink
-        href={makeWatchLink(scene)}
-        event={["amazon", "watch"]}
+        href={scene ? makeWatchLink(scene, type) : ""}
+        event={[type, "watch"]}
       >
         <div
           className={clsx(
@@ -36,7 +42,7 @@ export const WatchButton: FunctionComponent<{}> = () => {
             scene ? "" : "disabled"
           )}
         >
-          Ver escena
+          {children}
         </div>
       </AnalyticsEventLink>
     </div>

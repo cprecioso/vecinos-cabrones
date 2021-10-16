@@ -13,6 +13,12 @@ module.exports = {
       type: "asset/inline",
     })
 
+    config.module.rules.push({
+      test: /\.tsv$/,
+      loader: "dsv-loader",
+      options: { delimiter: "\t" },
+    })
+
     return config
   },
 

@@ -541,7 +541,7 @@
 .actions-holder {
   padding-top: 16px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-flow: row wrap;
   margin-bottom: -8px;
 }
@@ -570,7 +570,6 @@
 }
 
 .action-button {
-  width: 90px;
   height: 35px;
   background: #fff;
   border-radius: 6px;
@@ -581,6 +580,7 @@
   line-height: 35px;
   color: #16181b;
   padding-left: 42px;
+  padding-right: 18px;
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: 16px;

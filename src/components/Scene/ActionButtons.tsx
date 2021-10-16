@@ -51,6 +51,7 @@ export const ActionButtons: FunctionComponent<{
       />
     ) : null}
     <ShareButton title={title} />
-    <WatchButton />
+    <WatchButton type="netflix">Ver en Netflix</WatchButton>
+    <WatchButton type="prime">Ver en Prime</WatchButton>
   </div>
 )
