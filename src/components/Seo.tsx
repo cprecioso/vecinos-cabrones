@@ -136,7 +136,7 @@ export const GoogleAnalytics: FunctionComponent = () => {
         window.ga!("send", "pageview")
       }, 10)
     }
-  }, [asPath])
+  }, [asPath, initialPath])
 
   return (
     <Head>

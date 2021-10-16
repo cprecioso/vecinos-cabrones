@@ -25,7 +25,7 @@ const SearchBar: FunctionComponent<Props> = ({ autoFocus, compact }) => {
       e.preventDefault()
       return false
     },
-    [router]
+    [router, setQuery]
   )
 
   return (
