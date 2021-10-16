@@ -36,8 +36,10 @@
     "typescript-plugin-css-modules": "^3.2.0"
   },
   "engines": {
-    "node": "14.x"
+    "node": "14.x",
+    "pm": "yarn@3.0.2"
   },
+  "packageManager": "yarn@3.0.2",
   "volta": {
     "node": "14.18.1"
   }
