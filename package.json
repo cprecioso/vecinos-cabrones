@@ -1,6 +1,7 @@
 {
   "name": "vecinos-cabrones",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "postinstall": "husky install"
   },
@@ -26,7 +27,7 @@
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "cssnano": "^5.0.4",
-    "husky": "^6.0.0",
+    "husky": "^7.0.2",
     "lint-staged": "^11.0.0",
     "organize-imports-cli": "^0.8.0",
     "postcss-preset-env": "^6.7.0",
