@@ -1,3 +1,0 @@
-- [ ] Update font-loading solution
-- [ ] Update worker-loading solution
-- [ ] Update lint-staged config
