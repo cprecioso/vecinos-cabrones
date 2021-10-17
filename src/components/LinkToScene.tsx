@@ -1,6 +1,6 @@
+import { Scene } from "@/api/backend/types"
 import Link from "next/link"
 import React, { FunctionComponent } from "react"
-import { Scene } from "../api/backend/types"
 
 export const sceneToParams = (scene: Scene) => ({
   chapter: `${scene.chapter.seasonNumber}x${scene.chapter.episodeNumber

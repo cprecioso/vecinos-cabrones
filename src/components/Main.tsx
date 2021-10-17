@@ -1,10 +1,10 @@
+import emilioJpg from "@/img/emilio.jpg"
+import movilJpg from "@/img/movil_anhqv.jpg"
+import styles from "@/styles/local.module.css"
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import React, { FunctionComponent } from "react"
-import emilioJpg from "../img/emilio.jpg"
-import movilJpg from "../img/movil_anhqv.jpg"
-import styles from "../styles/local.module.css"
 import SearchBar from "./SearchBar"
 
 const ExplainerImage: FunctionComponent<{

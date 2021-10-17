@@ -1,4 +1,3 @@
-- [ ] Use @ for root-level import paths
 - [ ] Update font-loading solution
 - [ ] Update worker-loading solution
 - [ ] Update lint-staged config

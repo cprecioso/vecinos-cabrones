@@ -1,10 +1,10 @@
+import useSearchScene from "@/api/backend/search-scene"
+import { ErrorView, LoadingView } from "@/components/FetchHelpers"
+import ResultList from "@/components/ResultList"
+import SearchBar from "@/components/SearchBar"
+import { PageSeo } from "@/components/Seo"
 import { NextPage } from "next"
 import { useRouter } from "next/router"
-import useSearchScene from "../api/backend/search-scene"
-import { ErrorView, LoadingView } from "../components/FetchHelpers"
-import ResultList from "../components/ResultList"
-import SearchBar from "../components/SearchBar"
-import { PageSeo } from "../components/Seo"
 
 const SearchPage: NextPage = () => {
   const router = useRouter()

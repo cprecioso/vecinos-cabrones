@@ -1,11 +1,9 @@
+import { Scene } from "@/api/backend/types"
+import episodesData, { LinkType } from "@/data/episodes-data.tsv"
+import { parseSubtitleTimestamp } from "@/util/timestamp"
 import { NextApiHandler } from "next"
-import { Scene } from "../../../../../../api/backend/types"
-import episodesData, {
-  LinkType,
-} from "../../../../../../data/episodes-data.tsv"
-import { parseSubtitleTimestamp } from "../../../../../../util/timestamp"
 
-export type { LinkType } from "../../../../../../data/episodes-data.tsv"
+export type { LinkType }
 
 export const makeWatchLink = (scene: Scene, type: LinkType) => {
   const ts = scene && Math.floor(parseSubtitleTimestamp(scene.start) / 1000)

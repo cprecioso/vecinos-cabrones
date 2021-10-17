@@ -1,4 +1,4 @@
-import type { Scene } from "../api/backend/types"
+import type { Scene } from "@/api/backend/types"
 
 export const makeSceneTitle = (scene: Scene) => `Episodio ${
   scene.chapter.seasonNumber

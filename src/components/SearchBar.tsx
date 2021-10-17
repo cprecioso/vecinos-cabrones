@@ -1,8 +1,8 @@
+import styles from "@/styles/local.module.css"
+import { useQuery } from "@/util/query-context"
 import clsx from "clsx"
 import { useRouter } from "next/router"
 import React, { DOMAttributes, FunctionComponent } from "react"
-import styles from "../styles/local.module.css"
-import { useQuery } from "../util/query-context"
 
 export type Props = { autoFocus?: boolean; compact?: boolean }
 
