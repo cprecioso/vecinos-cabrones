@@ -14,6 +14,7 @@ const Frame: FunctionComponent<{ url: string; text: string }> = ({
     <a href={url} download={`${slugify(text).slice(0, 10)}.gif`}>
       <Image
         unoptimized
+        crossOrigin="anonymous"
         alt={text}
         src={url}
         width={500}

@@ -24,6 +24,7 @@ export const SceneNavigation: FunctionComponent<{
           {data && mainFrame ? (
             <Image
               unoptimized
+              crossOrigin="anonymous"
               alt={data.text}
               className={styles["navigation-image"]}
               src={mainFrame}

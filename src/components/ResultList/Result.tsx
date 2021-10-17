@@ -38,6 +38,7 @@ export const Result: FunctionComponent<Props> = ({ data: result }) => {
       <div className={styles["item-container"]}>
         <Image
           unoptimized
+          crossOrigin="anonymous"
           alt={result.text}
           title={makeSceneTitle(result)}
           layout="responsive"
