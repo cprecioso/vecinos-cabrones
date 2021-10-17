@@ -2,43 +2,54 @@
 
 .center,
 .container {
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
 }
+
 .font-light {
   font-weight: 300;
 }
+
 .font-regular {
   font-weight: 400;
 }
+
 .font-heavy {
   font-weight: 700;
 }
+
 .left {
   text-align: left;
 }
+
 .right {
   text-align: right;
 }
+
 .center {
   text-align: center;
 }
+
 .justify {
   text-align: justify;
 }
+
 .container {
   width: 90%;
 }
+
 .row {
   position: relative;
   width: 100%;
 }
+
 /* FIXME -> don't hardcoding classnames when using CSS modules */
 .row [class^="local_col"] {
   float: left;
-  margin: 0.5rem 2%;
   min-height: 0.125rem;
+  margin: 0.5rem 2%;
 }
+
 .col-1,
 .col-10,
 .col-11,
@@ -53,96 +64,125 @@
 .col-9 {
   width: 96%;
 }
+
 .col-1-sm {
   width: 4.33%;
 }
+
 .col-2-sm {
   width: 12.66%;
 }
+
 .col-3-sm {
   width: 21%;
 }
+
 .col-4-sm {
   width: 29.33%;
 }
+
 .col-5-sm {
   width: 37.66%;
 }
+
 .col-6-sm {
   width: 46%;
 }
+
 .col-7-sm {
   width: 54.33%;
 }
+
 .col-8-sm {
   width: 62.66%;
 }
+
 .col-9-sm {
   width: 71%;
 }
+
 .col-10-sm {
   width: 79.33%;
 }
+
 .col-11-sm {
   width: 87.66%;
 }
+
 .col-12-sm {
   width: 96%;
 }
+
 .row::after {
-  content: "";
   display: table;
   clear: both;
+  content: "";
 }
+
 .hidden-sm {
   display: none;
 }
+
 @media only screen and (min-width: 33.75em) {
   .container {
     width: 80%;
   }
 }
+
 @media only screen and (min-width: 45em) {
   .col-1 {
     width: 4.33%;
   }
+
   .col-2 {
     width: 12.66%;
   }
+
   .col-3 {
     width: 21%;
   }
+
   .col-4 {
     width: 29.33%;
   }
+
   .col-5 {
     width: 37.66%;
   }
+
   .col-6 {
     width: 46%;
   }
+
   .col-7 {
     width: 54.33%;
   }
+
   .col-8 {
     width: 62.66%;
   }
+
   .col-9 {
     width: 71%;
   }
+
   .col-10 {
     width: 79.33%;
   }
+
   .col-11 {
     width: 87.66%;
   }
+
   .col-12 {
     width: 96%;
   }
+
   .hidden-sm {
     display: block;
   }
 }
+
 @media only screen and (min-width: 60em) {
   .container {
     width: 75%;
@@ -153,34 +193,38 @@
 /* custom */
 
 .logo {
-  margin-right: 18px;
   float: left;
+  margin-right: 18px;
 }
+
 .main {
-  padding-left: 0px;
-  padding-right: 0px;
   margin: 0;
+  padding-right: 0;
   padding-bottom: 1em;
+  padding-left: 0;
 }
+
 .home-content {
-  margin-left: 24px;
   margin-right: 24px;
+  margin-left: 24px;
 }
+
 .header {
   margin-top: 24px;
 }
 
 .brand {
-  font-family: "San Francisco";
+  margin-top: 5px;
+  color: #fff;
   font-weight: bold;
   font-size: 22px;
+  font-family: inherit;
   line-height: 24px;
-  color: #ffffff;
-  margin-top: 5px;
 }
+
 .col-12 {
-  margin: 0 !important;
   width: 100%;
+  margin: 0 !important;
 }
 
 .title {
@@ -189,60 +233,60 @@
 }
 
 .search {
-  margin-top: 24px;
   box-sizing: border-box;
+  margin-top: 24px;
 }
 
 .search.compact {
-  padding-left: 24px;
   padding-right: 24px;
+  padding-left: 24px;
 }
 
 .search-box {
-  width: 100%;
-  background-color: white;
-  height: 60px;
-  border: 2px solid #cacdd2;
-  box-sizing: border-box;
-  border-radius: 6px;
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  border: 2px solid #cacdd2;
+  border-radius: 6px;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
 }
 
 .search-input {
+  float: left;
+  box-sizing: border-box;
   width: 100%;
-  border: none;
   height: 100%;
   padding-left: 20px;
-  font-family: "San Francisco";
-  font-style: normal;
+  color: #16181b;
   font-weight: normal;
   font-size: 20px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 24px;
-  color: #16181b;
-  float: left;
+  border: none;
+  border-radius: 12px;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
-  border-radius: 12px;
-  box-sizing: border-box;
 }
 
 .search-button {
+  position: absolute;
+  top: -2px;
+  right: -2px;
   width: 60px;
   height: 60px;
   background: #fec32a;
-  position: absolute;
-  right: -2px;
-  top: -2px;
+  background-image: url("../img/search.svg");
+  background-repeat: no-repeat;
+  background-position: center;
   border: 2px solid #d6a11c;
   border-left: none;
   border-radius: 0 6px 6px 0;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  background-image: url("../img/search.svg");
-  background-repeat: no-repeat;
-  background-position: center;
   cursor: pointer;
 }
 
@@ -258,103 +302,105 @@
 .line-title {
   position: absolute;
   top: -8px;
-  color: white;
   width: 100%;
+  color: white;
   text-align: center;
 }
 
 .line-title-text {
-  background-color: #16181b;
   width: fit-content;
   margin: 0 auto;
-  padding-left: 24px;
   padding-right: 24px;
-  font-family: "San Francisco";
-  font-style: normal;
+  padding-left: 24px;
+  color: #898b8d;
   font-weight: 600;
   font-size: 13px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 16px;
   letter-spacing: 0.17em;
-  color: #898b8d;
   text-transform: uppercase;
+  background-color: #16181b;
 }
 
 .results {
   margin-top: 24px;
-  background-color: #212326;
-  padding: 4px;
   margin-bottom: 100px;
+  padding: 4px;
+  background-color: #212326;
 }
+
 @media screen and (min-width: 600px) {
   .results,
   .scene {
-    border-radius: 6px;
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-left: 24px;
     margin-right: 24px;
+    margin-left: 24px;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-radius: 6px;
   }
 }
+
 .results-count {
   width: 100%;
-  text-align: center;
-  font-family: "San Francisco";
-  font-style: normal;
+  padding-top: 8px;
+  color: #898b8d;
   font-weight: 600;
   font-size: 13px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 16px;
   letter-spacing: 0.17em;
+  text-align: center;
   text-transform: uppercase;
-  color: #898b8d;
-  padding-top: 8px;
 }
 
 .results-season {
-  font-family: "San Francisco";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 16px;
-  letter-spacing: 0.17em;
-  color: #ffffff;
-  text-transform: uppercase;
   margin-top: 15px;
   margin-bottom: 15px;
   margin-left: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: inherit;
+  font-style: normal;
+  line-height: 16px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
 }
 
 .result {
-  margin: 0 !important;
   width: 50%;
+  margin: 0 !important;
 }
 
 .item-container {
-  padding: 4px;
   position: relative;
+  padding: 4px;
 }
 
 .image-result {
   display: block;
-  background-color: grey;
   width: 100%;
+  background-color: grey;
   border-radius: 3px;
 }
 
 .scene {
   margin-top: 20px;
-  background-color: #212326;
-  padding: 8px;
   margin-bottom: 100px;
+  padding: 8px;
+  background-color: #212326;
 }
 
 .chapter-info {
-  font-family: "San Francisco";
-  font-style: normal;
+  color: rgba(255, 255, 255, 0.46);
   font-weight: 500;
   font-size: 12px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 14px;
   letter-spacing: 0.17em;
-  color: rgba(255, 255, 255, 0.46);
   text-transform: uppercase;
 }
 
@@ -363,41 +409,41 @@
 }
 
 .chapter-title {
-  font-family: "San Francisco";
-  font-style: normal;
+  float: left;
+  margin-top: 8px;
+  color: #fff;
   font-weight: 600;
   font-size: 18px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 21px;
   letter-spacing: 0.06em;
-  margin-top: 8px;
-  color: #ffffff;
-  float: left;
 }
 
 .chapter-view {
   float: right;
-  font-family: "San Francisco";
-  font-style: normal;
+  margin-top: 10px;
+  color: #ffc700;
   font-weight: bold;
   font-size: 14px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 17px;
-  color: #ffc700;
-  margin-top: 10px;
   cursor: pointer;
 }
 
 .scene-image {
   display: block;
-  background: grey;
   width: 100%;
+  background: grey;
   border-radius: 3px;
 }
 
 .subtitles {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 9px;
   width: 100%;
   margin-top: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9px;
 }
 
 .subtitles-container {
@@ -406,17 +452,17 @@
 }
 
 .subtitle-line {
+  position: relative;
   clear: both;
   margin-bottom: 10px;
-  position: relative;
 }
 
 .subtitle-line-indicator {
-  width: 25px;
-  float: left;
-  height: 27px;
   position: absolute;
   top: 50%;
+  float: left;
+  width: 25px;
+  height: 27px;
   transform: translateY(-50%);
 }
 
@@ -428,13 +474,13 @@
 }
 
 .subtitle-line-text {
-  font-family: "San Francisco";
-  font-style: normal;
+  padding-left: 30px;
+  color: #fff;
   font-weight: normal;
   font-size: 20px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 26px;
-  color: #ffffff;
-  padding-left: 30px;
   opacity: 0.7;
 }
 
@@ -443,29 +489,29 @@
 }
 
 .subtitle-line-text b {
-  color: #ffffff;
+  color: #fff;
+  font-weight: bold;
+  font-size: inherit;
   font-family: inherit;
   font-style: inherit;
-  font-size: inherit;
   line-height: inherit;
-  font-weight: bold;
 }
 
 .subtitles-navigation {
-  overflow: hidden;
   padding: 12px;
+  overflow: hidden;
 }
 
 .navigation-left {
+  float: left;
   width: 90px;
   height: 100px;
-  float: left;
 }
 
 .navigation-right {
+  float: right;
   width: 90px;
   height: 100px;
-  float: right;
 }
 
 .navigation-image {
@@ -477,21 +523,21 @@
 }
 
 .navigation-indication {
-  margin-top: 10px;
   width: 100%;
   height: 17px;
+  margin-top: 10px;
+  padding-left: 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 18px;
+
+  /* identical to box height */
+  letter-spacing: 0.06em;
   background-repeat: no-repeat;
   background-position: left;
   cursor: pointer;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 18px;
-  /* identical to box height */
-  letter-spacing: 0.06em;
-
-  color: #ffffff;
-  padding-left: 20px;
 }
 
 .navigation-indication.left {
@@ -499,51 +545,58 @@
 }
 
 .navigation-indication.right {
+  margin-right: -15px;
+  padding-left: 0;
+  text-align: left;
   background-image: url("../img/forward.svg");
   background-position: right;
-  margin-right: -15px;
-  text-align: left;
-  padding-left: 0px;
 }
+
 .explain-container {
   margin-top: 50px;
 }
+
 .explain-figure {
+  position: relative;
   width: 100%;
   height: 50vh;
   max-height: 285px;
-  position: relative;
 }
+
 .explain-image {
   border-radius: 14px;
 }
+
 .explain-title {
-  font-family: "San Francisco";
-  font-style: normal;
+  margin-top: 16px;
+  color: #fff;
   font-weight: 800;
   font-size: 30px;
-  line-height: 36px;
-  color: #ffffff;
-  margin-top: 16px;
-}
-.explain-description {
-  font-family: "San Francisco";
+  font-family: inherit;
   font-style: normal;
+  line-height: 36px;
+}
+
+.explain-description {
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   font-size: 18px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 116%;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 16px;
 }
+
 .explain-description a {
   color: #fec32a;
 }
+
 .actions-holder {
-  padding-top: 16px;
   display: flex;
-  justify-content: space-evenly;
   flex-flow: row wrap;
+  justify-content: space-evenly;
   margin-bottom: -8px;
+  padding-top: 16px;
 }
 
 .actions-holder > * {
@@ -553,43 +606,43 @@
 }
 
 .button {
-  background: #fff;
-  border-radius: 6px;
-  font-family: San Francisco;
-  font-style: normal;
+  padding: 5px 10px;
+  color: #16181b;
   font-weight: 500;
   font-size: 16px;
-  color: #16181b;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  background-position: 16px;
-  transition: filter 0.3s ease-in-out;
-  padding: 5px 10px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 16px;
   text-align: center;
+  background: #fff;
+  background-repeat: no-repeat;
+  background-position: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: filter 0.3s ease-in-out;
 }
 
 .action-button {
   height: 35px;
-  background: #fff;
-  border-radius: 6px;
-  font-family: San Francisco;
-  font-style: normal;
+  padding-right: 18px;
+  padding-left: 42px;
+  color: #16181b;
   font-weight: 600;
   font-size: 16px;
+  font-family: inherit;
+  font-style: normal;
   line-height: 35px;
-  color: #16181b;
-  padding-left: 42px;
-  padding-right: 18px;
-  cursor: pointer;
+  background: #fff;
   background-repeat: no-repeat;
   background-position: 16px;
+  border-radius: 6px;
+  cursor: pointer;
   transition: filter 0.3s ease-in-out;
 }
 
 .disabled .action-button {
-  filter: opacity(0.5);
   cursor: default;
+  filter: opacity(0.5);
 }
 
 .action-button.download {
@@ -608,14 +661,15 @@
   from {
     filter: opacity(1);
   }
+
   to {
     filter: opacity(0.7);
   }
 }
 
 .loading {
-  animation: pulse 0.6s ease-in-out infinite alternate;
   filter: opacity(1);
+  animation: pulse 0.6s ease-in-out infinite alternate;
 }
 
 .download-button-anchor {
@@ -624,19 +678,15 @@
 
 .download-button-anchor a::after {
   position: absolute;
-  z-index: 10;
-
-  width: 3em;
-  height: 3em;
-
   bottom: 1em;
   left: 1em;
-
-  content: " ";
-
-  border-radius: 3px;
+  z-index: 10;
+  width: 3em;
+  height: 3em;
   background: white no-repeat center url("../img/download.svg");
   background-size: 50%;
+  border-radius: 3px;
+  content: " ";
 }
 
 .scene-gif-view {
@@ -647,13 +697,13 @@
 
 .scene-frame-view {
   display: grid;
-  grid-auto-flow: column;
   grid-auto-columns: 80%;
+  grid-auto-flow: column;
+  margin-top: 21px;
   overflow: scroll;
   column-gap: 2em;
-  scroll-snap-type: x mandatory;
   border-radius: 3px;
-  margin-top: 21px;
+  scroll-snap-type: x mandatory;
 }
 
 .scene-frame-view-frame {
