@@ -1,5 +1,8 @@
-.segmentedControl {
+:root {
   --background: rgba(239, 239, 240, 1);
+}
+
+.segmentedControl {
   background: var(--background);
   border-radius: 9px;
   margin: 0;
