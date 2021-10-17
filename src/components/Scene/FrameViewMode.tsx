@@ -13,6 +13,7 @@ const Frame: FunctionComponent<{ url: string; text: string }> = ({
   <div className={styles["scene-frame-view-frame"]}>
     <a href={url} download={`${slugify(text).slice(0, 10)}.gif`}>
       <Image
+        unoptimized
         alt={text}
         src={url}
         width={500}

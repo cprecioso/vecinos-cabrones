@@ -17,6 +17,7 @@ const GIFViewMode: FunctionComponent<{
     <>
       <div className={styles["scene-gif-view"]}>
         <Image
+          unoptimized
           priority
           alt={scene.text}
           width={500}

@@ -23,6 +23,7 @@ export const SceneNavigation: FunctionComponent<{
         <div className={styles[`navigation-${direction}`]}>
           {data && mainFrame ? (
             <Image
+              unoptimized
               alt={data.text}
               className={styles["navigation-image"]}
               src={mainFrame}
