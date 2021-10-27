@@ -10,7 +10,7 @@ module.exports = {
 
     config.module.rules.push({
       resourceQuery: /inline/,
-      type: "asset/inline",
+      type: "asset",
     })
 
     config.module.rules.push({
