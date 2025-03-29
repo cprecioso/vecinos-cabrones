@@ -1,18 +1,18 @@
-import React from "react"
+import { useCallback, useState } from "react";
 
 export const useIsImageLoaded = () => {
-  const [isLoaded, setIsLoaded] = React.useState(false)
-  const handleLoad = React.useCallback(() => {
-    setIsLoaded(true)
-  }, [])
+  const [isLoaded, setIsLoaded] = useState(false);
+  const handleLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
 
-  return { isLoaded, handleLoad }
-}
+  return { isLoaded, handleLoad };
+};
 
 export const useHovering = () => {
-  const [isHovering, setIsHovering] = React.useState(false)
-  const onEnter = React.useCallback(() => setIsHovering(true), [])
-  const onLeave = React.useCallback(() => setIsHovering(false), [])
+  const [isHovering, setIsHovering] = useState(false);
+  const onEnter = useCallback(() => setIsHovering(true), []);
+  const onLeave = useCallback(() => setIsHovering(false), []);
 
-  return { isHovering, onEnter, onLeave }
-}
+  return { isHovering, onEnter, onLeave };
+};

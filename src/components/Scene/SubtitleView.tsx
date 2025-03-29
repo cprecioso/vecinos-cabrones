@@ -1,56 +1,50 @@
-import React, { FunctionComponent } from "react"
-import { Flipped, Flipper } from "react-flip-toolkit"
-import { SceneProvider, useScene, useSceneId } from "../../api/backend/scene"
-import { getNextSceneId, getPrevSceneId } from "../../api/backend/types"
-import styles from "../../styles/local.module.css"
-import LinkToScene from "../LinkToScene"
-import SubtitleLine from "./SubtitleLine"
+import { useMemo } from "react";
+import { Flipped, Flipper } from "react-flip-toolkit";
+import { SceneProvider, useScene, useSceneId } from "../../api/backend/scene";
+import { getNextSceneId, getPrevSceneId } from "../../api/backend/types";
+import styles from "../../styles/local.module.css";
+import LinkToScene from "../LinkToScene";
+import SubtitleLine from "./SubtitleLine";
 
-const LinkedSubtitleLine: FunctionComponent<{
-  current?: boolean
-}> = ({ current }) => {
-  const data = useScene()
+const LinkedSubtitleLine = ({ current }: { current?: boolean }) => {
+  const data = useScene();
 
   return (
     <LinkToScene scene={data} shallow={true} scroll={false}>
-      <a>
-        <SubtitleLine isCurrent={current} text={data?.text} />
-      </a>
+      <SubtitleLine isCurrent={current} text={data?.text} />
     </LinkToScene>
-  )
-}
+  );
+};
 
-const animationDuration = 200
+const animationDuration = 200;
 const animateEnter = (el: HTMLElement) => {
-  el.style.opacity = "0"
+  el.style.opacity = "0";
   requestAnimationFrame(() => {
-    el.style.transition = `${animationDuration}ms opacity`
-    el.style.opacity = "1"
+    el.style.transition = `${animationDuration}ms opacity`;
+    el.style.opacity = "1";
     setTimeout(() => {
-      el.style.transition = ""
-    }, animationDuration)
-  })
-}
+      el.style.transition = "";
+    }, animationDuration);
+  });
+};
 
 const animateLeave = (
   el: HTMLElement,
   i: number,
-  removeElement: () => void
+  removeElement: () => void,
 ) => {
-  el.style.opacity = "1"
+  el.style.opacity = "1";
   requestAnimationFrame(() => {
-    el.style.transition = `${animationDuration}ms opacity`
-    el.style.opacity = "0"
+    el.style.transition = `${animationDuration}ms opacity`;
+    el.style.opacity = "0";
     setTimeout(() => {
-      removeElement()
-    }, animationDuration)
-  })
-}
+      removeElement();
+    }, animationDuration);
+  });
+};
 
-const SubtitleLineWrapper: FunctionComponent<{ current: boolean }> = ({
-  current,
-}) => {
-  const sceneId = useSceneId()
+const SubtitleLineWrapper = ({ current }: { current: boolean }) => {
+  const sceneId = useSceneId();
 
   return (
     <Flipped
@@ -63,19 +57,19 @@ const SubtitleLineWrapper: FunctionComponent<{ current: boolean }> = ({
         <LinkedSubtitleLine current={current} />
       </div>
     </Flipped>
-  )
-}
+  );
+};
 
-export const SubtitleView: FunctionComponent = () => {
-  const currentId = useSceneId()
+export const SubtitleView = () => {
+  const currentId = useSceneId();
 
-  const sceneIds = React.useMemo(
+  const sceneIds = useMemo(
     () =>
       [getPrevSceneId(currentId), currentId, getNextSceneId(currentId)].filter(
-        (v: number | null): v is number => v != null
+        (v: number | null): v is number => v != null,
       ),
-    [currentId]
-  )
+    [currentId],
+  );
 
   return (
     <Flipper
@@ -85,14 +79,14 @@ export const SubtitleView: FunctionComponent = () => {
     >
       <div className={styles["subtitles-container"]}>
         {sceneIds.map((sceneId) => {
-          const isCurrent = sceneId === currentId
+          const isCurrent = sceneId === currentId;
           return (
             <SceneProvider key={sceneId} sceneId={sceneId}>
               <SubtitleLineWrapper current={isCurrent} />
             </SceneProvider>
-          )
+          );
         })}
       </div>
     </Flipper>
-  )
-}
+  );
+};

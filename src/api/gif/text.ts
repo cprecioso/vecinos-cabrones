@@ -3,23 +3,23 @@ import {
   drawBlockLayout,
   layoutBlock,
   Origin,
-} from "@cprecioso/canvas-text-layout"
-import font from "./font"
+} from "@cprecioso/canvas-text-layout";
+import { loadFont } from "./font";
 
 export const addText = async (canvas: HTMLCanvasElement, text: string) => {
-  const { height, width } = canvas
+  const { height, width } = canvas;
 
-  const ctx = canvas.getContext("2d")!
+  const ctx = canvas.getContext("2d")!;
 
-  const fontSize = 32.5
-  ctx.font = `${fontSize}px ${await font}`
-  ctx.fillStyle = "white"
-  ctx.lineWidth = 4
-  ctx.strokeStyle = "black"
-  ctx.textAlign = "left"
+  const fontSize = 32.5;
+  ctx.font = `${fontSize}px ${await loadFont()}`;
+  ctx.fillStyle = "white";
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = "black";
+  ctx.textAlign = "left";
 
-  const maxWidth = width * 0.9
-  const block = layoutBlock(ctx, text, maxWidth, fontSize)
+  const maxWidth = width * 0.9;
+  const block = layoutBlock(ctx, text, maxWidth, fontSize);
 
   drawBlockLayout(ctx, block, {
     x: 0,
@@ -30,11 +30,11 @@ export const addText = async (canvas: HTMLCanvasElement, text: string) => {
     lineOptions: {
       horizontalAlignment: Alignment.Middle,
       drawFn: (ctx, line, options) => {
-        ctx.strokeText(line.text, options.x, options.y)
-        ctx.fillText(line.text, options.x, options.y)
+        ctx.strokeText(line.text, options.x, options.y);
+        ctx.fillText(line.text, options.x, options.y);
       },
     },
-  })
+  });
 
-  return canvas
-}
+  return canvas;
+};

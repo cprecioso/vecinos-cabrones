@@ -1,41 +1,48 @@
-import emilioJpg from "@/img/emilio.jpg"
-import movilJpg from "@/img/movil_anhqv.jpg"
-import styles from "@/styles/local.module.css"
-import clsx from "clsx"
-import Image from "next/image"
-import Link from "next/link"
-import React, { FunctionComponent } from "react"
-import SearchBar from "./SearchBar"
+import emilioJpg from "@/img/emilio.jpg";
+import movilJpg from "@/img/movil_anhqv.jpg";
+import styles from "@/styles/local.module.css";
+import clsx from "clsx";
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
+import { ReactNode } from "react";
+import SearchBar from "./SearchBar";
 
-const ExplainerImage: FunctionComponent<{
-  href: string
-  src: StaticImageData
-  alt: string
-  title: string
-}> = ({ href, src, alt, title, children }) => (
+const ExplainerImage = ({
+  href,
+  src,
+  alt,
+  title,
+  children,
+}: {
+  href: string;
+  src: StaticImageData;
+  alt: string;
+  title: string;
+  children?: ReactNode;
+}) => (
   <div className={styles["explain-container"]}>
     <Link href={href}>
-      <a>
-        <div className={styles["explain-figure"]}>
-          <Image
-            src={src}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
-            placeholder="blur"
-            className={styles["explain-image"]}
-            alt={alt}
-          />
-        </div>
-      </a>
+      <div className={styles["explain-figure"]}>
+        <Image
+          src={src}
+          placeholder="blur"
+          className={styles["explain-image"]}
+          alt={alt}
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+      </div>
     </Link>
-
     <div className={styles["explain-title"]}>{title}</div>
     <div className={styles["explain-description"]}>{children}</div>
   </div>
-)
+);
 
-const Main: FunctionComponent = () => (
+const Main = () => (
   <div className={styles["home-content"]}>
     <div className={clsx(styles.row, styles.title)}>
       <div className={styles["col-12"]}>
@@ -109,6 +116,6 @@ const Main: FunctionComponent = () => (
       </div>
     </div>
   </div>
-)
+);
 
-export default Main
+export default Main;

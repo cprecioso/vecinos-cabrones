@@ -1,49 +1,45 @@
-import groupBy from "lodash/groupBy"
-import sortBy from "lodash/sortBy"
-import toPairs from "lodash/toPairs"
-import React, { FunctionComponent } from "react"
-import { Scene } from "../../api/backend/types"
-import styles from "../../styles/local.module.css"
-import LinkToScene from "../LinkToScene"
-import { Result } from "./Result"
+import groupBy from "lodash/groupBy";
+import sortBy from "lodash/sortBy";
+import toPairs from "lodash/toPairs";
+import { Scene } from "../../api/backend/types";
+import styles from "../../styles/local.module.css";
+import LinkToScene from "../LinkToScene";
+import { Result } from "./Result";
 
 type SeasonProps = {
-  season: number | String
-  results: Scene[]
-}
+  season: number | string;
+  results: Scene[];
+};
 
-const Season: FunctionComponent<SeasonProps> = ({ season, results }) => (
+const Season = ({ season, results }: SeasonProps) => (
   <>
     <div className={styles["results-season"]}>Temporada {season}</div>
     <div className={styles.row}>
       {sortBy(sortBy(results, "start"), "chapter.episodeNumber").map(
         (result) => (
           <LinkToScene key={result.id} scene={result}>
-            <a>
-              <Result data={result} />
-            </a>
+            <Result data={result} />
           </LinkToScene>
-        )
+        ),
       )}
     </div>
   </>
-)
+);
 
 export type Props = {
-  data: Scene[]
-}
+  data: Scene[];
+};
 
-const ResultList: FunctionComponent<Props> = ({ data }) => (
+const ResultList = ({ data }: Props) => (
   <div className={styles.results}>
     <div className={styles["results-count"]}>{data.length} resultados</div>
-
     {sortBy(
       toPairs(groupBy(data, (item) => item.chapter.seasonNumber)),
-      "0"
+      "0",
     ).map(([season, results]) => (
       <Season key={season} season={season} results={results} />
     ))}
   </div>
-)
+);
 
-export default ResultList
+export default ResultList;

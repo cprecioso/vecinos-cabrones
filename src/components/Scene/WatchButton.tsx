@@ -1,18 +1,21 @@
-import clsx from "clsx"
-import React, { FunctionComponent } from "react"
-import { useScene } from "../../api/backend/scene"
+import clsx from "clsx";
+import { ReactNode } from "react";
+import { useScene } from "../../api/backend/scene";
 import {
   LinkType,
   makeWatchLink,
-} from "../../pages/api/watch/[season]/[episode]/[ts]/[type]"
-import styles from "../../styles/local.module.css"
-import { AnalyticsEventLink } from "../Seo"
+} from "../../pages/api/watch/[season]/[episode]/[ts]/[type]";
+import styles from "../../styles/local.module.css";
+import { AnalyticsEventLink } from "../Seo";
 
-export const WatchButton: FunctionComponent<{ type: LinkType }> = ({
+export const WatchButton = ({
   children,
   type,
+}: {
+  type: LinkType;
+  children?: ReactNode;
 }) => {
-  const scene = useScene()
+  const scene = useScene();
 
   return (
     <div>
@@ -39,12 +42,12 @@ export const WatchButton: FunctionComponent<{ type: LinkType }> = ({
           className={clsx(
             styles["action-button"],
             styles.watch,
-            scene ? "" : "disabled"
+            scene ? "" : "disabled",
           )}
         >
           {children}
         </div>
       </AnalyticsEventLink>
     </div>
-  )
-}
+  );
+};

@@ -1,25 +1,25 @@
-import PQueue from "p-queue"
+import PQueue from "p-queue";
 
-const queue = new PQueue({ concurrency: 4 })
+const queue = new PQueue({ concurrency: 4 });
 
 const withRetry = <T>(times: number, fn: () => Promise<T>) => {
-  let error
+  let error;
   while (times--) {
     try {
-      return fn()
+      return fn();
     } catch (e) {
-      error = e
+      error = e;
     }
   }
-  throw error
-}
+  throw error;
+};
 
 export const addToQueue = <T>(
   fn: () => Promise<T>,
   retries = 1,
-  abortSignal?: AbortSignal
+  abortSignal?: AbortSignal,
 ) =>
   withRetry(retries, async () => {
-    if (abortSignal?.aborted) throw "Aborted by user"
-    return queue.add(fn)
-  })
+    if (abortSignal?.aborted) throw "Aborted by user";
+    return queue.add(fn);
+  });

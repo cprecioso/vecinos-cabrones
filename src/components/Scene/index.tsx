@@ -1,16 +1,14 @@
-import React, { FunctionComponent } from "react"
-import { useMainFrame } from "../../api/backend/frames"
-import { SceneProvider, useScene } from "../../api/backend/scene"
-import { getNextSceneId, getPrevSceneId } from "../../api/backend/types"
-import styles from "../../styles/local.module.css"
-import SegmentedControl from "../SegmentedControl"
-import { PageSeo } from "../Seo"
-import FrameViewMode from "./FrameViewMode"
-import GIFViewMode from "./GIFViewMode"
-import { NavigationDirection, SceneNavigation } from "./SceneNavigation"
-import { SubtitleView } from "./SubtitleView"
-
-export type Props = {}
+import { useState } from "react";
+import { useMainFrame } from "../../api/backend/frames";
+import { SceneProvider, useScene } from "../../api/backend/scene";
+import { getNextSceneId, getPrevSceneId } from "../../api/backend/types";
+import styles from "../../styles/local.module.css";
+import SegmentedControl from "../SegmentedControl";
+import { PageSeo } from "../Seo";
+import FrameViewMode from "./FrameViewMode";
+import GIFViewMode from "./GIFViewMode";
+import { NavigationDirection, SceneNavigation } from "./SceneNavigation";
+import { SubtitleView } from "./SubtitleView";
 
 enum ViewMode {
   Frame = "Fotos",
@@ -18,17 +16,17 @@ enum ViewMode {
 }
 
 const quoteIdempotent = (str: string) =>
-  /^["'“‘].+["'”’]$/s.test(str) ? str : `“${str}”`
+  /^["'“‘].+["'”’]$/s.test(str) ? str : `“${str}”`;
 
-const Scene: FunctionComponent<Props> = ({}) => {
-  const data = useScene()
-  const [currentViewMode, setCurrentViewMode] = React.useState(ViewMode.Gif)
-  const mainFrame = useMainFrame(data)
+const Scene = () => {
+  const data = useScene();
+  const [currentViewMode, setCurrentViewMode] = useState(ViewMode.Gif);
+  const mainFrame = useMainFrame(data);
 
-  if (!data) return null
+  if (!data) return null;
 
-  const nextSceneId = getNextSceneId(data)
-  const prevSceneId = getPrevSceneId(data)
+  const nextSceneId = getNextSceneId(data);
+  const prevSceneId = getPrevSceneId(data);
 
   return (
     <div className={styles.scene}>
@@ -78,7 +76,7 @@ const Scene: FunctionComponent<Props> = ({}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Scene
+export default Scene;

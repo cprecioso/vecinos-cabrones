@@ -1,7 +1,3 @@
-:root {
-  --background: rgba(239, 239, 240, 1);
-}
-
 .segmentedControl {
   display: grid;
   grid-auto-columns: 1fr;
@@ -120,7 +116,9 @@
   background: rgba(255, 255, 255, 1);
   border: 0.5px solid rgba(0, 0, 0, 0.04);
   border-radius: 7px;
-  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 1px 0 rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 3px 8px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px 0 rgba(0, 0, 0, 0.04);
   -webkit-transition: transform 0.2s ease;
   transition: transform 0.2s ease;
   will-change: transform;

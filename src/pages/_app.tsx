@@ -1,16 +1,15 @@
-import { GoogleAnalytics, IconTheming, PageSeo } from "@/components/Seo"
-import logoSvg from "@/img/logo.svg"
-import "@/styles/global.css"
-import styles from "@/styles/local.module.css"
-import { QueryProvider } from "@/util/query-context"
-import clsx from "clsx"
-import { AppProps } from "next/app"
-import Head from "next/head"
-import Image from "next/image"
-import Link from "next/link"
-import { FunctionComponent } from "react"
+import { GoogleAnalytics, IconTheming, PageSeo } from "@/components/Seo";
+import logoSvg from "@/img/logo.svg";
+import "@/styles/global.css";
+import styles from "@/styles/local.module.css";
+import { QueryProvider } from "@/util/query-context";
+import clsx from "clsx";
+import { AppProps } from "next/app";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
-const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
+const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,9 +23,16 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
         <div className={clsx(styles.row, styles.header)}>
           <div className={styles["col-12"]}>
             <Link href="/">
-              <a>
-                <Image src={logoSvg} alt="" className={styles.logo} priority />
-              </a>
+              <Image
+                src={logoSvg}
+                alt=""
+                className={styles.logo}
+                priority
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                }}
+              />
             </Link>
           </div>
         </div>
@@ -36,6 +42,6 @@ const MyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
       </QueryProvider>
     </div>
   </>
-)
+);
 
-export default MyApp
+export default MyApp;

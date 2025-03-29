@@ -1,32 +1,32 @@
-import styles from "@/styles/local.module.css"
-import { useQuery } from "@/util/query-context"
-import clsx from "clsx"
-import { useRouter } from "next/router"
-import React, { DOMAttributes, FunctionComponent } from "react"
+import styles from "@/styles/local.module.css";
+import { useQuery } from "@/util/query-context";
+import clsx from "clsx";
+import { useRouter } from "next/router";
+import { DOMAttributes, useCallback } from "react";
 
-export type Props = { autoFocus?: boolean; compact?: boolean }
+export type Props = { autoFocus?: boolean; compact?: boolean };
 
-type OnSubmitCallback = NonNullable<DOMAttributes<HTMLFormElement>["onSubmit"]>
+type OnSubmitCallback = NonNullable<DOMAttributes<HTMLFormElement>["onSubmit"]>;
 
-const SearchBar: FunctionComponent<Props> = ({ autoFocus, compact }) => {
-  const router = useRouter()
-  const { query, setQuery } = useQuery()
+const SearchBar = ({ autoFocus, compact }: Props) => {
+  const router = useRouter();
+  const { query, setQuery } = useQuery();
 
-  const onSubmit = React.useCallback<OnSubmitCallback>(
+  const onSubmit = useCallback<OnSubmitCallback>(
     (e) => {
       const q = (e.currentTarget.elements.namedItem("q")! as HTMLInputElement)
-        .value
+        .value;
 
       if (q) {
-        setQuery(q)
-        router.push({ pathname: "/buscar", query: { q } })
+        setQuery(q);
+        router.push({ pathname: "/buscar", query: { q } });
       }
 
-      e.preventDefault()
-      return false
+      e.preventDefault();
+      return false;
     },
-    [router, setQuery]
-  )
+    [router, setQuery],
+  );
 
   return (
     <form
@@ -50,7 +50,7 @@ const SearchBar: FunctionComponent<Props> = ({ autoFocus, compact }) => {
         </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;

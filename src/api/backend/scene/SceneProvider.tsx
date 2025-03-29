@@ -1,25 +1,28 @@
-import React, { FunctionComponent } from "react"
-import useSWR from "swr"
-import { ErrorView } from "../../../components/FetchHelpers"
-import { Scene, SceneId } from "../types"
-import { fetchScene, NAMESPACE } from "./fetcher"
-import { useSceneCache } from "./SceneCacheProvider"
+import { createContext, ReactNode, useContext, useEffect } from "react";
+import useSWR from "swr";
+import { ErrorView } from "../../../components/FetchHelpers";
+import { Scene, SceneId } from "../types";
+import { fetchScene, NAMESPACE } from "./fetcher";
+import { useSceneCache } from "./SceneCacheProvider";
 
-type DataContext = { sceneId: SceneId; scene: Scene | undefined }
-const DataContext = React.createContext<DataContext>({
+type DataContext = { sceneId: SceneId; scene: Scene | undefined };
+const DataContext = createContext<DataContext>({
   get sceneId(): SceneId {
-    throw new Error("No SceneProvider")
+    throw new Error("No SceneProvider");
   },
   scene: undefined,
-})
+});
 
-export const SceneProvider: FunctionComponent<{ sceneId: SceneId }> = ({
+export const SceneProvider = ({
   children,
   sceneId,
+}: {
+  sceneId: SceneId;
+  children?: ReactNode;
 }) => {
-  const { cache, addToCache } = useSceneCache()
+  const { cache, addToCache } = useSceneCache();
 
-  const cachedScene = cache.get(sceneId)
+  const cachedScene = cache.get(sceneId);
 
   const { data, error } = useSWR(
     cachedScene ? null : [NAMESPACE, sceneId],
@@ -30,16 +33,16 @@ export const SceneProvider: FunctionComponent<{ sceneId: SceneId }> = ({
       refreshWhenOffline: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-    }
-  )
+    },
+  );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data) {
-      if (data.current) addToCache(data.current)
-      if (data.previous) addToCache(data.previous)
-      if (data.next) addToCache(data.next)
+      if (data.current) addToCache(data.current);
+      if (data.previous) addToCache(data.previous);
+      if (data.next) addToCache(data.next);
     }
-  }, [data])
+  }, [data]);
 
   return (
     <>
@@ -48,9 +51,8 @@ export const SceneProvider: FunctionComponent<{ sceneId: SceneId }> = ({
         {children}
       </DataContext.Provider>
     </>
-  )
-}
+  );
+};
 
-export const useSceneId = (): SceneId => React.useContext(DataContext).sceneId
-export const useScene = (): Scene | undefined =>
-  React.useContext(DataContext).scene
+export const useSceneId = (): SceneId => useContext(DataContext).sceneId;
+export const useScene = (): Scene | undefined => useContext(DataContext).scene;

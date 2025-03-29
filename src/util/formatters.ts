@@ -1,4 +1,4 @@
-import type { Scene } from "@/api/backend/types"
+import type { Scene } from "@/api/backend/types";
 
 export const makeSceneTitle = (scene: Scene) => `Episodio ${
   scene.chapter.seasonNumber
@@ -6,4 +6,4 @@ export const makeSceneTitle = (scene: Scene) => `Episodio ${
   .toString(10)
   .padStart(2, "0")} (${scene.start.slice(0, scene.start.indexOf("."))})
 
-${scene.text}`
+${scene.text}`;

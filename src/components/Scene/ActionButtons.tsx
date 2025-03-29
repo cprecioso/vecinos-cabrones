@@ -1,14 +1,13 @@
-import slugify from "@sindresorhus/slugify"
-import clsx from "clsx"
-import { useRouter } from "next/router"
-import React, { FunctionComponent } from "react"
-import { useWebShare } from "../../api/webshare"
-import styles from "../../styles/local.module.css"
-import { WatchButton } from "./WatchButton"
+import slugify from "@sindresorhus/slugify";
+import clsx from "clsx";
+import { useRouter } from "next/router";
+import { useWebShare } from "../../api/webshare";
+import styles from "../../styles/local.module.css";
+import { WatchButton } from "./WatchButton";
 
-const ShareButton: FunctionComponent<{ title: string }> = ({ title }) => {
-  const { asPath: url } = useRouter()
-  const { canShare, share } = useWebShare(title, url)
+const ShareButton = ({ title }: { title: string }) => {
+  const { asPath: url } = useRouter();
+  const { canShare, share } = useWebShare(title, url);
 
   if (canShare) {
     return (
@@ -17,16 +16,13 @@ const ShareButton: FunctionComponent<{ title: string }> = ({ title }) => {
           Compartir
         </div>
       </a>
-    )
+    );
   } else {
-    return null
+    return null;
   }
-}
+};
 
-const DownloadButton: FunctionComponent<{ url?: string; name?: string }> = ({
-  url,
-  name,
-}) => (
+const DownloadButton = ({ url, name }: { url?: string; name?: string }) => (
   <a
     className={clsx(!url && styles.disabled)}
     download={name || true}
@@ -36,13 +32,17 @@ const DownloadButton: FunctionComponent<{ url?: string; name?: string }> = ({
       Descargar
     </div>
   </a>
-)
+);
 
-export const ActionButtons: FunctionComponent<{
-  fileUrl?: string
-  fileType?: string
-  title: string
-}> = ({ fileUrl, title, fileType }) => (
+export const ActionButtons = ({
+  fileUrl,
+  title,
+  fileType,
+}: {
+  fileUrl?: string;
+  fileType?: string;
+  title: string;
+}) => (
   <div className={styles["actions-holder"]}>
     {fileType ? (
       <DownloadButton
@@ -54,4 +54,4 @@ export const ActionButtons: FunctionComponent<{
     <WatchButton type="netflix">Ver en Netflix</WatchButton>
     <WatchButton type="prime">Ver en Prime</WatchButton>
   </div>
-)
+);

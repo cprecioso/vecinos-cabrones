@@ -1,13 +1,15 @@
 // @ts-check
 
+const prettier = "prettier --ignore-unknown --write";
+
 module.exports = {
   "package.json": [
     "sort-package-json",
-    () => "yarn install --immutable --mode=update-lockfile",
-    "prettier --write",
+    () => "yarn install --mode=update-lockfile",
+    prettier,
   ],
-  "*.css": ["stylelint --fix", "prettier --write"],
+  "*.css": ["stylelint --fix", prettier],
   "yarn.lock": () => "yarn dedupe --mode=update-lockfile",
-  "*.{j,t}s{,x}": ["organize-imports-cli", "eslint --fix", "prettier --write"],
-  "*": "prettier --ignore-unknown --write",
-}
+  "*.{j,t}s{,x}": ["eslint --fix", prettier],
+  "*": prettier,
+};

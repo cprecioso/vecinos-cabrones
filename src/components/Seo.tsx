@@ -1,9 +1,9 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
-import Script from "next/script"
-import React, { FunctionComponent } from "react"
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Script from "next/script";
+import { JSX, useEffect, useState } from "react";
 
-export const IconTheming: FunctionComponent = () => (
+export const IconTheming = () => (
   // from https://realfavicongenerator.net/
   <Head>
     <link
@@ -64,24 +64,24 @@ export const IconTheming: FunctionComponent = () => (
     />
     <meta key="theme-color" name="theme-color" content="#16181b" />
   </Head>
-)
+);
 
-export const PageSeo: FunctionComponent<{
-  pageTitle?: string
-  imageUrl?: string
-  pageDescription?: string
-}> = ({
+export const PageSeo = ({
   pageTitle,
   imageUrl = "https://vecinoscabrones.com/static/emilio.jpg",
   pageDescription,
+}: {
+  pageTitle?: string;
+  imageUrl?: string;
+  pageDescription?: string;
 }) => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const url = new URL(router.asPath, "https://vecinoscabrones.com/").href
-  const fullTitle = `${pageTitle ? `${pageTitle} | ` : ""}Vecinos Cabrones`
+  const url = new URL(router.asPath, "https://vecinoscabrones.com/").href;
+  const fullTitle = `${pageTitle ? `${pageTitle} | ` : ""}Vecinos Cabrones`;
   const fullDescription = `${
     pageDescription ? `${pageDescription} | ` : ""
-  }Encuentra tu escena favorita de Aquí no hay quien viva`
+  }Encuentra tu escena favorita de Aquí no hay quien viva`;
 
   // from https://metatags.io/
   return (
@@ -117,27 +117,21 @@ export const PageSeo: FunctionComponent<{
       />
       <meta key="twitter:image" property="twitter:image" content={imageUrl} />
     </Head>
-  )
-}
+  );
+};
 
-declare global {
-  interface Window {
-    ga?(...args: any[]): void
-  }
-}
-
-export const GoogleAnalytics: FunctionComponent = () => {
-  const { asPath } = useRouter()
-  const [initialPath, setInitialPath] = React.useState<string | null>(asPath)
-  React.useEffect(() => {
+export const GoogleAnalytics = () => {
+  const { asPath } = useRouter();
+  const [initialPath, setInitialPath] = useState<string | null>(asPath);
+  useEffect(() => {
     if (window.ga && asPath !== initialPath) {
-      setInitialPath(null)
+      setInitialPath(null);
       setTimeout(() => {
-        window.ga!("set", "page", asPath)
-        window.ga!("send", "pageview")
-      }, 10)
+        window.ga!("set", "page", asPath);
+        window.ga!("send", "pageview");
+      }, 10);
     }
-  }, [asPath, initialPath])
+  }, [asPath, initialPath]);
 
   return (
     <>
@@ -153,50 +147,51 @@ export const GoogleAnalytics: FunctionComponent = () => {
         strategy="afterInteractive"
       />
     </>
-  )
-}
+  );
+};
 
 export const sendEvent = async (
   eventCategory: string,
   eventAction: string,
   eventLabel?: string,
-  eventValue?: number
+  eventValue?: number,
 ) => {
   await new Promise((f, r) => {
-    setTimeout(r, 3000)
+    setTimeout(r, 3000);
     window.ga!("send", "event", {
       eventCategory,
       eventAction,
       eventLabel,
       eventValue,
       hitCallback: f,
-    })
-  })
-}
-export type EventData = typeof sendEvent extends (...args: infer Args) => any
-  ? Args
-  : never
+    });
+  });
+};
+export type EventData = Parameters<typeof sendEvent>;
 
-export const AnalyticsEventLink: FunctionComponent<
-  Omit<JSX.IntrinsicElements["a"], "onClick"> & {
-    event?: EventData
-  }
-> = ({ children, href, event, ...props }) => {
+export const AnalyticsEventLink = ({
+  children,
+  href,
+  event,
+  ...props
+}: Omit<JSX.IntrinsicElements["a"], "onClick"> & {
+  event?: EventData;
+}) => {
   return (
     <a
       {...props}
       href={href}
       onClick={async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (event) {
           try {
-            await sendEvent(...event)
+            await sendEvent(...event);
           } catch {}
         }
-        if (href) window.location.href = href
+        if (href) window.location.href = href;
       }}
     >
       {children}
     </a>
-  )
-}
+  );
+};

@@ -1,26 +1,22 @@
-import clsx from "clsx"
-import React, { FunctionComponent, InputHTMLAttributes } from "react"
-import styles from "./style.module.css"
+import clsx from "clsx";
+import { InputHTMLAttributes, useCallback } from "react";
+import styles from "./style.module.css";
 
 type OptionProps = {
-  name: string
-  checked: boolean
-  setSelected: (i: string) => void
-}
+  name: string;
+  checked: boolean;
+  setSelected: (i: string) => void;
+};
 
-const Option: FunctionComponent<OptionProps> = ({
-  name,
-  checked,
-  setSelected,
-}) => {
-  const onChange = React.useCallback<
+const Option = ({ name, checked, setSelected }: OptionProps) => {
+  const onChange = useCallback<
     NonNullable<InputHTMLAttributes<HTMLInputElement>["onChange"]>
   >(
     (e) => {
-      if (e.currentTarget.checked) setSelected(name)
+      if (e.currentTarget.checked) setSelected(name);
     },
-    [setSelected, name]
-  )
+    [setSelected, name],
+  );
   return (
     <div className={clsx(styles.option, checked && styles.checked)}>
       <label>
@@ -28,21 +24,17 @@ const Option: FunctionComponent<OptionProps> = ({
         <span>{name}</span>
       </label>
     </div>
-  )
-}
+  );
+};
 
 export type Props = {
-  options: string[]
-  selected: string
-  setSelected: (i: string) => void
-}
+  options: string[];
+  selected: string;
+  setSelected: (i: string) => void;
+};
 
-const SegmentedControl: FunctionComponent<Props> = ({
-  options,
-  selected,
-  setSelected,
-}) => {
-  const selectedI = options.indexOf(selected)
+const SegmentedControl = ({ options, selected, setSelected }: Props) => {
+  const selectedI = options.indexOf(selected);
   return (
     <div className={styles.segmentedControl}>
       <span
@@ -59,7 +51,7 @@ const SegmentedControl: FunctionComponent<Props> = ({
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default SegmentedControl
+export default SegmentedControl;

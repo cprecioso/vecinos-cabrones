@@ -1,15 +1,11 @@
-import slugify from "@sindresorhus/slugify"
-import Image from "next/image"
-import React, { FunctionComponent } from "react"
-import { useFrames } from "../../api/backend/frames"
-import { Scene } from "../../api/backend/types"
-import styles from "../../styles/local.module.css"
-import { ActionButtons } from "./ActionButtons"
+import slugify from "@sindresorhus/slugify";
+import Image from "next/image";
+import { useFrames } from "../../api/backend/frames";
+import { Scene } from "../../api/backend/types";
+import styles from "../../styles/local.module.css";
+import { ActionButtons } from "./ActionButtons";
 
-const Frame: FunctionComponent<{ url: string; text: string }> = ({
-  url,
-  text,
-}) => (
+const Frame = ({ url, text }: { url: string; text: string }) => (
   <div className={styles["scene-frame-view-frame"]}>
     <a href={url} download={`${slugify(text).slice(0, 10)}.gif`}>
       <Image
@@ -21,13 +17,17 @@ const Frame: FunctionComponent<{ url: string; text: string }> = ({
         height={375}
         className={styles["scene-image"]}
         quality={100}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+        }}
       />
     </a>
   </div>
-)
+);
 
-const FrameViewMode: FunctionComponent<{ result: Scene }> = ({ result }) => {
-  const frameUrls = useFrames(result)
+const FrameViewMode = ({ result }: { result: Scene }) => {
+  const frameUrls = useFrames(result);
 
   return (
     <>
@@ -38,7 +38,7 @@ const FrameViewMode: FunctionComponent<{ result: Scene }> = ({ result }) => {
       </div>
       <ActionButtons title={result.text} />
     </>
-  )
-}
+  );
+};
 
-export default FrameViewMode
+export default FrameViewMode;

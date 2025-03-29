@@ -1,20 +1,19 @@
-export interface Episode
-  extends Record<
-    | "data-season"
-    | "data-episode"
-    | "prime-season"
-    | "prime-episode"
-    | "prime-link"
-    | "netflix-season"
-    | "netflix-episode"
-    | "netflix-link",
-    string
-  > {}
+export type Episode = Record<
+  | "data-season"
+  | "data-episode"
+  | "prime-season"
+  | "prime-episode"
+  | "prime-link"
+  | "netflix-season"
+  | "netflix-episode"
+  | "netflix-link",
+  string
+>;
 
-type Values<T> = T[keyof T]
+type Values<T> = T[keyof T];
 export type LinkType = Values<{
-  [P in keyof Episode]: P extends `${infer T}-link` ? T : never
-}>
+  [P in keyof Episode]: P extends `${infer T}-link` ? T : never;
+}>;
 
-const data: Partial<Episode>[]
-export default data
+const data: Partial<Episode>[];
+export default data;

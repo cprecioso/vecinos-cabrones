@@ -1,15 +1,10 @@
-import React, { FunctionComponent } from "react"
-import styles from "./style.module.css"
+import styles from "./style.module.css";
 
-export const LoadingView: FunctionComponent = () => (
-  <div className={styles.spinner}></div>
-)
+export const LoadingView = () => <div className={styles.spinner}></div>;
 
-export const ErrorView: FunctionComponent<{ error?: any }> = ({
-  error = "",
-}) => (
+export const ErrorView = ({ error = "" }: { error?: unknown }) => (
   <div>
     <h1 className={styles.title}>Error</h1>
     <pre className={styles.error}>{"" + (error ?? "")}</pre>
   </div>
-)
+);

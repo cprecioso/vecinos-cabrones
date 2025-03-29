@@ -1,4 +1,4 @@
-import React from "react"
+import { useCallback, useEffect, useState } from "react";
 
 enum ShareAvailability {
   Unknown,
@@ -7,51 +7,51 @@ enum ShareAvailability {
 }
 
 const detectShare = () => {
-  let returnValue = ShareAvailability.None
+  let returnValue = ShareAvailability.None;
 
   try {
     if (
       window.navigator.share &&
       typeof window.navigator.share === "function"
     ) {
-      returnValue = ShareAvailability.SharePlain
+      returnValue = ShareAvailability.SharePlain;
     }
-  } catch (_) {}
+  } catch {}
 
-  return returnValue
-}
+  return returnValue;
+};
 
-let globalShareAvailability = ShareAvailability.Unknown
+let globalShareAvailability = ShareAvailability.Unknown;
 
 export const useWebShare = (title: string, url: string) => {
-  const [shareAvailability, setShareAvailability] = React.useState(
-    globalShareAvailability
-  )
+  const [shareAvailability, setShareAvailability] = useState(
+    globalShareAvailability,
+  );
 
-  const shareIsUnknown = shareAvailability === ShareAvailability.Unknown
-  React.useEffect(() => {
+  const shareIsUnknown = shareAvailability === ShareAvailability.Unknown;
+  useEffect(() => {
     if (shareIsUnknown) {
-      setShareAvailability((globalShareAvailability = detectShare()))
+      setShareAvailability((globalShareAvailability = detectShare()));
     }
-  }, [shareIsUnknown])
+  }, [shareIsUnknown]);
 
-  const share = React.useCallback(async () => {
+  const share = useCallback(async () => {
     switch (shareAvailability) {
       case ShareAvailability.Unknown:
       case ShareAvailability.None:
-        return
+        return;
       case ShareAvailability.SharePlain: {
         try {
-          await navigator.share!({ title, text: title, url })
+          await navigator.share!({ title, text: title, url });
         } catch (e) {
           if (e instanceof DOMException && e.name === "AbortError") {
-          } else throw e
+          } else throw e;
         }
       }
     }
-  }, [shareAvailability, title, url])
+  }, [shareAvailability, title, url]);
 
-  const canShare = shareAvailability === ShareAvailability.SharePlain
+  const canShare = shareAvailability === ShareAvailability.SharePlain;
 
-  return { canShare, share }
-}
+  return { canShare, share };
+};
