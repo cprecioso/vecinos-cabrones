@@ -464,7 +464,7 @@ export const actionButton = style({
 
 export const download = style({
   selectors: {
-    [`${actionButton} &`]: {
+    [`&${actionButton}`]: {
       backgroundImage: downloadSvg,
     },
   },
@@ -472,7 +472,7 @@ export const download = style({
 
 export const share = style({
   selectors: {
-    [`${actionButton} &`]: {
+    [`&${actionButton}`]: {
       backgroundImage: shareSvg,
     },
   },
@@ -480,7 +480,7 @@ export const share = style({
 
 export const watch = style({
   selectors: {
-    [`${actionButton} &`]: {
+    [`&${actionButton}`]: {
       backgroundImage: watchSvg,
     },
   },
@@ -663,7 +663,7 @@ export const navigationIndication = style({
 export const left = style({
   textAlign: "left",
   selectors: {
-    [`${navigationIndication} &`]: {
+    [`&${navigationIndication}`]: {
       backgroundImage: backSvg,
     },
   },
@@ -672,7 +672,7 @@ export const left = style({
 export const right = style({
   textAlign: "right",
   selectors: {
-    [`${navigationIndication} &`]: {
+    [`&${navigationIndication}`]: {
       marginRight: "-15px",
       paddingLeft: "0",
       textAlign: "left",
@@ -766,13 +766,13 @@ export const subtitleLineText = style({
 
 export const current = style({
   selectors: {
-    [`${subtitleLineIndicator} &`]: {
+    [`&${subtitleLineIndicator}`]: {
       backgroundImage: indicatorSvg,
       backgroundRepeat: "no-repeat",
       backgroundPosition: "left",
       cursor: "pointer",
     },
-    [`${subtitleLineText} &`]: {
+    [`&${subtitleLineText}`]: {
       opacity: "1",
     },
   },
