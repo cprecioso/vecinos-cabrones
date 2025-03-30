@@ -1,18 +1,21 @@
 import { globalStyle, keyframes, style } from "@vanilla-extract/css";
+import importedBackSvg from "../img/back.svg";
+import importedDownloadSvg from "../img/download.svg";
+import importedForwardSvg from "../img/forward.svg";
+import importedIndicatorSvg from "../img/indicator.svg";
+import importedSearchSvg from "../img/search.svg";
+import importedShareSvg from "../img/share.svg";
+import importedWatchSvg from "../img/watch.svg";
 
 const cssUrl = (url: string) => `url(${url})`;
 
-const downloadSvg = cssUrl(
-  new URL("../img/download.svg", import.meta.url).href,
-);
-const searchSvg = cssUrl(new URL("../img/search.svg", import.meta.url).href);
-const shareSvg = cssUrl(new URL("../img/share.svg", import.meta.url).href);
-const watchSvg = cssUrl(new URL("../img/watch.svg", import.meta.url).href);
-const backSvg = cssUrl(new URL("../img/back.svg", import.meta.url).href);
-const forwardSvg = cssUrl(new URL("../img/forward.svg", import.meta.url).href);
-const indicatorSvg = cssUrl(
-  new URL("../img/indicator.svg", import.meta.url).href,
-);
+const downloadSvg = cssUrl(importedDownloadSvg.src);
+const searchSvg = cssUrl(importedSearchSvg.src);
+const shareSvg = cssUrl(importedShareSvg.src);
+const watchSvg = cssUrl(importedWatchSvg.src);
+const backSvg = cssUrl(importedBackSvg.src);
+const forwardSvg = cssUrl(importedForwardSvg.src);
+const indicatorSvg = cssUrl(importedIndicatorSvg.src);
 
 const pulseKeyframes = keyframes(
   {

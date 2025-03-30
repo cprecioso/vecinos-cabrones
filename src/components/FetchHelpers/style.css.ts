@@ -1,10 +1,9 @@
 import { style } from "@vanilla-extract/css";
+import importedRollingSvg from "../../img/rolling.svg";
 
 const cssUrl = (url: string) => `url(${url})`;
 
-const rollingSvg = cssUrl(
-  new URL("../../img/rolling.svg", import.meta.url).href,
-);
+const rollingSvg = cssUrl(importedRollingSvg.src);
 
 export const error = style({
   color: "white",
