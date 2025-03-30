@@ -7,9 +7,6 @@ const withVanillaExtract = createVanillaExtractPlugin();
 /** @type {import("next").NextConfig} */
 export default withVanillaExtract({
   webpack(/** @type {import("webpack").Configuration} */ config) {
-    if (!config.experiments) config.experiments = {};
-    config.experiments.topLevelAwait = true;
-
     config.module ??= {};
     config.module.rules ??= [];
 
@@ -28,6 +25,6 @@ export default withVanillaExtract({
   },
 
   images: {
-    domains: ["anhqv.us-east-1.linodeobjects.com"],
+    remotePatterns: [{ hostname: "anhqv.us-east-1.linodeobjects.com" }],
   },
 });
