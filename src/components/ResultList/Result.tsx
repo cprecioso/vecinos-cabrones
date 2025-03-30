@@ -42,7 +42,7 @@ export const Result = ({ data: result }: Props) => {
           title={makeSceneTitle(result)}
           width={252}
           height={189}
-          onLoadingComplete={handleLoad}
+          onLoad={handleLoad}
           src={currentSource}
           className={clsx(styles.imageResult, isLoading && styles.loading)}
           sizes="100vw"
