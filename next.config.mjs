@@ -6,7 +6,6 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import("next").NextConfig} */
 export default withVanillaExtract({
-  i18n: { defaultLocale: "es-ES", locales: ["es-ES"] },
   webpack(/** @type {import("webpack").Configuration} */ config) {
     if (!config.experiments) config.experiments = {};
     config.experiments.topLevelAwait = true;
