@@ -18,36 +18,19 @@ export const WatchButton = ({
   const scene = useScene();
 
   return (
-    <div>
-      <style jsx>{`
-        p {
-          font-size: 1em;
-          line-height: 1.3em;
-          text-align: center;
-          color: white;
-          font-weight: normal;
-        }
-
-        .${styles["button"]} {
-          margin: 0.3em;
-          margin-bottom: 0.5em;
-        }
-      `}</style>
-
-      <AnalyticsEventLink
-        href={scene ? makeWatchLink(scene, type) : ""}
-        event={[type, "watch"]}
+    <AnalyticsEventLink
+      href={scene ? makeWatchLink(scene, type) : ""}
+      event={[type, "watch"]}
+    >
+      <div
+        className={clsx(
+          styles.actionButton,
+          styles.watch,
+          scene ? "" : "disabled",
+        )}
       >
-        <div
-          className={clsx(
-            styles.actionButton,
-            styles.watch,
-            scene ? "" : "disabled",
-          )}
-        >
-          {children}
-        </div>
-      </AnalyticsEventLink>
-    </div>
+        {children}
+      </div>
+    </AnalyticsEventLink>
   );
 };
