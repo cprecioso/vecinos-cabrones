@@ -1,6 +1,6 @@
 import emilioJpg from "@/img/emilio.jpg";
 import movilJpg from "@/img/movil_anhqv.jpg";
-import styles from "@/styles/local.module.css";
+import * as styles from "@/styles/local.css";
 import clsx from "clsx";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
@@ -20,13 +20,13 @@ const ExplainerImage = ({
   title: string;
   children?: ReactNode;
 }) => (
-  <div className={styles["explain-container"]}>
+  <div className={styles.explainContainer}>
     <Link href={href}>
-      <div className={styles["explain-figure"]}>
+      <div className={styles.explainFigure}>
         <Image
           src={src}
           placeholder="blur"
-          className={styles["explain-image"]}
+          className={styles.explainImage}
           alt={alt}
           fill
           sizes="100vw"
@@ -37,15 +37,15 @@ const ExplainerImage = ({
         />
       </div>
     </Link>
-    <div className={styles["explain-title"]}>{title}</div>
-    <div className={styles["explain-description"]}>{children}</div>
+    <div className={styles.explainTitle}>{title}</div>
+    <div className={styles.explainDescription}>{children}</div>
   </div>
 );
 
 const Main = () => (
-  <div className={styles["home-content"]}>
+  <div className={styles.homeContent}>
     <div className={clsx(styles.row, styles.title)}>
-      <div className={styles["col-12"]}>
+      <div className={styles.col12}>
         <h1>
           Encuentra tu escena favorita de <b>Aquí no hay quien viva</b>
         </h1>
@@ -55,10 +55,10 @@ const Main = () => (
     <SearchBar autoFocus={true} />
 
     <div className={clsx(styles.row, styles.explain)}>
-      <div className={styles["line-group"]}>
+      <div className={styles.lineGroup}>
         <hr />
-        <div className={styles["line-title"]}>
-          <div className={styles["line-title-text"]}>¿Pero esto qué es?</div>
+        <div className={styles.lineTitle}>
+          <div className={styles.lineTitleText}>¿Pero esto qué es?</div>
         </div>
       </div>
       <ExplainerImage
@@ -82,27 +82,27 @@ const Main = () => (
     </div>
 
     <div className={clsx(styles.row, styles.explain)}>
-      <div className={styles["line-group"]}>
+      <div className={styles.lineGroup}>
         <hr />
-        <div className={styles["line-title"]}>
-          <div className={styles["line-title-text"]}>
+        <div className={styles.lineTitle}>
+          <div className={styles.lineTitleText}>
             ¿Cómo y quién ha hecho esto?
           </div>
         </div>
       </div>
-      <div className={styles["explain-image"]}>
-        <div style={{ marginTop: 40 }} className={styles["explain-title"]}>
+      <div className={styles.explainImage}>
+        <div style={{ marginTop: 40 }} className={styles.explainTitle}>
           ¡Subtítulos!
         </div>
-        <div className={styles["explain-description"]}>
+        <div className={styles.explainDescription}>
           Gracias a los subtítulos de la serie, se ha vinculado cada frase a los
           fotogramas correspondientes y se ha generado una base de datos en la
           que consultar y obtener la información rápidamente.
         </div>
       </div>
-      <div className={styles["explain-image"]}>
-        <div className={styles["explain-title"]}>Los creadores</div>
-        <div className={styles["explain-description"]}>
+      <div className={styles.explainImage}>
+        <div className={styles.explainTitle}>Los creadores</div>
+        <div className={styles.explainDescription}>
           Las personas que han hecho esta web posible son:
           <br />
           <br />

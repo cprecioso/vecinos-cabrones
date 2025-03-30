@@ -5,7 +5,7 @@ import {
   LinkType,
   makeWatchLink,
 } from "../../pages/api/watch/[season]/[episode]/[ts]/[type]";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import { AnalyticsEventLink } from "../Seo";
 
 export const WatchButton = ({
@@ -40,7 +40,7 @@ export const WatchButton = ({
       >
         <div
           className={clsx(
-            styles["action-button"],
+            styles.actionButton,
             styles.watch,
             scene ? "" : "disabled",
           )}

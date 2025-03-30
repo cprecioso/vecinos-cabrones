@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Fragment, JSX } from "react";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import { useQuery } from "../../util/query-context";
 
 // from verbal-expressions
@@ -50,18 +50,15 @@ const SubtitleLine = ({
   const { query } = useQuery();
 
   return (
-    <div className={styles["subtitle-line"]}>
+    <div className={styles.subtitleLine}>
       <div
         className={clsx(
-          styles["subtitle-line-indicator"],
+          styles.subtitleLineIndicator,
           isCurrent && styles.current,
         )}
       />
       <div
-        className={clsx(
-          styles["subtitle-line-text"],
-          isCurrent && styles.current,
-        )}
+        className={clsx(styles.subtitleLineText, isCurrent && styles.current)}
       >
         {text ? (
           toHTMLLines(text.split("\n").map(findAndMakeBold(query)))

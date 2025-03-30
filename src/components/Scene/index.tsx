@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMainFrame } from "../../api/backend/frames";
 import { SceneProvider, useScene } from "../../api/backend/scene";
 import { getNextSceneId, getPrevSceneId } from "../../api/backend/types";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import SegmentedControl from "../SegmentedControl";
 import { PageSeo } from "../Seo";
 import FrameViewMode from "./FrameViewMode";
@@ -39,11 +39,11 @@ const Scene = () => {
           data.chapter.title
         }`}
       />
-      <div className={styles["chapter-data"]}>
-        <div className={styles["chapter-info"]}>
+      <div className={styles.chapterData}>
+        <div className={styles.chapterInfo}>
           Temporada {data.chapter.seasonNumber}
         </div>
-        <div className={styles["chapter-title"]}>{data.chapter.title}</div>
+        <div className={styles.chapterTitle}>{data.chapter.title}</div>
 
         <div style={{ clear: "both" }} />
 
@@ -61,7 +61,7 @@ const Scene = () => {
 
         <div className={styles.subtitles}>
           <SubtitleView />
-          <div className={styles["subtitles-navigation"]}>
+          <div className={styles.subtitlesNavigation}>
             {prevSceneId ? (
               <SceneProvider sceneId={prevSceneId}>
                 <SceneNavigation direction={NavigationDirection.Left} />

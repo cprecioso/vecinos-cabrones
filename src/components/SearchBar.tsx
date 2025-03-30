@@ -1,4 +1,4 @@
-import styles from "@/styles/local.module.css";
+import * as styles from "@/styles/local.css";
 import { useQuery } from "@/util/query-context";
 import clsx from "clsx";
 import { useRouter } from "next/router";
@@ -35,10 +35,10 @@ const SearchBar = ({ autoFocus, compact }: Props) => {
       action="/search"
       onSubmit={onSubmit}
     >
-      <div className={styles["col-12"]}>
-        <div className={styles["search-box"]}>
+      <div className={styles.col12}>
+        <div className={styles.searchBox}>
           <input
-            className={styles["search-input"]}
+            className={styles.searchInput}
             type="text"
             placeholder="PUF"
             defaultValue={query}
@@ -46,7 +46,7 @@ const SearchBar = ({ autoFocus, compact }: Props) => {
             autoFocus={autoFocus}
             autoComplete="off"
           />
-          <input type="submit" value="" className={styles["search-button"]} />
+          <input type="submit" value="" className={styles.searchButton} />
         </div>
       </div>
     </form>

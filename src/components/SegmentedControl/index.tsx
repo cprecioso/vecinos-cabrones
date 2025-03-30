@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { InputHTMLAttributes, useCallback } from "react";
-import styles from "./style.module.css";
+import * as styles from "./style.css";
 
 type OptionProps = {
   name: string;

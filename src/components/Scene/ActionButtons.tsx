@@ -2,7 +2,7 @@ import slugify from "@sindresorhus/slugify";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useWebShare } from "../../api/webshare";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import { WatchButton } from "./WatchButton";
 
 const ShareButton = ({ title }: { title: string }) => {
@@ -12,9 +12,7 @@ const ShareButton = ({ title }: { title: string }) => {
   if (canShare) {
     return (
       <a className={clsx(!title && styles.disabled)} onClick={share}>
-        <div className={clsx(styles["action-button"], styles.share)}>
-          Compartir
-        </div>
+        <div className={clsx(styles.actionButton, styles.share)}>Compartir</div>
       </a>
     );
   } else {
@@ -28,9 +26,7 @@ const DownloadButton = ({ url, name }: { url?: string; name?: string }) => (
     download={name || true}
     href={url}
   >
-    <div className={clsx(styles["action-button"], styles.download)}>
-      Descargar
-    </div>
+    <div className={clsx(styles.actionButton, styles.download)}>Descargar</div>
   </a>
 );
 
@@ -43,7 +39,7 @@ export const ActionButtons = ({
   fileType?: string;
   title: string;
 }) => (
-  <div className={styles["actions-holder"]}>
+  <div className={styles.actionsHolder}>
     {fileType ? (
       <DownloadButton
         name={title && `${slugify(title).slice(0, 30)}.${fileType}`}

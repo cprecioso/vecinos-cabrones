@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import { SceneProvider, useScene, useSceneId } from "../../api/backend/scene";
 import { getNextSceneId, getPrevSceneId } from "../../api/backend/types";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import LinkToScene from "../LinkToScene";
 import SubtitleLine from "./SubtitleLine";
 
@@ -77,7 +77,7 @@ export const SubtitleView = () => {
       spring="veryGentle"
       staggerConfig={{ default: { speed: 0.1 } }}
     >
-      <div className={styles["subtitles-container"]}>
+      <div className={styles.subtitlesContainer}>
         {sceneIds.map((sceneId) => {
           const isCurrent = sceneId === currentId;
           return (

@@ -1,7 +1,7 @@
 import { GoogleAnalytics, IconTheming, PageSeo } from "@/components/Seo";
 import logoSvg from "@/img/logo.svg";
 import "@/styles/global.css";
-import styles from "@/styles/local.module.css";
+import * as styles from "@/styles/local.css";
 import { QueryProvider } from "@/util/query-context";
 import clsx from "clsx";
 import { AppProps } from "next/app";
@@ -19,9 +19,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
     <PageSeo />
     <GoogleAnalytics />
     <div className={styles.main}>
-      <div className={styles["home-content"]}>
+      <div className={styles.homeContent}>
         <div className={clsx(styles.row, styles.header)}>
-          <div className={styles["col-12"]}>
+          <div className={styles.col12}>
             <Link href="/">
               <Image
                 src={logoSvg}

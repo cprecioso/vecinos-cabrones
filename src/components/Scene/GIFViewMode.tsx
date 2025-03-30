@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useFrames } from "../../api/backend/frames";
 import { Scene } from "../../api/backend/types";
 import { useGif } from "../../api/gif/hook";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import { ActionButtons } from "./ActionButtons";
 
 const GIFViewMode = ({ scene }: { scene: Scene }) => {
@@ -12,7 +12,7 @@ const GIFViewMode = ({ scene }: { scene: Scene }) => {
 
   return (
     <>
-      <div className={styles["scene-gif-view"]}>
+      <div className={styles.sceneGifView}>
         <Image
           unoptimized
           crossOrigin="anonymous"
@@ -21,7 +21,7 @@ const GIFViewMode = ({ scene }: { scene: Scene }) => {
           width={500}
           height={375}
           src={gifUrl ?? frameUrls[0]}
-          className={clsx(styles["scene-image"], isLoading && styles.loading)}
+          className={clsx(styles.sceneImage, isLoading && styles.loading)}
           style={{
             maxWidth: "100%",
             height: "auto",

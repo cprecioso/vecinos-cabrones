@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useMainFrame } from "../../api/backend/frames";
 import { useScene } from "../../api/backend/scene";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import LinkToScene from "../LinkToScene";
 
 export enum NavigationDirection {
@@ -20,13 +20,20 @@ export const SceneNavigation = ({
 
   return (
     <LinkToScene scene={data} shallow={true} scroll={false}>
-      <div className={styles[`navigation-${direction}`]}>
+      <div
+        className={
+          {
+            [NavigationDirection.Left]: styles.navigationLeft,
+            [NavigationDirection.Right]: styles.navigationRight,
+          }[direction]
+        }
+      >
         {data && mainFrame ? (
           <Image
             unoptimized
             crossOrigin="anonymous"
             alt={data.text}
-            className={styles["navigation-image"]}
+            className={styles.navigationImage}
             src={mainFrame}
             width={85}
             height={63}
@@ -36,9 +43,7 @@ export const SceneNavigation = ({
             }}
           />
         ) : null}
-        <div
-          className={clsx(styles["navigation-indication"], styles[direction])}
-        >
+        <div className={clsx(styles.navigationIndication, styles[direction])}>
           {direction === NavigationDirection.Left ? "Anterior" : "Siguiente"}
         </div>
       </div>

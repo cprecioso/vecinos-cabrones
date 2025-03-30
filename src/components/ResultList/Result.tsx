@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { useFrames } from "../../api/backend/frames";
 import { Scene } from "../../api/backend/types";
 import { useGif } from "../../api/gif/hook";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import { makeSceneTitle } from "../../util/formatters";
 import { useHovering, useIsImageLoaded } from "../../util/hooks";
 
@@ -29,12 +29,12 @@ export const Result = ({ data: result }: Props) => {
 
   return (
     <div
-      className={clsx(styles["col-6"], styles.result)}
+      className={clsx(styles.col6, styles.result)}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       ref={ref}
     >
-      <div className={styles["item-container"]}>
+      <div className={styles.itemContainer}>
         <Image
           unoptimized
           crossOrigin="anonymous"
@@ -44,7 +44,7 @@ export const Result = ({ data: result }: Props) => {
           height={189}
           onLoadingComplete={handleLoad}
           src={currentSource}
-          className={clsx(styles["image-result"], isLoading && styles.loading)}
+          className={clsx(styles.imageResult, isLoading && styles.loading)}
           sizes="100vw"
           style={{
             width: "100%",

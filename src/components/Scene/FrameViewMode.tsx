@@ -2,11 +2,11 @@ import slugify from "@sindresorhus/slugify";
 import Image from "next/image";
 import { useFrames } from "../../api/backend/frames";
 import { Scene } from "../../api/backend/types";
-import styles from "../../styles/local.module.css";
+import * as styles from "../../styles/local.css";
 import { ActionButtons } from "./ActionButtons";
 
 const Frame = ({ url, text }: { url: string; text: string }) => (
-  <div className={styles["scene-frame-view-frame"]}>
+  <div className={styles.sceneFrameViewFrame}>
     <a href={url} download={`${slugify(text).slice(0, 10)}.gif`}>
       <Image
         unoptimized
@@ -15,7 +15,7 @@ const Frame = ({ url, text }: { url: string; text: string }) => (
         src={url}
         width={500}
         height={375}
-        className={styles["scene-image"]}
+        className={styles.sceneImage}
         quality={100}
         style={{
           maxWidth: "100%",
@@ -31,7 +31,7 @@ const FrameViewMode = ({ result }: { result: Scene }) => {
 
   return (
     <>
-      <div className={styles["scene-frame-view"]}>
+      <div className={styles.sceneFrameView}>
         {frameUrls.map((frameUrl) => (
           <Frame key={frameUrl} url={frameUrl} text={result.text} />
         ))}

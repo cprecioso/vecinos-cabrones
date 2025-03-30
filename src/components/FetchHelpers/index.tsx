@@ -1,4 +1,4 @@
-import styles from "./style.module.css";
+import * as styles from "./style.css";
 
 export const LoadingView = () => <div className={styles.spinner}></div>;
 

@@ -1,7 +1,11 @@
 // @ts-check
 
+import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
+
+const withVanillaExtract = createVanillaExtractPlugin();
+
 /** @type {import("next").NextConfig} */
-module.exports = {
+export default withVanillaExtract({
   i18n: { defaultLocale: "es-ES", locales: ["es-ES"] },
   webpack(/** @type {import("webpack").Configuration} */ config) {
     if (!config.experiments) config.experiments = {};
@@ -27,4 +31,4 @@ module.exports = {
   images: {
     domains: ["anhqv.us-east-1.linodeobjects.com"],
   },
-};
+});
