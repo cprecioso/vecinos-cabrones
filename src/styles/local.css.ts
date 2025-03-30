@@ -740,7 +740,7 @@ export const search = style({
 
 export const compact = style({
   selectors: {
-    [`${search} &`]: {
+    [`&${search}`]: {
       paddingRight: "24px",
       paddingLeft: "24px",
     },
