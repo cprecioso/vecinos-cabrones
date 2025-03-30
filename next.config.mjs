@@ -11,7 +11,7 @@ export default withVanillaExtract({
     config.module.rules ??= [];
 
     config.module.rules.push({
-      resourceQuery: /inline/,
+      resourceQuery: /\?inline$/,
       type: "asset",
     });
 
