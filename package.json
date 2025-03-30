@@ -2,7 +2,7 @@
   "name": "vecinos-cabrones",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "yarn@4.8.0",
+  "packageManager": "yarn@4.8.1",
   "engines": {
     "node": "22"
   },
