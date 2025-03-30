@@ -1,12 +1,4 @@
-import { createGlobalVar, fontFace, globalStyle } from "@vanilla-extract/css";
-
-const backgroundVar = createGlobalVar("background");
-
-globalStyle(":root", {
-  vars: {
-    [backgroundVar]: `rgba(239, 239, 240, 1)`,
-  },
-});
+import { fontFace, globalStyle } from "@vanilla-extract/css";
 
 const sanFranciscoFont = fontFace(
   [

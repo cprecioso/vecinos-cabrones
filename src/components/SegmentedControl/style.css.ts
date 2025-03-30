@@ -1,4 +1,12 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { createVar, globalStyle, style } from "@vanilla-extract/css";
+
+const backgroundVar = createVar("background");
+
+globalStyle(":root", {
+  vars: {
+    [backgroundVar]: `rgba(239, 239, 240, 1)`,
+  },
+});
 
 export const checked = style({});
 
@@ -11,7 +19,7 @@ export const segmentedControl = style({
   marginTop: "20px",
   padding: "2px",
   overflow: "hidden",
-  background: "var(--background)",
+  background: backgroundVar,
   border: "none",
   borderRadius: "9px",
   outline: "none",
@@ -98,11 +106,11 @@ globalStyle(`${segmentedControl} ${option}${checked} label`, {
 });
 globalStyle(`${segmentedControl} ${option}${checked} label::after`, {
   zIndex: "1",
-  background: "var(--background)",
+  background: backgroundVar,
 });
 globalStyle(`${segmentedControl} ${option}${checked} label::before`, {
   zIndex: "1",
-  background: "var(--background)",
+  background: backgroundVar,
 });
 globalStyle(`${segmentedControl} ${option}:first-of-type`, {
   gridRow: "1",
