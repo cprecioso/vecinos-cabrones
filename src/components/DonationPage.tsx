@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const DonationPage = () => {
   // Current donation amount (in euros)
-  const [currentAmount] = useState(34.56);
+  const [currentAmount] = useState(44.56);
   const targetAmount = 90;
   const progressPercentage = (currentAmount / targetAmount) * 100;
 
