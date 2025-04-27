@@ -92,6 +92,15 @@ const Main = () => (
       </div>
       <div className={styles.explainImage}>
         <div style={{ marginTop: 40 }} className={styles.explainTitle}>
+          Nuestros donantes
+        </div>
+        <div className={styles.explainDescription}>
+          Esta web existe gracias al apoyo de la comunidad de fans de Aquí no
+          hay quien viva. Cada donación, grande o pequeña, nos ayuda a seguir
+          ofreciendo este servicio para todos los amantes de la serie.
+        </div>
+
+        <div style={{ marginTop: 40 }} className={styles.explainTitle}>
           ¡Subtítulos!
         </div>
         <div className={styles.explainDescription}>
