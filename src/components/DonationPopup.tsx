@@ -1,26 +1,10 @@
 import * as styles from "@/styles/local.css";
-import { useEffect, useState } from "react";
-
-const STORAGE_KEY = "vc_donation_dismissed_until";
-const DISMISS_DAYS = 7;
-const SHOW_DELAY_MS = 18000;
+import { useState } from "react";
 
 const DonationPopup = () => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    const dismissedUntil = localStorage.getItem(STORAGE_KEY);
-    if (dismissedUntil && Date.now() < Number(dismissedUntil)) return;
-
-    const timer = setTimeout(() => setVisible(true), SHOW_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const dismiss = () => {
-    const until = Date.now() + DISMISS_DAYS * 24 * 60 * 60 * 1000;
-    localStorage.setItem(STORAGE_KEY, String(until));
-    setVisible(false);
-  };
+  const dismiss = () => setVisible(false);
 
   if (!visible) return null;
 
