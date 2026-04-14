@@ -1,3 +1,4 @@
+import DonationPopup from "@/components/DonationPopup";
 import { GoogleAnalytics, IconTheming, PageSeo } from "@/components/Seo";
 import logoSvg from "@/img/logo.svg";
 import "@/styles/global.css";
@@ -40,6 +41,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       <QueryProvider>
         <Component {...pageProps} />
       </QueryProvider>
+      <DonationPopup />
     </div>
   </>
 );

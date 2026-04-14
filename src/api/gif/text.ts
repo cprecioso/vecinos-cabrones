@@ -1,8 +1,8 @@
 import {
-  Alignment,
-  drawBlockLayout,
+  Placement1D,
+  Placement2D,
+  drawBlock,
   layoutBlock,
-  Origin,
 } from "@cprecioso/canvas-text-layout";
 import { loadFont } from "./font";
 
@@ -19,22 +19,22 @@ export const addText = async (canvas: HTMLCanvasElement, text: string) => {
   ctx.textAlign = "left";
 
   const maxWidth = width * 0.9;
-  const block = layoutBlock(ctx, text, maxWidth, fontSize);
+  const block = layoutBlock(ctx, text, { maxWidth });
 
-  drawBlockLayout(ctx, block, {
-    x: 0,
-    containerWidth: width,
-    y: height * 0.9,
-    origin: Origin.Bottom | Origin.Left,
-    horizontalAlignment: Alignment.Middle,
-    lineOptions: {
-      horizontalAlignment: Alignment.Middle,
-      drawFn: (ctx, line, options) => {
-        ctx.strokeText(line.text, options.x, options.y);
-        ctx.fillText(line.text, options.x, options.y);
+  // Place the block centered horizontally, with its bottom edge at 90% of the frame height.
+  drawBlock(
+    ctx,
+    block,
+    { x: width / 2, y: height * 0.82 },
+    {
+      origin: Placement2D.BottomCenter,
+      textAlignment: Placement1D.Center,
+      drawFn: (lineText, x, y) => {
+        ctx.strokeText(lineText, x, y);
+        ctx.fillText(lineText, x, y);
       },
     },
-  });
+  );
 
   return canvas;
 };

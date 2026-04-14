@@ -1,21 +1,13 @@
 import { globalStyle, keyframes, style } from "@vanilla-extract/css";
-import importedBackSvg from "../img/back.svg";
-import importedDownloadSvg from "../img/download.svg";
-import importedForwardSvg from "../img/forward.svg";
-import importedIndicatorSvg from "../img/indicator.svg";
-import importedSearchSvg from "../img/search.svg";
-import importedShareSvg from "../img/share.svg";
-import importedWatchSvg from "../img/watch.svg";
+import { svgUrl } from "./svg-url";
 
-const cssUrl = (url: string) => `url(${url})`;
-
-const downloadSvg = cssUrl(importedDownloadSvg.src);
-const searchSvg = cssUrl(importedSearchSvg.src);
-const shareSvg = cssUrl(importedShareSvg.src);
-const watchSvg = cssUrl(importedWatchSvg.src);
-const backSvg = cssUrl(importedBackSvg.src);
-const forwardSvg = cssUrl(importedForwardSvg.src);
-const indicatorSvg = cssUrl(importedIndicatorSvg.src);
+const downloadSvg = svgUrl("../img/download.svg");
+const searchSvg = svgUrl("../img/search.svg");
+const shareSvg = svgUrl("../img/share.svg");
+const watchSvg = svgUrl("../img/watch.svg");
+const backSvg = svgUrl("../img/back.svg");
+const forwardSvg = svgUrl("../img/forward.svg");
+const indicatorSvg = svgUrl("../img/indicator.svg");
 
 const pulseKeyframes = keyframes(
   {
@@ -503,114 +495,135 @@ globalStyle(`${actionsHolder} > *`, {
   margin: "8px",
 });
 
-export const col1 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "4.33%",
-    },
-  },
+// Base style composed into every col* class so float/margin are always applied,
+// regardless of the generated class name format (the old [class^='local_col']
+// selector broke when vanilla-extract stopped using name-prefixed class names).
+const colBase = style({
+  float: "left",
+  minHeight: "0.125rem",
+  margin: "0.5rem 2%",
 });
 
-export const col10 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "79.33%",
+export const col1 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "4.33%" },
     },
   },
-});
+]);
 
-export const col11 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "87.66%",
+export const col10 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "79.33%" },
     },
   },
-});
+]);
 
-export const col12 = style({
-  width: "100%",
-  margin: "0",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "96%",
+export const col11 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "87.66%" },
     },
   },
-});
+]);
 
-export const col2 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "12.66%",
+export const col12 = style([
+  colBase,
+  {
+    width: "100%",
+    margin: "0",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "96%" },
     },
   },
-});
+]);
 
-export const col3 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "21%",
+export const col2 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "12.66%" },
     },
   },
-});
+]);
 
-export const col4 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "29.33%",
+export const col3 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "21%" },
     },
   },
-});
+]);
 
-export const col5 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "37.66%",
+export const col4 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "29.33%" },
     },
   },
-});
+]);
 
-export const col6 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "46%",
+export const col5 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "37.66%" },
     },
   },
-});
+]);
 
-export const col7 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "54.33%",
+export const col6 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "46%" },
     },
   },
-});
+]);
 
-export const col8 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "62.66%",
+export const col7 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "54.33%" },
     },
   },
-});
+]);
 
-export const col9 = style({
-  width: "96%",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      width: "71%",
+export const col8 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "62.66%" },
     },
   },
-});
+]);
+
+export const col9 = style([
+  colBase,
+  {
+    width: "96%",
+    "@media": {
+      "only screen and (min-width: 45em)": { width: "71%" },
+    },
+  },
+]);
 
 export const container = style({
   marginRight: "auto",
@@ -711,12 +724,6 @@ export const row = style({
   },
 });
 
-globalStyle(`${row} [class^='local_col']`, {
-  float: "left",
-  minHeight: "0.125rem",
-  margin: "0.5rem 2%",
-});
-
 export const scene = style({
   marginTop: "20px",
   marginBottom: "100px",
@@ -788,4 +795,139 @@ globalStyle(`${subtitleLineText} b`, {
   fontFamily: "inherit",
   fontStyle: "inherit",
   lineHeight: "inherit",
+});
+
+// Donation popup styles
+export const donationOverlay = style({
+  position: "fixed",
+  inset: 0,
+  zIndex: 1000,
+  backgroundColor: "rgba(0,0,0,0.5)",
+  backdropFilter: "blur(2px)",
+  display: "flex",
+  alignItems: "flex-end",
+  "@media": {
+    "only screen and (min-width: 45em)": {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
+});
+
+export const donationPanel = style({
+  width: "100%",
+  maxWidth: "600px",
+  backgroundColor: "#212326",
+  borderRadius: "20px 20px 0 0",
+  padding: "28px 24px 36px",
+  boxShadow: "0 -4px 32px rgba(0,0,0,0.6)",
+  "@media": {
+    "only screen and (min-width: 45em)": {
+      borderRadius: "16px",
+      padding: "32px",
+    },
+  },
+});
+
+export const donationHeader = style({
+  display: "flex",
+  alignItems: "flex-start",
+  justifyContent: "space-between",
+  marginBottom: "16px",
+});
+
+export const donationTitle = style({
+  color: "#fff",
+  fontWeight: "800",
+  fontSize: "22px",
+  fontFamily: "inherit",
+  lineHeight: "1.2",
+  margin: 0,
+});
+
+export const donationTitleAccent = style({
+  color: "#fec32a",
+});
+
+export const donationCloseButton = style({
+  flexShrink: 0,
+  marginLeft: "12px",
+  width: "32px",
+  height: "32px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "rgba(255,255,255,0.1)",
+  border: "none",
+  borderRadius: "50%",
+  cursor: "pointer",
+  color: "#fff",
+  fontSize: "18px",
+  lineHeight: "1",
+  transition: "background 0.2s ease",
+  selectors: {
+    "&:hover": {
+      background: "rgba(255,255,255,0.2)",
+    },
+  },
+});
+
+export const donationText = style({
+  color: "rgba(255,255,255,0.7)",
+  fontWeight: "500",
+  fontSize: "16px",
+  fontFamily: "inherit",
+  lineHeight: "1.5",
+  marginBottom: "24px",
+});
+
+export const donationActions = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px",
+});
+
+export const donationPrimaryBtn = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "8px",
+  width: "100%",
+  padding: "14px",
+  background: "#fec32a",
+  color: "#16181b",
+  fontWeight: "700",
+  fontSize: "16px",
+  fontFamily: "inherit",
+  border: "none",
+  borderRadius: "10px",
+  cursor: "pointer",
+  transition: "filter 0.2s ease",
+  textDecoration: "none",
+  selectors: {
+    "&:hover": {
+      filter: "brightness(0.92)",
+    },
+  },
+});
+
+export const donationSecondaryBtn = style({
+  display: "block",
+  width: "100%",
+  padding: "10px",
+  background: "transparent",
+  color: "rgba(255,255,255,0.45)",
+  fontWeight: "500",
+  fontSize: "14px",
+  fontFamily: "inherit",
+  border: "none",
+  borderRadius: "10px",
+  cursor: "pointer",
+  textAlign: "center",
+  transition: "color 0.2s ease",
+  selectors: {
+    "&:hover": {
+      color: "rgba(255,255,255,0.7)",
+    },
+  },
 });

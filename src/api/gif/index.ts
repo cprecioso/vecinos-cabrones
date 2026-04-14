@@ -34,7 +34,7 @@ export async function makeGifBlobUrl(
     if (i++ % step === 0) gif.addFrame(el, { delay });
   }
 
-  if (abortSignal?.aborted) throw new Error("Aborted");
+  if (abortSignal?.aborted) throw "Aborted";
 
   try {
     const blob = await new Promise<Blob>((fulfill, reject) => {

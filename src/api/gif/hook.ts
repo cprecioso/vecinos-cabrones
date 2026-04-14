@@ -48,7 +48,10 @@ export const useGif = (
         },
         3,
         abortController.signal,
-      ).catch(console.error.bind(console, "Error"));
+      ).catch((e) => {
+        if (e === "Aborted" || e === "Aborted by user") return;
+        console.error("GIF error", e);
+      });
 
       return () => abortController.abort();
     }

@@ -124,11 +124,13 @@ export const GoogleAnalytics = () => {
   const { asPath } = useRouter();
   const [initialPath, setInitialPath] = useState<string | null>(asPath);
   useEffect(() => {
-    if (window.ga && asPath !== initialPath) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const gaFn: ((...args: any[]) => void) | undefined = (window as any).ga;
+    if (gaFn && asPath !== initialPath) {
       setInitialPath(null);
       setTimeout(() => {
-        window.ga!("set", "page", asPath);
-        window.ga!("send", "pageview");
+        gaFn("set", "page", asPath);
+        gaFn("send", "pageview");
       }, 10);
     }
   }, [asPath, initialPath]);
@@ -158,7 +160,9 @@ export const sendEvent = async (
 ) => {
   await new Promise((f, r) => {
     setTimeout(r, 3000);
-    window.ga!("send", "event", {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const gaFn: (...args: any[]) => void = (window as any).ga;
+    gaFn("send", "event", {
       eventCategory,
       eventAction,
       eventLabel,
