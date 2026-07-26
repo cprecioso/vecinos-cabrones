@@ -7,7 +7,10 @@
     "node": "24"
   },
   "scripts": {
-    "postinstall": "husky"
+    "build": "next build --webpack",
+    "dev": "next dev --webpack",
+    "postinstall": "husky",
+    "start": "next start"
   },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.1090.0",
@@ -18,7 +21,7 @@
     "clsx": "^2.1.1",
     "gif.js": "^0.2.0",
     "lodash": "^4.18.1",
-    "next": "^15.5.20",
+    "next": "^16.2.10",
     "p-memoize": "^8.0.0",
     "p-queue": "^9.3.1",
     "react": "^19.2.7",
@@ -28,7 +31,6 @@
     "swr": "^2.4.2"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.6",
     "@types/google.analytics": "^0.0.46",
     "@types/lodash": "^4.17.24",
     "@types/node": "^24.13.3",
@@ -38,9 +40,9 @@
     "@vanilla-extract/next-plugin": "^2.5.2",
     "dsv-loader": "^2.0.0",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^15.5.20",
+    "eslint-config-next": "^16.2.10",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
+    "lint-staged": "^17.1.0",
     "prettier": "3.9.5",
     "prettier-plugin-organize-imports": "4.3.0",
     "prettier-plugin-pkg": "0.22.1",
