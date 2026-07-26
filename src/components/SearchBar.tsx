@@ -5,16 +5,15 @@ import clsx from "clsx";
 import Form from "next/form";
 import { useSyncExternalStore } from "react";
 
-const emptySubscribe = () => () => {};
-const useQueryParams = () =>
-  useSyncExternalStore(
-    emptySubscribe,
-    () => new URL(window.location.href).searchParams,
-    () => new URLSearchParams(),
-  );
+const useSearchQuery = useSyncExternalStore.bind(
+  null,
+  () => () => {},
+  () => new URL(window.location.href).searchParams.get("q") ?? "",
+  () => "",
+) as () => string;
 
 const SearchBar = () => {
-  const searchParams = useQueryParams();
+  const searchQuery = useSearchQuery();
 
   return (
     <Form className={clsx(styles.row, styles.search)} action="/buscar">
@@ -24,7 +23,7 @@ const SearchBar = () => {
             className={styles.searchInput}
             type="text"
             placeholder="PUF"
-            defaultValue={searchParams?.get("q") ?? ""}
+            defaultValue={searchQuery}
             name="q"
             autoFocus
             autoComplete="off"

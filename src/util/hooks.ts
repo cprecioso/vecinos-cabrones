@@ -22,4 +22,4 @@ export const useIsClient = useSyncExternalStore.bind(
   () => () => {},
   () => true,
   () => false,
-);
+) as () => boolean;
