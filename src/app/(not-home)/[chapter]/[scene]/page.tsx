@@ -9,11 +9,12 @@ import { permanentRedirect, RedirectType } from "next/navigation";
 import assert from "node:assert/strict";
 import { SetRequired } from "type-fest";
 import * as z from "zod";
-import { sceneIdSchema } from "./types";
 
 interface Props {
   params: Promise<{ chapter: string; scene: string }>;
 }
+
+const sceneIdSchema = z.number().int().nonnegative().brand<"SceneId">();
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { current: scene } = await parseParams(props);

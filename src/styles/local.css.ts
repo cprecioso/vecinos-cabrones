@@ -20,38 +20,6 @@ const pulseKeyframes = keyframes(
   "pulse",
 );
 
-export const brand = style({
-  marginTop: "5px",
-  color: "#fff",
-  fontWeight: "bold",
-  fontSize: "22px",
-  fontFamily: "inherit",
-  lineHeight: "24px",
-});
-
-export const button = style({
-  padding: "5px 10px",
-  color: "#16181b",
-  fontWeight: "500",
-  fontSize: "16px",
-  fontFamily: "inherit",
-  fontStyle: "normal",
-  lineHeight: "16px",
-  textAlign: "center",
-  background: "#fff",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "16px",
-  borderRadius: "6px",
-  cursor: "pointer",
-  transition: "filter 0.3s ease-in-out",
-});
-
-export const center = style({
-  marginRight: "auto",
-  marginLeft: "auto",
-  textAlign: "center",
-});
-
 export const chapterData = style({
   margin: "18px",
 });
@@ -77,66 +45,6 @@ export const chapterTitle = style({
   fontStyle: "normal",
   lineHeight: "21px",
   letterSpacing: "0.06em",
-});
-
-export const chapterView = style({
-  float: "right",
-  marginTop: "10px",
-  color: "#ffc700",
-  fontWeight: "bold",
-  fontSize: "14px",
-  fontFamily: "inherit",
-  fontStyle: "normal",
-  lineHeight: "17px",
-  cursor: "pointer",
-});
-
-export const col10Sm = style({
-  width: "79.33%",
-});
-
-export const col11Sm = style({
-  width: "87.66%",
-});
-
-export const col12Sm = style({
-  width: "96%",
-});
-
-export const col1Sm = style({
-  width: "4.33%",
-});
-
-export const col2Sm = style({
-  width: "12.66%",
-});
-
-export const col3Sm = style({
-  width: "21%",
-});
-
-export const col4Sm = style({
-  width: "29.33%",
-});
-
-export const col5Sm = style({
-  width: "37.66%",
-});
-
-export const col6Sm = style({
-  width: "46%",
-});
-
-export const col7Sm = style({
-  width: "54.33%",
-});
-
-export const col8Sm = style({
-  width: "62.66%",
-});
-
-export const col9Sm = style({
-  width: "71%",
 });
 
 export const disabled = style({});
@@ -171,18 +79,6 @@ export const explainTitle = style({
   lineHeight: "36px",
 });
 
-export const fontHeavy = style({
-  fontWeight: "700",
-});
-
-export const fontLight = style({
-  fontWeight: "300",
-});
-
-export const fontRegular = style({
-  fontWeight: "400",
-});
-
 export const header = style({
   marginTop: "24px",
 });
@@ -197,10 +93,6 @@ export const imageResult = style({
 export const itemContainer = style({
   position: "relative",
   padding: "4px",
-});
-
-export const justify = style({
-  textAlign: "justify",
 });
 
 export const lineGroup = style({
@@ -312,7 +204,7 @@ export const sceneFrameView = style({
   scrollSnapType: "x mandatory",
 });
 
-export const downloadButtonAnchor = style({
+const downloadButtonAnchor = style({
   position: "relative",
 });
 
@@ -497,81 +389,11 @@ const colBase = style({
   margin: "0.5rem 2%",
 });
 
-export const col1 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "4.33%" },
-    },
-  },
-]);
-
-export const col10 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "79.33%" },
-    },
-  },
-]);
-
-export const col11 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "87.66%" },
-    },
-  },
-]);
-
 export const col12 = style([
   colBase,
   {
     width: "100%",
     margin: "0",
-  },
-]);
-
-export const col2 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "12.66%" },
-    },
-  },
-]);
-
-export const col3 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "21%" },
-    },
-  },
-]);
-
-export const col4 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "29.33%" },
-    },
-  },
-]);
-
-export const col5 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "37.66%" },
-    },
   },
 ]);
 
@@ -585,48 +407,6 @@ export const col6 = style([
   },
 ]);
 
-export const col7 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "54.33%" },
-    },
-  },
-]);
-
-export const col8 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "62.66%" },
-    },
-  },
-]);
-
-export const col9 = style([
-  colBase,
-  {
-    width: "96%",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "71%" },
-    },
-  },
-]);
-
-export const container = style({
-  marginRight: "auto",
-  marginLeft: "auto",
-  width: "90%",
-  "@media": {
-    "only screen and (min-width: 33.75em)": {
-      width: "75%",
-      maxWidth: "60rem",
-    },
-  },
-});
-
 export const explainDescription = style({
   marginTop: "16px",
   color: "rgba(255,255,255,0.6)",
@@ -639,15 +419,6 @@ export const explainDescription = style({
 
 globalStyle(`${explainDescription} a`, {
   color: "#fec32a",
-});
-
-export const hiddenSm = style({
-  display: "none",
-  "@media": {
-    "only screen and (min-width: 45em)": {
-      display: "block",
-    },
-  },
 });
 
 export const navigationIndication = style({
@@ -707,18 +478,6 @@ export const row = style({
     display: "table",
     clear: "both",
     content: "",
-  },
-});
-
-export const scene = style({
-  marginTop: "20px",
-  marginBottom: "100px",
-  padding: "8px 0",
-  backgroundColor: "#212326",
-  "@media": {
-    "screen and (min-width: 600px)": {
-      borderRadius: "6px",
-    },
   },
 });
 

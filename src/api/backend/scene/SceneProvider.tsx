@@ -4,7 +4,7 @@ import { LinkType } from "@/data/episodes-data.tsv";
 import { createContext, useContext } from "react";
 import { SubtitleGetResponse } from "./fetcher";
 
-export type SceneContextValue = SubtitleGetResponse & {
+type SceneContextValue = SubtitleGetResponse & {
   watchLinks: Record<LinkType, string | null>;
 };
 

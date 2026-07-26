@@ -27,7 +27,7 @@ const Option = ({ name, checked, setSelected }: OptionProps) => {
   );
 };
 
-export type Props = {
+type Props = {
   options: string[];
   selected: string;
   setSelected: (i: string) => void;

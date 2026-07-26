@@ -1,4 +1,4 @@
-export interface Chapter {
+interface Chapter {
   id: string;
   episodeNumber: number;
   seasonNumber: number;
@@ -12,13 +12,3 @@ export interface Scene {
   end: string;
   chapter: Chapter;
 }
-
-export type SceneId = Scene["id"];
-
-export const getNextSceneId = (scene: Scene | SceneId): number | null =>
-  (typeof scene === "number" ? scene : scene.id) + 1;
-export const getPrevSceneId = (scene: Scene | SceneId): number | null => {
-  const prevId = (typeof scene === "number" ? scene : scene.id) - 1;
-  if (prevId < 1) return null;
-  return prevId;
-};

@@ -9,7 +9,7 @@ export const sceneToParams = (scene: Scene) => ({
   sceneId: "" + scene.id,
 });
 
-export const sceneLink = (scene: Scene) => {
+const sceneLink = (scene: Scene) => {
   const { chapter, sceneId } = sceneToParams(scene);
   return `/${chapter}/${sceneId}`;
 };

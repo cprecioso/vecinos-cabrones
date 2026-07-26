@@ -31,7 +31,7 @@ const Season = ({ season, results }: SeasonProps) => (
   </>
 );
 
-export type Props = {
+type Props = {
   data: Scene[];
 };
 
