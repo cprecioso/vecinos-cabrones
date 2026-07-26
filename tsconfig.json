@@ -16,9 +16,9 @@
     "plugins": [{ "name": "next" }],
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
-    "baseUrl": "src"
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "src/**/*", "types/**/*"],
   "exclude": ["node_modules"]
