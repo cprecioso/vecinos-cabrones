@@ -3,10 +3,18 @@
 import * as styles from "@/styles/local.css";
 import clsx from "clsx";
 import Form from "next/form";
-import { useSearchParams } from "next/navigation";
+import { useSyncExternalStore } from "react";
+
+const emptySubscribe = () => () => {};
+const useQueryParams = () =>
+  useSyncExternalStore(
+    emptySubscribe,
+    () => new URL(window.location.href).searchParams,
+    () => new URLSearchParams(),
+  );
 
 const SearchBar = () => {
-  const searchParams = useSearchParams();
+  const searchParams = useQueryParams();
 
   return (
     <Form className={clsx(styles.row, styles.search)} action="/buscar">
