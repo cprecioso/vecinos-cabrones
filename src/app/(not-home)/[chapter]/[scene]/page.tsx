@@ -73,3 +73,8 @@ async function parseParams({ params }: Props) {
 
   return subtitleRes as SetRequired<SubtitleGetResponse, "current">;
 }
+
+export const dynamic = "force-static";
+export async function generateStaticParams() {
+  return [];
+}
