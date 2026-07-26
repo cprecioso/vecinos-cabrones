@@ -1,58 +1,22 @@
-import { createContext, ReactNode, useContext, useEffect } from "react";
-import useSWR from "swr";
-import { ErrorView } from "../../../components/FetchHelpers";
-import { Scene, SceneId } from "../types";
-import { fetchScene, NAMESPACE } from "./fetcher";
-import { useSceneCache } from "./SceneCacheProvider";
+"use client";
 
-type DataContext = { sceneId: SceneId; scene: Scene | undefined };
-const DataContext = createContext<DataContext>({
-  get sceneId(): SceneId {
-    throw new Error("No SceneProvider");
-  },
-  scene: undefined,
-});
+import { LinkType } from "@/data/episodes-data.tsv";
+import { createContext, useContext } from "react";
+import { SubtitleGetResponse } from "./fetcher";
 
-export const SceneProvider = ({
-  children,
-  sceneId,
-}: {
-  sceneId: SceneId;
-  children?: ReactNode;
-}) => {
-  const { cache, addToCache } = useSceneCache();
-
-  const cachedScene = cache.get(sceneId);
-
-  const { data, error } = useSWR(
-    cachedScene ? null : [NAMESPACE, sceneId],
-    fetchScene,
-    {
-      refreshInterval: 0,
-      refreshWhenHidden: false,
-      refreshWhenOffline: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  );
-
-  useEffect(() => {
-    if (data) {
-      if (data.current) addToCache(data.current);
-      if (data.previous) addToCache(data.previous);
-      if (data.next) addToCache(data.next);
-    }
-  }, [data, addToCache]);
-
-  return (
-    <>
-      {error ? <ErrorView error={error || "Error desconocido"} /> : null}
-      <DataContext.Provider value={{ sceneId, scene: cachedScene }}>
-        {children}
-      </DataContext.Provider>
-    </>
-  );
+export type SceneContextValue = SubtitleGetResponse & {
+  watchLinks: Record<LinkType, string | null>;
 };
 
-export const useSceneId = (): SceneId => useContext(DataContext).sceneId;
-export const useScene = (): Scene | undefined => useContext(DataContext).scene;
+const SceneContext = createContext<null | SceneContextValue>(null);
+SceneContext.displayName = "SceneContext";
+
+export const SceneProvider = SceneContext.Provider;
+
+export const useSceneContext = () => {
+  const value = useContext(SceneContext);
+  if (!value)
+    throw new Error("useSceneContext must be used within a SceneProvider");
+
+  return value;
+};

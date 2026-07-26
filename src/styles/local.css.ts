@@ -187,11 +187,6 @@ export const header = style({
   marginTop: "24px",
 });
 
-export const homeContent = style({
-  marginRight: "24px",
-  marginLeft: "24px",
-});
-
 export const imageResult = style({
   display: "block",
   width: "100%",
@@ -244,13 +239,13 @@ export const loading = style({
 export const logo = style({
   float: "left",
   marginRight: "18px",
+  maxWidth: "100%",
+  height: "auto",
 });
 
 export const main = style({
   margin: "0",
-  paddingRight: "0",
-  paddingBottom: "1em",
-  paddingLeft: "0",
+  padding: "1em",
 });
 
 export const navigationImage = style({
@@ -448,6 +443,10 @@ export const actionButton = style({
   borderRadius: "6px",
   cursor: "pointer",
   transition: "filter 0.3s ease-in-out",
+  display: "flex",
+  flexFlow: "row nowrap",
+  justifyContent: "space-between",
+  alignItems: "center",
   selectors: {
     [`${disabled} &`]: {
       cursor: "default",
@@ -481,17 +480,12 @@ export const watch = style({
 });
 
 export const actionsHolder = style({
-  display: "flex",
-  flexFlow: "row wrap",
+  display: "grid",
+  gridTemplate: "auto / 1fr 1fr",
   justifyContent: "space-evenly",
   marginBottom: "-8px",
   paddingTop: "16px",
-});
-
-globalStyle(`${actionsHolder} > *`, {
-  flexGrow: "0",
-  flexShrink: "0",
-  margin: "8px",
+  gap: "8px",
 });
 
 // Base style composed into every col* class so float/margin are always applied,
@@ -538,9 +532,6 @@ export const col12 = style([
   {
     width: "100%",
     margin: "0",
-    "@media": {
-      "only screen and (min-width: 45em)": { width: "96%" },
-    },
   },
 ]);
 
@@ -700,14 +691,10 @@ export const right = style({
 export const results = style({
   marginTop: "24px",
   marginBottom: "100px",
-  padding: "4px",
+  padding: "1em",
   backgroundColor: "#212326",
   "@media": {
     "screen and (min-width: 600px)": {
-      marginRight: "24px",
-      marginLeft: "24px",
-      paddingRight: "16px",
-      paddingLeft: "16px",
       borderRadius: "6px",
     },
   },
@@ -726,14 +713,10 @@ export const row = style({
 export const scene = style({
   marginTop: "20px",
   marginBottom: "100px",
-  padding: "8px",
+  padding: "8px 0",
   backgroundColor: "#212326",
   "@media": {
     "screen and (min-width: 600px)": {
-      marginRight: "24px",
-      marginLeft: "24px",
-      paddingRight: "16px",
-      paddingLeft: "16px",
       borderRadius: "6px",
     },
   },
@@ -742,15 +725,6 @@ export const scene = style({
 export const search = style({
   boxSizing: "border-box",
   marginTop: "24px",
-});
-
-export const compact = style({
-  selectors: {
-    [`&${search}`]: {
-      paddingRight: "24px",
-      paddingLeft: "24px",
-    },
-  },
 });
 
 export const subtitleLineIndicator = style({

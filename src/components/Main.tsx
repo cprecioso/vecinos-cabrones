@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Route } from "next";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import SearchBar from "./SearchBar";
 
 const ExplainerImage = <T extends string>({
@@ -44,16 +44,18 @@ const ExplainerImage = <T extends string>({
 );
 
 const Main = () => (
-  <div className={styles.homeContent}>
+  <>
     <div className={clsx(styles.row, styles.title)}>
       <div className={styles.col12}>
         <h1>
-          Encuentra tu escena favorita de <b>Aquí no hay quien viva</b>
+          Encuentra tu escena favorita de
+          <br />
+          <b>Aquí no hay quien viva</b>
         </h1>
       </div>
     </div>
 
-    <SearchBar autoFocus={true} />
+    <SearchBar />
 
     <div className={clsx(styles.row, styles.explain)}>
       <div className={styles.lineGroup}>
@@ -125,7 +127,7 @@ const Main = () => (
         </div>
       </div>
     </div>
-  </div>
+  </>
 );
 
 export default Main;

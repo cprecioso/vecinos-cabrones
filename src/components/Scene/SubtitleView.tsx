@@ -1,17 +1,20 @@
-import { useMemo } from "react";
+import { Scene } from "@/api/backend/types";
 import { Flipped, Flipper } from "react-flip-toolkit";
-import { SceneProvider, useScene, useSceneId } from "../../api/backend/scene";
-import { getNextSceneId, getPrevSceneId } from "../../api/backend/types";
+import { useSceneContext } from "../../api/backend/scene";
 import * as styles from "../../styles/local.css";
 import LinkToScene from "../LinkToScene";
 import SubtitleLine from "./SubtitleLine";
 
-const LinkedSubtitleLine = ({ current }: { current?: boolean }) => {
-  const data = useScene();
-
+const LinkedSubtitleLine = ({
+  scene,
+  current,
+}: {
+  scene: Scene;
+  current?: boolean;
+}) => {
   return (
-    <LinkToScene scene={data} shallow={true} scroll={false}>
-      <SubtitleLine isCurrent={current} text={data?.text} />
+    <LinkToScene scene={scene} shallow={true} scroll={false}>
+      <SubtitleLine isCurrent={current} text={scene?.text} />
     </LinkToScene>
   );
 };
@@ -43,49 +46,40 @@ const animateLeave = (
   });
 };
 
-const SubtitleLineWrapper = ({ current }: { current: boolean }) => {
-  const sceneId = useSceneId();
-
+const SubtitleLineWrapper = ({
+  scene,
+  current = false,
+}: {
+  scene: Scene;
+  current?: boolean;
+}) => {
   return (
     <Flipped
-      flipId={sceneId}
+      flipId={scene.id}
       stagger
       onAppear={animateEnter}
       onExit={animateLeave}
     >
       <div>
-        <LinkedSubtitleLine current={current} />
+        <LinkedSubtitleLine scene={scene} current={current} />
       </div>
     </Flipped>
   );
 };
 
 export const SubtitleView = () => {
-  const currentId = useSceneId();
-
-  const sceneIds = useMemo(
-    () =>
-      [getPrevSceneId(currentId), currentId, getNextSceneId(currentId)].filter(
-        (v: number | null): v is number => v != null,
-      ),
-    [currentId],
-  );
+  const ctx = useSceneContext();
 
   return (
     <Flipper
-      flipKey={currentId}
+      flipKey={ctx.current.id}
       spring="veryGentle"
       staggerConfig={{ default: { speed: 0.1 } }}
     >
       <div className={styles.subtitlesContainer}>
-        {sceneIds.map((sceneId) => {
-          const isCurrent = sceneId === currentId;
-          return (
-            <SceneProvider key={sceneId} sceneId={sceneId}>
-              <SubtitleLineWrapper current={isCurrent} />
-            </SceneProvider>
-          );
-        })}
+        {ctx.previous && <SubtitleLineWrapper scene={ctx.previous} />}
+        <SubtitleLineWrapper scene={ctx.current} current />
+        {ctx.next && <SubtitleLineWrapper scene={ctx.next} />}
       </div>
     </Flipper>
   );

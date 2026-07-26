@@ -1,10 +1,9 @@
+import { cache } from "react";
 import { lambdaAgent } from "../lambdaAgent";
-import { Scene, SceneId } from "../types";
+import { Scene } from "../types";
 
-export const NAMESPACE = "scene";
-
-type SubtitleGetResponse = {
-  current?: Scene;
+export type SubtitleGetResponse = {
+  current: Scene;
   previous?: Scene;
   next?: Scene;
 };
@@ -14,7 +13,7 @@ interface Payload {
   result: string;
 }
 
-const getSubtitle = async (id: number) => {
+export const getSubtitle = cache(async (id: number) => {
   const response = await lambdaAgent.invoke({
     FunctionName: "anhqv-search-production-getSubtitle",
     InvocationType: "RequestResponse",
@@ -28,28 +27,10 @@ const getSubtitle = async (id: number) => {
     new TextDecoder("utf-8").decode(response.Payload),
   ) as Payload;
 
-  if (innerResponse.statusCode === 404) {
-    return {};
-  }
-
   if (innerResponse.statusCode !== 200)
     throw new Error("Unknown status code " + innerResponse.statusCode);
 
   const results = JSON.parse(innerResponse.result) as SubtitleGetResponse;
 
   return results;
-};
-
-export type SceneFetchData = Record<SceneId, Scene>;
-
-export const fetchScene = async ([, sceneId]: [
-  _: typeof NAMESPACE,
-  sceneId: SceneId,
-]) => await getSubtitle(sceneId);
-
-export const preloadScene = async (sceneId: SceneId): Promise<Scene[]> => {
-  const scenes = await fetchScene([NAMESPACE, sceneId]);
-  return [scenes.current, scenes.previous, scenes.next].filter(
-    (v: Scene | undefined): v is Scene => v != null,
-  );
-};
+});

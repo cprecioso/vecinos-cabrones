@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useSyncExternalStore } from "react";
 
 export const useIsImageLoaded = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -16,3 +16,10 @@ export const useHovering = () => {
 
   return { isHovering, onEnter, onLeave };
 };
+
+export const useIsClient = useSyncExternalStore.bind(
+  null,
+  () => () => {},
+  () => true,
+  () => false,
+);

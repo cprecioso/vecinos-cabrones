@@ -1,8 +1,5 @@
-import useSWR from "swr";
 import { lambdaAgent } from "./lambdaAgent";
 import { Scene } from "./types";
-
-const NAMESPACE = "search";
 
 type SubtitleSearchResponse = Scene[];
 
@@ -11,7 +8,7 @@ interface Payload {
   results: string;
 }
 
-const searchSubtitle = async (search: string) => {
+export const searchSubtitle = async (search: string) => {
   const response = await lambdaAgent.invoke({
     FunctionName: "anhqv-search-production-searchSubtitles",
     InvocationType: "RequestResponse",
@@ -31,20 +28,3 @@ const searchSubtitle = async (search: string) => {
 
   return results;
 };
-
-const searchSceneFetcher = async ([, query]: [
-  _: typeof NAMESPACE,
-  query: string,
-]) => searchSubtitle(query);
-
-const useSearchScene = (query?: string, initialData?: Scene[]) =>
-  useSWR(query ? [NAMESPACE, query] : null, searchSceneFetcher, {
-    fallbackData: initialData,
-    refreshInterval: 0,
-    refreshWhenHidden: false,
-    refreshWhenOffline: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-
-export default useSearchScene;

@@ -13,6 +13,7 @@ export const spinner = style({
   width: "100%",
   height: "30px",
   marginTop: "3em",
+  marginBottom: "3em",
   backgroundImage: rollingSvg,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",

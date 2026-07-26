@@ -1,12 +1,9 @@
+import { useSceneContext } from "@/api/backend/scene";
+import { LinkType } from "@/api/watch";
+import * as styles from "@/styles/local.css";
+import { sendGAEvent } from "@next/third-parties/google";
 import clsx from "clsx";
 import { ReactNode } from "react";
-import { useScene } from "../../api/backend/scene";
-import {
-  LinkType,
-  makeWatchLink,
-} from "../../pages/api/watch/[season]/[episode]/[ts]/[type]";
-import * as styles from "../../styles/local.css";
-import { AnalyticsEventLink } from "../Seo";
 
 export const WatchButton = ({
   children,
@@ -15,22 +12,35 @@ export const WatchButton = ({
   type: LinkType;
   children?: ReactNode;
 }) => {
-  const scene = useScene();
+  const { watchLinks, current: scene } = useSceneContext();
+  const link = watchLinks[type];
+  if (!link) return null;
 
   return (
-    <AnalyticsEventLink
-      href={scene ? makeWatchLink(scene, type) : ""}
-      event={[type, "watch"]}
+    <a
+      href={link}
+      onClick={() => {
+        try {
+          sendGAEvent("event", type, "watch");
+        } catch {}
+      }}
     >
-      <div
-        className={clsx(
-          styles.actionButton,
-          styles.watch,
-          scene ? "" : "disabled",
-        )}
-      >
-        {children}
+      <div className={clsx(styles.actionButton, styles.watch)}>
+        <div>{children}</div>
+        <div>{formatTimestamp(scene.start)}</div>
       </div>
-    </AnalyticsEventLink>
+    </a>
   );
+};
+
+const formatTimestamp = (ts: string) => {
+  const dotIdx = ts.indexOf(".");
+  if (dotIdx !== -1) {
+    ts = ts.slice(0, dotIdx);
+  }
+  const parts = ts.split(":");
+  while (parts[0] === "00" || parts[0] === "0" || parts[0] === "") {
+    parts.shift();
+  }
+  return parts.map((p) => p.padStart(2, "0")).join(":");
 };

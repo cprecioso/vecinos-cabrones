@@ -1,3 +1,5 @@
+"use client";
+
 import groupBy from "lodash/groupBy";
 import sortBy from "lodash/sortBy";
 import toPairs from "lodash/toPairs";
@@ -31,7 +33,7 @@ export type Props = {
 };
 
 const ResultList = ({ data }: Props) => (
-  <div className={styles.results}>
+  <>
     <div className={styles.resultsCount}>{data.length} resultados</div>
     {sortBy(
       toPairs(groupBy(data, (item) => item.chapter.seasonNumber)),
@@ -39,7 +41,7 @@ const ResultList = ({ data }: Props) => (
     ).map(([season, results]) => (
       <Season key={season} season={season} results={results} />
     ))}
-  </div>
+  </>
 );
 
 export default ResultList;

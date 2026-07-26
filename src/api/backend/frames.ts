@@ -34,7 +34,7 @@ export const useFrames = (result: Scene) =>
   // oxlint-disable-next-line react-hooks/exhaustive-deps react/react-compiler
   useMemo(() => getUrlsForSearchResultThumbnail(result), [result.id]);
 
-const getClosestFrameUrl = (result: Scene) =>
+export const getClosestFrameUrl = (result: Scene) =>
   thumbnailUrlFromSceneInfo(
     result.chapter.seasonNumber,
     result.chapter.episodeNumber,

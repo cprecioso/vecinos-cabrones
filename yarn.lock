@@ -1074,6 +1074,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/third-parties@npm:^16.2.10":
+  version: 16.2.10
+  resolution: "@next/third-parties@npm:16.2.10"
+  dependencies:
+    third-party-capital: "npm:1.0.20"
+  peerDependencies:
+    next: ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0-beta.0
+    react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
+  checksum: 10/e7827f7d5b7ccc8df87f02c047949e1ed20f849be824c538fc9b6a97bb374e333689bac3746ce9b4d2e52067a0652cacb7ae910a437ec38341bb2108f84d4967
+  languageName: node
+  linkType: hard
+
 "@oxc-project/types@npm:=0.139.0":
   version: 0.139.0
   resolution: "@oxc-project/types@npm:0.139.0"
@@ -1420,6 +1432,13 @@ __metadata:
   version: 1.0.1
   resolution: "@rolldown/pluginutils@npm:1.0.1"
   checksum: 10/4e95cf9ce23d75e5aa03ea0249cd86f7d1e21f83fbf6f8520e4edd8a251ba1b82c4ba9bc13cd24b6c4661daec6225b06e6d35c64c604e731b230b2a49af47d05
+  languageName: node
+  linkType: hard
+
+"@rvf/set-get@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "@rvf/set-get@npm:7.0.3"
+  checksum: 10/acaa96573b1a62e3f0622a0e97bf6da1fd7c2e994a0bd6fc1788a4592016657aef327c53e4a044021086e0f05031a05737a295f2a1e55396ce550ac3590d2a9c
   languageName: node
   linkType: hard
 
@@ -3694,6 +3713,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tagged-tag@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tagged-tag@npm:1.0.0"
+  checksum: 10/e37653df3e495daa7ea7790cb161b810b00075bba2e4d6c93fb06a709e747e3ae9da11a120d0489833203926511b39e038a2affbd9d279cfb7a2f3fcccd30b5d
+  languageName: node
+  linkType: hard
+
 "tapable@npm:^2.2.0, tapable@npm:^2.3.0, tapable@npm:^2.3.3":
   version: 2.3.3
   resolution: "tapable@npm:2.3.3"
@@ -3728,6 +3754,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"third-party-capital@npm:1.0.20":
+  version: 1.0.20
+  resolution: "third-party-capital@npm:1.0.20"
+  checksum: 10/40e2531b428a21f05531fc62ef82859c0071211eff09588baf75d4b525096bbdb4f93e17e2d538849db8d4fc3cceb074933d7be59fddc26f86718fbbe852a97f
+  languageName: node
+  linkType: hard
+
 "tinyexec@npm:^1.2.4":
   version: 1.2.4
   resolution: "tinyexec@npm:1.2.4"
@@ -3749,6 +3782,15 @@ __metadata:
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^5.8.0":
+  version: 5.8.0
+  resolution: "type-fest@npm:5.8.0"
+  dependencies:
+    tagged-tag: "npm:^1.0.0"
+  checksum: 10/4dbe4c78ac6933d3d165b01f9d552991a84d63e5352110e01bebb5c46499fb1f44d199fc88835b18ee5662ee44c73926621f59525e46f7faa031086ac00b2686
   languageName: node
   linkType: hard
 
@@ -3830,6 +3872,7 @@ __metadata:
     "@aws-sdk/client-lambda": "npm:^3.1090.0"
     "@aws-sdk/credential-providers": "npm:^3.1090.0"
     "@cprecioso/canvas-text-layout": "npm:^2.0.0"
+    "@next/third-parties": "npm:^16.2.10"
     "@sindresorhus/slugify": "npm:^3.0.0"
     "@types/d3-dsv": "npm:^3.0.7"
     "@types/google.analytics": "npm:^0.0.46"
@@ -3859,7 +3902,10 @@ __metadata:
     react-flip-toolkit: "npm:^7.2.4"
     react-intersection-observer: "npm:^10.1.0"
     swr: "npm:^2.4.2"
+    type-fest: "npm:^5.8.0"
     typescript: "npm:~6.0.3"
+    zod: "npm:^4.4.3"
+    zod-form-data: "npm:^3.0.3"
   languageName: unknown
   linkType: soft
 
@@ -4024,5 +4070,23 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: 10/f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zod-form-data@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "zod-form-data@npm:3.0.3"
+  dependencies:
+    "@rvf/set-get": "npm:^7.0.3"
+  peerDependencies:
+    zod: ">= 3.25.0"
+  checksum: 10/eaa9bdf89a6ef69a7b61d984b5779dcf1e740d613812356c83d114c64257292b1d72dea2d28602558f74a537bdce9961fe5f6935f921a88b210f7149e5b6115a
+  languageName: node
+  linkType: hard
+
+"zod@npm:^4.4.3":
+  version: 4.4.3
+  resolution: "zod@npm:4.4.3"
+  checksum: 10/804b9a42aa8f35f2b3c5a8dff906291cb749115f83ee2afe3576d70b5b5c53c965365c7f4967690647a9c54af9838ff232a85ff9577a0a36c44b68bc6cdefe36
   languageName: node
   linkType: hard

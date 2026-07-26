@@ -1,16 +1,15 @@
 import slugify from "@sindresorhus/slugify";
 import clsx from "clsx";
-import { useRouter } from "next/router";
 import * as styles from "../../styles/local.css";
 import { WatchButton } from "./WatchButton";
 
 const ShareButton = ({ title }: { title: string }) => {
-  const { asPath: url } = useRouter();
-
   return (
     <a
       className={clsx(!title && styles.disabled)}
-      onClick={() => navigator.share!({ title, text: title, url })}
+      onClick={() =>
+        navigator.share!({ title, text: title, url: window.location.href })
+      }
     >
       <div className={clsx(styles.actionButton, styles.share)}>Compartir</div>
     </a>
@@ -44,7 +43,7 @@ export const ActionButtons = ({
       />
     ) : null}
     <ShareButton title={title} />
-    <WatchButton type="netflix">Ver en Netflix</WatchButton>
-    <WatchButton type="prime">Ver en Prime</WatchButton>
+    <WatchButton type="netflix">Netflix</WatchButton>
+    <WatchButton type="prime">Prime</WatchButton>
   </div>
 );
