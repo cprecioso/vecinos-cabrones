@@ -1,7 +1,13 @@
 import { Scene } from "@/api/backend/types";
-import episodesData, { LinkType } from "@/data/episodes-data.tsv";
+import type { Episode, LinkType } from "@/data/episodes-data.tsv";
+import episodesDataRawBytes from "@/data/episodes-data.tsv";
 import { parseSubtitleTimestamp } from "@/util/timestamp";
+import * as dsv from "d3-dsv";
 import { NextApiHandler } from "next";
+
+const episodesData: Partial<Episode>[] = dsv.tsvParse(
+  new TextDecoder().decode(episodesDataRawBytes),
+);
 
 export type { LinkType };
 

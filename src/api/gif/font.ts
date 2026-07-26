@@ -1,9 +1,9 @@
-import pMemoize from "p-memoize";
-import dataUrl from "./asap-condensed-medium.woff2?inline";
+// @ts-expect-error no types for woff2
+import fontUrl from "./asap-condensed-medium.woff2";
 
-export const loadFont = pMemoize(async () => {
+const loadFont = async () => {
   try {
-    const fontData = await (await fetch(dataUrl)).arrayBuffer();
+    const fontData = await (await fetch(fontUrl)).arrayBuffer();
     const font = new FontFace("AsapCondensedMedium", fontData);
     await font.load();
     document.fonts.add(font);
@@ -11,4 +11,6 @@ export const loadFont = pMemoize(async () => {
   } catch {
     return "sans-serif";
   }
-});
+};
+
+export const fontFamilyName = await loadFont();

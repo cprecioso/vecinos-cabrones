@@ -2,7 +2,7 @@ import * as styles from "@/styles/local.css";
 import { useState } from "react";
 
 const DonationPopup = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const dismiss = () => setVisible(false);
 

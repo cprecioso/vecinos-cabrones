@@ -1,13 +1,12 @@
 import { globalStyle, keyframes, style } from "@vanilla-extract/css";
-import { svgUrl } from "./svg-url";
 
-const downloadSvg = svgUrl("../img/download.svg");
-const searchSvg = svgUrl("../img/search.svg");
-const shareSvg = svgUrl("../img/share.svg");
-const watchSvg = svgUrl("../img/watch.svg");
-const backSvg = svgUrl("../img/back.svg");
-const forwardSvg = svgUrl("../img/forward.svg");
-const indicatorSvg = svgUrl("../img/indicator.svg");
+import backSvg from "../img/back.svg";
+import downloadSvg from "../img/download.svg";
+import forwardSvg from "../img/forward.svg";
+import indicatorSvg from "../img/indicator.svg";
+import searchSvg from "../img/search.svg";
+import shareSvg from "../img/share.svg";
+import watchSvg from "../img/watch.svg";
 
 const pulseKeyframes = keyframes(
   {
@@ -329,7 +328,7 @@ globalStyle(`${downloadButtonAnchor} a::after`, {
   zIndex: "10",
   width: "3em",
   height: "3em",
-  background: `white no-repeat center ${downloadSvg}`,
+  background: `white no-repeat center url(${downloadSvg.src})`,
   backgroundSize: "50%",
   borderRadius: "3px",
   content: " ",
@@ -376,7 +375,7 @@ export const searchButton = style({
   width: "60px",
   height: "60px",
   background: "#fec32a",
-  backgroundImage: searchSvg,
+  backgroundImage: `url(${searchSvg.src})`,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
   border: "2px solid #d6a11c",
@@ -460,7 +459,7 @@ export const actionButton = style({
 export const download = style({
   selectors: {
     [`&${actionButton}`]: {
-      backgroundImage: downloadSvg,
+      backgroundImage: `url(${downloadSvg.src})`,
     },
   },
 });
@@ -468,7 +467,7 @@ export const download = style({
 export const share = style({
   selectors: {
     [`&${actionButton}`]: {
-      backgroundImage: shareSvg,
+      backgroundImage: `url(${shareSvg.src})`,
     },
   },
 });
@@ -476,7 +475,7 @@ export const share = style({
 export const watch = style({
   selectors: {
     [`&${actionButton}`]: {
-      backgroundImage: watchSvg,
+      backgroundImage: `url(${watchSvg.src})`,
     },
   },
 });
@@ -680,7 +679,7 @@ export const left = style({
   textAlign: "left",
   selectors: {
     [`&${navigationIndication}`]: {
-      backgroundImage: backSvg,
+      backgroundImage: `url(${backSvg.src})`,
     },
   },
 });
@@ -692,7 +691,7 @@ export const right = style({
       marginRight: "-15px",
       paddingLeft: "0",
       textAlign: "left",
-      backgroundImage: forwardSvg,
+      backgroundImage: `url(${forwardSvg.src})`,
       backgroundPosition: "right",
     },
   },
@@ -777,7 +776,7 @@ export const subtitleLineText = style({
 export const current = style({
   selectors: {
     [`&${subtitleLineIndicator}`]: {
-      backgroundImage: indicatorSvg,
+      backgroundImage: `url(${indicatorSvg.src})`,
       backgroundRepeat: "no-repeat",
       backgroundPosition: "left",
       cursor: "pointer",

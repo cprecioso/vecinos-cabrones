@@ -1,7 +1,6 @@
 import GIF from "gif.js";
 import { loadImage } from "./load";
 import { addText } from "./text";
-import { loadWorker } from "./worker";
 
 export interface Options {
   text?: string;
@@ -11,11 +10,12 @@ export interface Options {
   delay?: number;
 }
 
+const workerUrl = new URL("gif.js/dist/gif.worker.js", import.meta.url).href;
+
 export async function makeGifBlobUrl(
   frameUrls: string[],
   { text, abortSignal, resizeToWidth, step = 1, delay = 100 }: Options,
 ) {
-  const workerUrl = await loadWorker();
   const gif = new GIF({ workerScript: workerUrl });
 
   const imgs = await Promise.all(

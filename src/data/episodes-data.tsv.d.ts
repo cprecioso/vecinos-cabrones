@@ -15,5 +15,5 @@ export type LinkType = Values<{
   [P in keyof Episode]: P extends `${infer T}-link` ? T : never;
 }>;
 
-const data: Partial<Episode>[];
+const data: Uint8Array;
 export default data;

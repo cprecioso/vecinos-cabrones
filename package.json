@@ -1,14 +1,15 @@
 {
   "name": "vecinos-cabrones",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "packageManager": "yarn@4.17.1",
   "engines": {
     "node": "24"
   },
   "scripts": {
-    "build": "next build --webpack",
-    "dev": "next dev --webpack",
+    "build": "next build",
+    "dev": "next dev",
     "postinstall": "husky",
     "start": "next start"
   },
@@ -19,10 +20,10 @@
     "@sindresorhus/slugify": "^3.0.0",
     "@vanilla-extract/css": "^1.21.1",
     "clsx": "^2.1.1",
+    "d3-dsv": "^3.0.1",
     "gif.js": "^0.2.0",
     "lodash": "^4.18.1",
     "next": "^16.2.10",
-    "p-memoize": "^8.0.0",
     "p-queue": "^9.3.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -31,6 +32,7 @@
     "swr": "^2.4.2"
   },
   "devDependencies": {
+    "@types/d3-dsv": "^3.0.7",
     "@types/google.analytics": "^0.0.46",
     "@types/lodash": "^4.17.24",
     "@types/node": "^24.13.3",
@@ -38,7 +40,6 @@
     "@types/react-dom": "^19.2.3",
     "@types/webpack": "^5.28.5",
     "@vanilla-extract/next-plugin": "^2.5.2",
-    "dsv-loader": "^2.0.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.2.10",
     "husky": "^9.1.7",

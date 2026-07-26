@@ -4,7 +4,7 @@ import {
   drawBlock,
   layoutBlock,
 } from "@cprecioso/canvas-text-layout";
-import { loadFont } from "./font";
+import { fontFamilyName } from "./font";
 
 export const addText = async (canvas: HTMLCanvasElement, text: string) => {
   const { height, width } = canvas;
@@ -12,7 +12,7 @@ export const addText = async (canvas: HTMLCanvasElement, text: string) => {
   const ctx = canvas.getContext("2d")!;
 
   const fontSize = 32.5;
-  ctx.font = `${fontSize}px ${await loadFont()}`;
+  ctx.font = `${fontSize}px ${fontFamilyName}`;
   ctx.fillStyle = "white";
   ctx.lineWidth = 4;
   ctx.strokeStyle = "black";
