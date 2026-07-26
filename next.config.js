@@ -8,6 +8,9 @@ const withVanillaExtract = createVanillaExtractPlugin({
 
 /** @type {import("next").NextConfig} */
 export default withVanillaExtract({
+  typedRoutes: true,
+  experimental: { typedEnv: true },
+
   turbopack: {
     rules: {
       "*.tsv": { type: "bytes" },

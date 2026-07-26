@@ -2,19 +2,20 @@ import emilioJpg from "@/img/emilio.jpg";
 import movilJpg from "@/img/movil_anhqv.jpg";
 import * as styles from "@/styles/local.css";
 import clsx from "clsx";
+import { Route } from "next";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 import SearchBar from "./SearchBar";
 
-const ExplainerImage = ({
+const ExplainerImage = <T extends string>({
   href,
   src,
   alt,
   title,
   children,
 }: {
-  href: string;
+  href: Route<T>;
   src: StaticImageData;
   alt: string;
   title: string;

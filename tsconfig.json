@@ -20,6 +20,12 @@
     },
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "src/**/*", "types/**/*"],
+  "include": [
+    ".next/dev/types/**/*.ts",
+    ".next/types/**/*.ts",
+    "next-env.d.ts",
+    "src/**/*",
+    "types/**/*"
+  ],
   "exclude": ["node_modules"]
 }
