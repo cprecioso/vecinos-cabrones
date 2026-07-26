@@ -3,6 +3,7 @@
 import groupBy from "lodash/groupBy";
 import sortBy from "lodash/sortBy";
 import toPairs from "lodash/toPairs";
+import { ViewTransition } from "react";
 import { Scene } from "../../api/backend/types";
 import * as styles from "../../styles/local.css";
 import LinkToScene from "../LinkToScene";
@@ -20,7 +21,9 @@ const Season = ({ season, results }: SeasonProps) => (
       {sortBy(sortBy(results, "start"), "chapter.episodeNumber").map(
         (result) => (
           <LinkToScene key={result.id} scene={result}>
-            <Result data={result} />
+            <ViewTransition name={"scene-hero-" + result.id}>
+              <Result data={result} />
+            </ViewTransition>
           </LinkToScene>
         ),
       )}

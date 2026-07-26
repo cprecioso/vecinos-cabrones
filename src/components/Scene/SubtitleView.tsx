@@ -1,5 +1,5 @@
 import { Scene } from "@/api/backend/types";
-import { Flipped, Flipper } from "react-flip-toolkit";
+import { ViewTransition } from "react";
 import { useSceneContext } from "../../api/backend/scene";
 import * as styles from "../../styles/local.css";
 import LinkToScene from "../LinkToScene";
@@ -19,33 +19,6 @@ const LinkedSubtitleLine = ({
   );
 };
 
-const animationDuration = 200;
-const animateEnter = (el: HTMLElement) => {
-  el.style.opacity = "0";
-  requestAnimationFrame(() => {
-    el.style.transition = `${animationDuration}ms opacity`;
-    el.style.opacity = "1";
-    setTimeout(() => {
-      el.style.transition = "";
-    }, animationDuration);
-  });
-};
-
-const animateLeave = (
-  el: HTMLElement,
-  i: number,
-  removeElement: () => void,
-) => {
-  el.style.opacity = "1";
-  requestAnimationFrame(() => {
-    el.style.transition = `${animationDuration}ms opacity`;
-    el.style.opacity = "0";
-    setTimeout(() => {
-      removeElement();
-    }, animationDuration);
-  });
-};
-
 const SubtitleLineWrapper = ({
   scene,
   current = false,
@@ -54,16 +27,9 @@ const SubtitleLineWrapper = ({
   current?: boolean;
 }) => {
   return (
-    <Flipped
-      flipId={scene.id}
-      stagger
-      onAppear={animateEnter}
-      onExit={animateLeave}
-    >
-      <div>
-        <LinkedSubtitleLine scene={scene} current={current} />
-      </div>
-    </Flipped>
+    <div>
+      <LinkedSubtitleLine scene={scene} current={current} />
+    </div>
   );
 };
 
@@ -71,16 +37,22 @@ export const SubtitleView = () => {
   const ctx = useSceneContext();
 
   return (
-    <Flipper
-      flipKey={ctx.current.id}
-      spring="veryGentle"
-      staggerConfig={{ default: { speed: 0.1 } }}
-    >
-      <div className={styles.subtitlesContainer}>
-        {ctx.previous && <SubtitleLineWrapper scene={ctx.previous} />}
+    <div className={styles.subtitlesContainer}>
+      {ctx.previous && (
+        <ViewTransition name={"subtitle-line-" + ctx.previous.id}>
+          <SubtitleLineWrapper scene={ctx.previous} />
+        </ViewTransition>
+      )}
+
+      <ViewTransition name={"subtitle-line-" + ctx.current.id}>
         <SubtitleLineWrapper scene={ctx.current} current />
-        {ctx.next && <SubtitleLineWrapper scene={ctx.next} />}
-      </div>
-    </Flipper>
+      </ViewTransition>
+
+      {ctx.next && (
+        <ViewTransition name={"subtitle-line-" + ctx.next.id}>
+          <SubtitleLineWrapper scene={ctx.next} />
+        </ViewTransition>
+      )}
+    </div>
   );
 };

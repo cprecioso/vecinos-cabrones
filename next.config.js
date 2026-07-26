@@ -9,7 +9,10 @@ const withVanillaExtract = createVanillaExtractPlugin({
 /** @type {import("next").NextConfig} */
 export default withVanillaExtract({
   typedRoutes: true,
-  experimental: { typedEnv: true },
+  experimental: {
+    typedEnv: true,
+    viewTransition: true,
+  },
 
   turbopack: {
     rules: {

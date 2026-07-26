@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ViewTransition } from "react";
 import { useSceneContext } from "../../api/backend/scene";
 import * as styles from "../../styles/local.css";
 import SegmentedControl from "../SegmentedControl";
@@ -37,11 +37,13 @@ const Scene = () => {
         setSelected={setCurrentViewMode as (n: string) => void}
       />
 
-      {currentViewMode === ViewMode.Gif ? (
-        <GIFViewMode scene={scene} />
-      ) : (
-        <FrameViewMode result={scene} />
-      )}
+      <ViewTransition name={"scene-hero-" + scene.id}>
+        {currentViewMode === ViewMode.Gif ? (
+          <GIFViewMode scene={scene} />
+        ) : (
+          <FrameViewMode result={scene} />
+        )}
+      </ViewTransition>
 
       <div className={styles.subtitles}>
         <SubtitleView />
