@@ -11,6 +11,8 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "husky",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "start": "next start"
   },
   "dependencies": {
@@ -40,10 +42,10 @@
     "@types/react-dom": "^19.2.3",
     "@types/webpack": "^5.28.5",
     "@vanilla-extract/next-plugin": "^2.5.2",
-    "eslint": "^9.39.5",
-    "eslint-config-next": "^16.2.10",
     "husky": "^9.1.7",
     "lint-staged": "^17.1.0",
+    "oxlint": "^1.74.0",
+    "oxlint-tsgolint": "^0.25.0",
     "prettier": "3.9.5",
     "prettier-plugin-organize-imports": "4.3.0",
     "prettier-plugin-pkg": "0.22.1",

@@ -1,23 +1,20 @@
 import slugify from "@sindresorhus/slugify";
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { useWebShare } from "../../api/webshare";
 import * as styles from "../../styles/local.css";
 import { WatchButton } from "./WatchButton";
 
 const ShareButton = ({ title }: { title: string }) => {
   const { asPath: url } = useRouter();
-  const { canShare, share } = useWebShare(title, url);
 
-  if (canShare) {
-    return (
-      <a className={clsx(!title && styles.disabled)} onClick={share}>
-        <div className={clsx(styles.actionButton, styles.share)}>Compartir</div>
-      </a>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <a
+      className={clsx(!title && styles.disabled)}
+      onClick={() => navigator.share!({ title, text: title, url })}
+    >
+      <div className={clsx(styles.actionButton, styles.share)}>Compartir</div>
+    </a>
+  );
 };
 
 const DownloadButton = ({ url, name }: { url?: string; name?: string }) => (

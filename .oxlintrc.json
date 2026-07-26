@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "eslint",
+    "import",
+    "nextjs",
+    "node",
+    "oxc",
+    "promise",
+    "react-perf",
+    "react",
+    "typescript",
+    "unicorn"
+  ],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "react/react-compiler": "error"
+  },
+  "env": {
+    "builtin": true
+  },
+  "options": {
+    "typeAware": true
+  }
+}

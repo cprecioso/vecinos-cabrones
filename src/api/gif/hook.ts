@@ -55,6 +55,7 @@ export const useGif = (
 
       return () => abortController.abort();
     }
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [needsToLoad]);
 
   return { gifUrl, isLoading: needsToLoad };

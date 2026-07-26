@@ -42,7 +42,7 @@ export const SceneProvider = ({
       if (data.previous) addToCache(data.previous);
       if (data.next) addToCache(data.next);
     }
-  }, [data]);
+  }, [data, addToCache]);
 
   return (
     <>

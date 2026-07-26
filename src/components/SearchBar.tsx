@@ -19,6 +19,7 @@ const SearchBar = ({ autoFocus, compact }: Props) => {
 
       if (q) {
         setQuery(q);
+        // oxlint-disable-next-line typescript/no-floating-promises
         router.push({ pathname: "/buscar", query: { q } });
       }
 

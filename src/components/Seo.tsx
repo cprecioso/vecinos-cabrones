@@ -5,6 +5,7 @@ import { JSX, useEffect, useState } from "react";
 
 export const IconTheming = () => (
   // from https://realfavicongenerator.net/
+  // oxlint-disable-next-line next/no-duplicate-head
   <Head>
     <link
       key="apple-touch-icon"
@@ -127,6 +128,7 @@ export const GoogleAnalytics = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const gaFn: ((...args: any[]) => void) | undefined = (window as any).ga;
     if (gaFn && asPath !== initialPath) {
+      // oxlint-disable-next-line react/react-compiler
       setInitialPath(null);
       setTimeout(() => {
         gaFn("set", "page", asPath);

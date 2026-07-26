@@ -40,7 +40,7 @@ export const SceneCacheProvider = ({
 
   const ctx = useMemo<SceneCacheContext>(
     () => ({ ...state, addToCache }),
-    [state],
+    [state, addToCache],
   );
 
   return <Context.Provider value={ctx}>{children}</Context.Provider>;

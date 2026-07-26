@@ -43,7 +43,14 @@ export const SceneNavigation = ({
             }}
           />
         ) : null}
-        <div className={clsx(styles.navigationIndication, styles[direction])}>
+        <div
+          className={clsx(
+            styles.navigationIndication,
+            direction === NavigationDirection.Left
+              ? styles.navigationLeft
+              : styles.navigationRight,
+          )}
+        >
           {direction === NavigationDirection.Left ? "Anterior" : "Siguiente"}
         </div>
       </div>

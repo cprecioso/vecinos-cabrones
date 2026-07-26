@@ -31,6 +31,7 @@ function getUrlsForSearchResultThumbnail(scene: Scene) {
 }
 
 export const useFrames = (result: Scene) =>
+  // oxlint-disable-next-line react-hooks/exhaustive-deps react/react-compiler
   useMemo(() => getUrlsForSearchResultThumbnail(result), [result.id]);
 
 const getClosestFrameUrl = (result: Scene) =>
@@ -41,4 +42,5 @@ const getClosestFrameUrl = (result: Scene) =>
   );
 
 export const useMainFrame = (scene?: Scene) =>
+  // oxlint-disable-next-line react/react-compiler react-hooks/exhaustive-deps
   useMemo(() => (scene ? getClosestFrameUrl(scene) : undefined), [scene?.id]);
