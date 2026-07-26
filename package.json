@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "yarn@4.17.1",
   "engines": {
-    "node": "22"
+    "node": "24"
   },
   "scripts": {
     "postinstall": "husky"
