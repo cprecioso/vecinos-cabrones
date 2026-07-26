@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "packageManager": "yarn@4.8.1",
+  "packageManager": "yarn@4.17.1",
   "engines": {
     "node": "24"
   },
