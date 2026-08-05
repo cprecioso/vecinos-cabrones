@@ -10,8 +10,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vecinoscabrones.com"),
   title: { default: "Vecinos Cabrones", template: "%s | Vecinos Cabrones" },
   description: "Encuentra tu escena favorita de Aquí no hay quien viva",
+  openGraph: { siteName: "Vecinos Cabrones" },
 };
 
 export const viewport: Viewport = {
