@@ -55,7 +55,7 @@ const Main = () => (
       </div>
     </div>
 
-    <SearchBar />
+    <SearchBar autoFocus />
 
     <div className={clsx(styles.row, styles.explain)}>
       <div className={styles.lineGroup}>

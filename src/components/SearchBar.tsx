@@ -12,7 +12,7 @@ const useSearchQuery = useSyncExternalStore.bind(
   () => "",
 ) as () => string;
 
-const SearchBar = () => {
+const SearchBar = ({ autoFocus = false }) => {
   const searchQuery = useSearchQuery();
 
   return (
@@ -25,7 +25,7 @@ const SearchBar = () => {
             placeholder="PUF"
             defaultValue={searchQuery}
             name="q"
-            autoFocus
+            autoFocus={autoFocus}
             autoComplete="off"
           />
           <input type="submit" value="" className={styles.searchButton} />
