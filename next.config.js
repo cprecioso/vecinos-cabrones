@@ -21,6 +21,6 @@ export default withVanillaExtract({
   },
 
   images: {
-    remotePatterns: [{ hostname: "anhqv.us-east-1.linodeobjects.com" }],
+    unoptimized: true,
   },
 });
