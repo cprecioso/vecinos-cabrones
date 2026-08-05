@@ -3,7 +3,7 @@
 import * as styles from "@/styles/local.css";
 import clsx from "clsx";
 import Form from "next/form";
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, ViewTransition } from "react";
 
 const useSearchQuery = useSyncExternalStore.bind(
   null,
@@ -16,22 +16,24 @@ const SearchBar = ({ autoFocus = false }) => {
   const searchQuery = useSearchQuery();
 
   return (
-    <Form className={clsx(styles.row, styles.search)} action="/buscar">
-      <div className={styles.col12}>
-        <div className={styles.searchBox}>
-          <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="PUF"
-            defaultValue={searchQuery}
-            name="q"
-            autoFocus={autoFocus}
-            autoComplete="off"
-          />
-          <input type="submit" value="" className={styles.searchButton} />
+    <ViewTransition name="search-bar">
+      <Form className={clsx(styles.row, styles.search)} action="/buscar">
+        <div className={styles.col12}>
+          <div className={styles.searchBox}>
+            <input
+              className={styles.searchInput}
+              type="text"
+              placeholder="PUF"
+              defaultValue={searchQuery}
+              name="q"
+              autoFocus={autoFocus}
+              autoComplete="off"
+            />
+            <input type="submit" value="" className={styles.searchButton} />
+          </div>
         </div>
-      </div>
-    </Form>
+      </Form>
+    </ViewTransition>
   );
 };
 
