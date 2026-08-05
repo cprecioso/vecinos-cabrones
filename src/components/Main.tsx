@@ -5,16 +5,18 @@ import clsx from "clsx";
 import { Route } from "next";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { ReactNode, ViewTransition } from "react";
 import SearchBar from "./SearchBar";
 
 const ExplainerImage = <T extends string>({
+  sceneId,
   href,
   src,
   alt,
   title,
   children,
 }: {
+  sceneId: number;
   href: Route<T>;
   src: StaticImageData;
   alt: string;
@@ -24,18 +26,20 @@ const ExplainerImage = <T extends string>({
   <div className={styles.explainContainer}>
     <Link href={href}>
       <div className={styles.explainFigure}>
-        <Image
-          src={src}
-          placeholder="blur"
-          className={styles.explainImage}
-          alt={alt}
-          fill
-          sizes="100vw"
-          style={{
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        />
+        <ViewTransition name={"scene-hero-" + sceneId}>
+          <Image
+            src={src}
+            placeholder="blur"
+            className={styles.explainImage}
+            alt={alt}
+            fill
+            sizes="100vw"
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+        </ViewTransition>
       </div>
     </Link>
     <div className={styles.explainTitle}>{title}</div>
@@ -65,6 +69,7 @@ const Main = () => (
         </div>
       </div>
       <ExplainerImage
+        sceneId={23950}
         href="/2x10/23950"
         alt="Mariano usando un ordenador mientras Emilio le mira"
         src={emilioJpg}
@@ -74,6 +79,7 @@ const Main = () => (
         que buscas en los 90 capítulos de la serie.
       </ExplainerImage>
       <ExplainerImage
+        sceneId={18033}
         href="/2x04/18033"
         alt="La pantalla de un móvil con una foto de Vicenta, Marisa y Concha"
         src={movilJpg}
