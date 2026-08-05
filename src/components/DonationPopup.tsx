@@ -2,11 +2,11 @@
 
 import * as styles from "@/styles/local.css";
 import { useIsClient } from "@/util/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DonationPopup = () => {
-  const isClient = useIsClient();
-  const [visible, setVisible] = useState(isClient);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => setVisible(true), []);
 
   const dismiss = () => setVisible(false);
 
