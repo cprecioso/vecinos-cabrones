@@ -11,7 +11,6 @@ export default withVanillaExtract({
   typedRoutes: true,
   experimental: {
     typedEnv: true,
-    viewTransition: true,
   },
 
   turbopack: {
